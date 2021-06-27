@@ -17,6 +17,9 @@
 	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
 	crossorigin="anonymous">
 
+<!-- sweetalert API 추가 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <style>
 /* border 주석 풀면 전체적인 div 구획 확인 가능 */
 div {
@@ -122,6 +125,11 @@ div {
 #loginFormModal {
 	text-align: center;
 }
+
+.swal-modal {
+	border: 3px solid red;
+}
+
 .login-btn-area {
 	margin-top: 10px;
 }
@@ -132,6 +140,12 @@ div {
 
 #login {
 	width: 375px;
+}
+
+.swal-button{
+	width: 120px;
+	background-color: gray;
+	font-size: 18px;
 }
 
 #findId {
@@ -181,11 +195,11 @@ div {
 				<c:when test="${ empty loginMember }">
 					<div class="header-buttonbox">
 					
-						<a href="${contextPath}/member/findId"><button type="button" class="header-button btn btn-secondary"
+						<a href="${contextPath}/member/findID"><button type="button" class="header-button btn btn-secondary"
 							id="bt-1">ID/PW찾기</button></a>
 						<button type="button" class="header-button btn btn-secondary"
 							id="bt-2" data-toggle="modal" data-target="#loginForm">로그인</button>
-						<a href="${contextPath}/member/signUpCoja"><button type="button" class="header-button btn btn-secondary"
+						<a href="${contextPath}/member/signUpTerms"><button type="button" class="header-button btn btn-secondary"
 							id="bt-3">회원가입</button></a>
 					</div>
 				</c:when>
@@ -194,7 +208,7 @@ div {
 					<div class="header-buttonbox">
 						<button type="button" class="header-button btn btn-secondary" id="bt-1" href="${contextPath}/member/myblog">내 블로그</button>
 						<a href="${contextPath}/member/myPage"><button type="button" class="header-button btn btn-secondary" id="bt-2">${loginMember.memId}</button></a>
-						<a href="${contextPath}/member/logout"><button type="button" class="header-button btn btn-secondary" id="bt-3">로그아웃</button></a>
+						<a href="${contextPath}/member/logout"><button type="button" class="header-button btn btn-secondary" id="bt-3" value="logout">로그아웃</button></a>
 					</div>
 				</c:otherwise>
 			</c:choose>
@@ -244,7 +258,7 @@ div {
 							<a class="btn btn-secondary" href="#" role="button" id="findId">아이디
 								찾기</a> <a class="btn btn-secondary" href="#" role="button"
 								id="findPw">비밀번호 찾기</a> <a class="btn btn-secondary"
-								href="${contextPath}/member/signUp" role="button"
+								href="${contextPath}/member/signUpTerms" role="button"
 								id="joinMember">회원가입</a>
 						</div>
 					</form>
@@ -260,7 +274,8 @@ div {
 				swal({
 					"icon" : "${icon}",
 					"title" : "${title}",
-					"text" : "${text}"
+					"text" : "${text}",
+					"button" : "확인"
 				});
 			</script>
 
@@ -275,56 +290,43 @@ div {
 		<script>
 			// 로그인 수행 시 아이디/비밀번호가 작성 되었는지 확인하는 유효성 검사
 			function loginValidate() {
-				// Validate : 유효한지 확인하다
 
-				// 아이디가 입력되지 않았을 경우
-				// "아이디를 입력해주세요" 경고창을 띄우고
-				// 로그인을 수행하지 않음
-				if ($("#memberId").val().trim().length == 0) {
-					// $("#memberId") : 아이디 속성값이 memberId인 input 태그 선택
-					// .val() : input 태그에 작성된 값을 얻어옴
-					// .trim() : 얻어온 값 양쪽에 작성된 공백문자를 제거
-					// .length : 공백 제거 후 값의 길이
+				if ($("#memId").val().trim().length == 0) {
 
-					// sweetalert로 경고 출력
 					swal({
 						"icon" : "warning",
-						"title" : "아이디를 입력해주세요"
+						"title" : "아이디를 입력해주세요",
+						"button" : "확인"
+						
 					}).then(function() {
 						// 아이디 입력창으로 포커스 이동
-						$("#memberId").focus();
+						$("#memId").focus();
 					});
 
 					// 제출되지 않도록 submit 기본 이벤트 제거
 					return false;
 				}
 
-				// 비밀번호가 입력되지 않았을 경우
-				// "비밀번호를 입력해주세요" 경고창을 띄우고
-				// 로그인을 수행하지 않음
-				if ($("#memberPw").val().trim().length == 0) {
-					// $("#memberPw") : 아이디 속성값이 memberPw인 input 태그 선택
-					// .val() : input 태그에 작성된 값을 얻어옴
-					// .trim() : 얻어온 값 양쪽에 작성된 공백문자를 제거
-					// .length : 공백 제거 후 값의 길이
+				if ($("#memPw").val().trim().length == 0) {
 
-					// sweetalert로 경고 출력
 					swal({
 						"icon" : "warning",
-						"title" : "비밀번호를 입력해주세요"
+						"title" : "비밀번호를 입력해주세요",
+						"button" : "확인"
+						
 					}).then(function() {
 						// 아이디 입력창으로 포커스 이동
-						$("#memberPw").focus();
+						$("#memPw").focus();
 					});
 
 					// 제출되지 않도록 submit 기본 이벤트 제거
 					return false;
 				}
-
-				//return false; // submit 기본 이벤트 제거
-				// return true; 또는 아무것도 반환하지 않으면 submit 수행
 			}
+			
 		</script>
+		
+
 
 
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
