@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <style>
         @font-face {
             font-family: 'NEXON Lv1 Gothic OTF';
@@ -189,8 +191,8 @@
 
                 <div class="form-group">
                     <label for="nickname">* 닉네임</label>
-                    <span id="checkNickName">&nbsp;</span>
                     <input type="text" class="form-control" id="nickName" name="nickName" required>
+                    <span id="checkNickName">&nbsp;</span>
                 </div>
 
                 <div class="form-group">
