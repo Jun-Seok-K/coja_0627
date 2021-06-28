@@ -80,19 +80,6 @@ div {
 }
 
 /* 버튼 */
-.header-search-button {
-	border-style: none;
-	background-color: white;
-	width: 7%;
-	height: 38px;
-	line-height: 30px;
-	margin-left: 0;
-	margin-bottom: 6px;
-	padding: 0;
-	display: inline-block;
-	cursor: pointer;
-	vertical-align: middle;
-}
 
 /* 버튼박스 */
 .header-buttonbox {
@@ -104,23 +91,6 @@ div {
 	float: left;
 }
 
-/* 내블로그,마이페이지,로그아웃 */
-.header-button {
-	width: 30%;
-	height: 38px;
-	display: inline-block;
-	border-radius: 10px;
-	font-size: 14px;
-	color: black;
-	font-weight: 700;
-	border-style: none;
-	margin-top: 10px;
-	margin-right: 1%;
-}
-
-#bt-1, #bt-2, #bt-3 {
-	background-color: gainsboro;
-}
 /*  로그인 시작 */
 #loginFormModal {
 	text-align: center;
@@ -195,20 +165,22 @@ div {
 				<c:when test="${ empty loginMember }">
 					<div class="header-buttonbox">
 					
-						<a href="${contextPath}/member/findID"><button type="button" class="header-button btn btn-secondary"
-							id="bt-1">ID/PW찾기</button></a>
-						<button type="button" class="header-button btn btn-secondary"
-							id="bt-2" data-toggle="modal" data-target="#loginForm">로그인</button>
-						<a href="${contextPath}/member/signUpTerms"><button type="button" class="header-button btn btn-secondary"
-							id="bt-3">회원가입</button></a>
+						<a href="${contextPath}/member/findID"><button type="button" class="btn btn-light btn-sm"
+							id="bt-1">ID찾기</button></a>
+						<a href="${contextPath}/member/findID"><button type="button" class="btn btn-light btn-sm"
+							id="bt-2">PW찾기</button></a>
+						<button type="button" class="btn btn-info btn-sm"
+							id="bt-3" data-toggle="modal" data-target="#loginForm">로그인</button>
+						<a href="${contextPath}/member/signUpTerms"><button type="button" class="btn btn-info btn-sm"
+							id="bt-4">회원가입</button></a>
 					</div>
 				</c:when>
 
 				<c:otherwise>
 					<div class="header-buttonbox">
-						<button type="button" class="header-button btn btn-secondary" id="bt-1" href="${contextPath}/member/myblog">내 블로그</button>
-						<a href="${contextPath}/member/myPage"><button type="button" class="header-button btn btn-secondary" id="bt-2">${loginMember.memId}</button></a>
-						<a href="${contextPath}/member/logout"><button type="button" class="header-button btn btn-secondary" id="bt-3" value="logout">로그아웃</button></a>
+						<button type="button" class="btn btn-info btn-sm" id="bt-1" href="${contextPath}/member/myblog">내 블로그</button>
+						<a href="${contextPath}/member/myPage"><button type="button" class="btn btn-info btn-sm" id="bt-2">마이페이지</button></a>
+						<a href="${contextPath}/member/logout"><button type="button" class="btn btn-dark btn-sm" id="bt-3" value="logout">로그아웃</button></a>
 					</div>
 				</c:otherwise>
 			</c:choose>
