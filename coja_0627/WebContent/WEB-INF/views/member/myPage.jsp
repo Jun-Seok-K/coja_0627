@@ -11,6 +11,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>마이페이지</title>
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+	crossorigin="anonymous">
+
 <style>
 /* 블로그 기본정보 영역 div(today, 블로그이름, 검색창) */
 #blogInfoArea {
@@ -305,19 +311,15 @@
 	float: left;
 }
 
-#userName>span {
-	line-height: 50px;
-}
-
-/* 본문 닉네임 영역 */
-#contentNicknameArea {
+/* 본문 비번 영역 */
+#contentPwArea {
 	margin: auto;
 	margin-top: 20px;
 	width: 700px;
 	height: 60px;
 }
 
-#contentNickname {
+#contentPw {
 	width: 200px;
 	height: 50px;
 	margin-left: 50px;
@@ -328,11 +330,11 @@
 	border-right: 1px solid lightgray;
 }
 
-#contentNickname>span {
+#contentPw>span {
 	line-height: 50px;
 }
 
-#userNickname {
+#pw {
 	width: 200px;
 	height: 50px;
 	margin-left: 80px;
@@ -342,18 +344,41 @@
 	float: left;
 }
 
-#userNickname>span {
-	line-height: 50px;
+/* 본문 닉네임 영역 */
+#contentNickNameArea {
+	margin: auto;
+	margin-top: 20px;
+	width: 700px;
+	height: 60px;
 }
 
-#nicknameBtnArea {
-	width: 120px;
-	height: 40px;
-	margin-left: 20px;
-	margin-top: 10px;
+#contentNickName {
+	width: 200px;
+	height: 50px;
+	margin-left: 50px;
+	margin-top: 4px;
 	text-align: center;
 	font-size: 25px;
 	float: left;
+	border-right: 1px solid lightgray;
+}
+
+#contentNickName>span {
+	line-height: 50px;
+}
+
+#userNickName {
+	width: 200px;
+	height: 50px;
+	margin-left: 80px;
+	margin-top: 4px;
+	text-align: left;
+	font-size: 25px;
+	float: left;
+}
+
+#userNickName>span {
+	font-size: 14px;
 }
 
 /* 본문 개발자 여부 영역 */
@@ -433,6 +458,10 @@
 	float: left;
 }
 
+#userProgCareerYearValue>input {
+	width: 100px;
+}
+
 #userProgCareerYear {
 	width: 155px;
 	height: 50px;
@@ -459,11 +488,18 @@
 	margin-bottom: 50px;
 }
 
-#contentSummitArea>button {
+#secession {
+	left: right;
+	width: 130px;
+	margin-bottom: 50px;
+}
+
+#update {
 	float: right;
 	width: 180px;
 }
 </style>
+
 </head>
 
 <body>
@@ -480,96 +516,136 @@
 
 		<!-- 블로그 본문 영역 -->
 		<div id="contentArea">
-            <div id="titleArea">
-                <span id="titleText">마이페이지</span> <br>
-            </div>
+			<div id="titleArea">
+				<span id="titleText">마이페이지</span> <br>
+			</div>
+			<form method="POST" action="update"
+				onsubmit="return memInfoUpdate();">
+				<div id="contentProfileImgArea">
+					<div id="contentProfileImg">
+						<span>프로필 사진</span>
+					</div>
+					<div id="userProfileImg">
+						<img src="">
+					</div>
+					<div id="imgBtnArea">
+						<button type="submit" class="btn btn-primary btn">사진변경</button>
+					</div>
+				</div>
 
-            <div id="contentProfileImgArea">
-                <div id="contentProfileImg">
-                    <span>프로필 사진</span>
-                </div>
-                <div id="userProfileImg">
-                    <img src="">
-                </div>
-                <div id="imgBtnArea">
-                    <button type="submit" class="btn btn-primary btn">사진변경</button>
-                </div>
-            </div>
+				<div id="contentIdArea">
+					<div id="contentId">
+						<span>아이디</span>
+					</div>
+					<div id="userId">
+						<span>${loginMember.memId}</span>
+					</div>
+				</div>
 
-            <div id="contentIdArea">
-                <div id="contentId">
-                    <span>아이디</span>
-                </div>
-                <div id="userId">
-                    <span>${loginMember.memId}</span>
-                </div>
-            </div>
+				<div id="contentNameArea">
+					<div id="contentName">
+						<span>이름</span>
+					</div>
+					<div id="userName">
+						<span>${loginMember.memNm}</span>
+					</div>
+				</div>
 
-            <div id="contentNameArea">
-                <div id="contentName">
-                    <span>이름</span>
-                </div>
-                <div id="userName">
-                    <span>${loginMember.memNm}</span>
-                </div>
-            </div>
 
-            <div id="contentNicknameArea">
-                <div id="contentNickname">
-                    <span>닉네임</span>
-                </div>
-                <div id="userNickname">
-                    <input type="text" size="14" name="nickname" id="nickname" value="${loginMember.memNick}"></input>
-                </div>
-                <div id="nicknameBtnArea">
-                    <button type="submit" class="btn btn-primary btn">중복확인</button>
-                </div>
-            </div>
 
-            <div id="contentProgYNArea">
-                <div id="contentProgYN">
-                    <span>개발자 여부</span>
-                </div>
-                <div id="userProgYN">
-                    <div class="form-check form-check-inline" id="programmerNoArea">
-                        <input class="form-check-input" type="radio" name="programmerYN" id="programmerNo" value="no"
-                            checked>
-                    </div>
-                    <label class="form-check-label" for="programmerNo" id="proNo">미해당</label>
+				<div id="contentNickNameArea">
+					<div id="contentNickName">
+						<span>닉네임</span>
+					</div>
+					<div id="userNickName">
+						<input type="text" size="14" name="memNick" id="nickName"
+							value="${loginMember.memNick}"></input> <span id="checkNickName">&nbsp;</span>
+					</div>
+				</div>
 
-                    <div class="form-check form-check-inline" id="programmerYesArea">
-                        <input class="form-check-input" type="radio" name="programmerYN" id="programmerYes" value="yes">
-                    </div>
-                    <label class="form-check-label" for="programmerYes">해당</label>
-                </div>
-            </div>
+				<div id="contentProgYNArea">
+					<div id="contentProgYN">
+						<span>개발자 여부</span>
+					</div>
+					<div id="userProgYN">
+						<div class="form-check form-check-inline" id="programmerNoArea">
+							<input class="form-check-input" type="radio" name="memWorkExp"
+								id="memWorkExpN" value="N" checked>
+						</div>
+						<label class="form-check-label" for="programmerNo" id="proNo">미해당</label>
 
-            <div id="contentProgCareerArea">
-                <div id="contentProgCareer">
-                    <span>개발자 경력</span>
-                </div>
-                <div id="userProgCareerYearValue">
-                    <input type="text" size="8" name="nickname" id="nickname" value="${loginMember.memExpYr}"></input>
-                </div>
-                <div id="userProgCareerYear">
-                    <span>년차</span>
-                </div>
-            </div>
+						<div class="form-check form-check-inline" id="programmerYesArea">
+							<input class="form-check-input" type="radio" name="memWorkExp"
+								id="memWorkExpY" value="Y">
+						</div>
+						<label class="form-check-label" for="proYes">해당</label>
+					</div>
+				</div>
 
-            <div id="contentSummitArea">
-                <button type="submit" class="btn btn-primary btn-lg">수정완료</button>
-            </div>
-        </div>
+				<script>
+					$(function() {
+						if ("${loginMember.memWorkExp}" == 'Y') {
+							$("#memWorkExpY").prop("checked", true);
+						} else {
+							$("#memWorkExpN").prop("checked", true);
+						}
+						;
+					});
+				</script>
+
+				<div id="contentProgCareerArea">
+					<div id="contentProgCareer">
+						<span>개발자 경력</span>
+					</div>
+					<div id="userProgCareerYearValue">
+						<input type="number" name="memExpYr" id="memExpYr"
+							value="${loginMember.memExpYr}"></input>
+					</div>
+					<div id="userProgCareerYear">
+						<span>년차</span>
+					</div>
+				</div>
+
+
+				<div id="contentSummitArea">
+					<button type="submit" class="btn btn-primary btn-lg" id="update">수정완료</button>
+			</form>
+		</div>
+
+		<div id="contentPwArea">
+			<div id="contentPw">
+				<span>비밀번호</span>
+			</div>
+			<div id="pw">
+				<a href="${contextPath}/member/pwUpdate"><button type="submit"
+						class="btn btn-primary btn">비밀번호 변경</button></a>
+			</div>
+		</div>
+
+		<form method="POST" action="secessionTerms">
+			<button type="submit" class="btn btn-secondary btn-lg" id="secession">회원탈퇴</button>
+		</form>
+	</div>
 
 	<jsp:include page="../common/footer.jsp" />
 
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	<script>
+		function memInfoUpdate() {
+
+		};
+	</script>
+
+	<script src="${contextPath}/resources/js/member.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 		crossorigin="anonymous"></script>
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
 		crossorigin="anonymous"></script>
+
 
 </body>
 
