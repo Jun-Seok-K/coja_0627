@@ -40,6 +40,7 @@ public class SignUpServlet extends HttpServlet {
 		int memExpYr = Integer.parseInt(request.getParameter("expYr"));
 		
 		// 중간확인
+		/*
 		System.out.println(memId);
 		System.out.println(memPw);
 		System.out.println(memNm);
@@ -47,7 +48,7 @@ public class SignUpServlet extends HttpServlet {
 		System.out.println(memEmail);
 		System.out.println(memWorkExp);
 		System.out.println(memExpYr);
-		
+		*/
 		
 		// 파라미터를 하나의 Member객체에 담기
 		Member member = new Member(memId, memPw, memNm, memNick, memEmail, memWorkExp, memExpYr);
