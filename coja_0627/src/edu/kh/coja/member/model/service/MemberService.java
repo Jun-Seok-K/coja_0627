@@ -145,6 +145,9 @@ public class MemberService {
 
 		int result = dao.pwUpdate(conn, currentPw, newPw1, memNo);
 
+		if(result > 0) commit(conn);
+		else		   rollback(conn);
+		
 		close(conn);
 
 		return result;
