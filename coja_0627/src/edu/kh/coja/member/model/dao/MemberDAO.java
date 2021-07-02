@@ -71,7 +71,7 @@ public class MemberDAO {
 				Date memEnrollDt = rs.getDate("MEM_ENROLL_DT");
 				String memWorkExp = rs.getString("MEM_WORK_EXP");
 				int memExpYr = rs.getInt("MEM_EXP_YR");
-				int memWarningPoint = rs.getInt("MEM_WARNING_POINT");
+				int memWarningPoint = rs.getInt("MEM_WARN");
 				String memStatus = rs.getString("MEM_STATUS");
 				String memGrade = rs.getString("MEM_GRADE");
 
@@ -224,7 +224,8 @@ public class MemberDAO {
 	 * @param newPw1
 	 * @param memNo
 	 * @return result
-	 * @throws Exception 작성자_강지애
+	 * @throws Exception
+	 * 작성자_강지애
 	 */
 	public int pwUpdate(Connection conn, String currentPw, String newPw1, int memNo) throws Exception {
 
@@ -239,15 +240,14 @@ public class MemberDAO {
 			pstmt.setInt(3, memNo);
 
 			result = pstmt.executeUpdate();
-
+			
 		} finally {
 
 			close(pstmt);
 
 		}
-
+		
 		return result;
-
 	}
 
 	/**

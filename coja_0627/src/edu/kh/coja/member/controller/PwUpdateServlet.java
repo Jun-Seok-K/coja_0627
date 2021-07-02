@@ -15,71 +15,73 @@ import edu.kh.coja.member.model.vo.Member;
 
 @WebServlet("/member/pwUpdate")
 public class PwUpdateServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+   protected void doGet(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
 
-		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/member/pwUpdate.jsp");
+      RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/member/pwUpdate.jsp");
 
-		view.forward(request, response);
-	}
+      view.forward(request, response);
+   }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+   protected void doPost(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
 
-		String currentPw = request.getParameter("currentPw");
-		String newPw1 = request.getParameter("pw1");
+      String currentPw = request.getParameter("currentPw");
+      String newPw1 = request.getParameter("pw1");
 
-		HttpSession session = request.getSession();
-		int memNo = ((Member) session.getAttribute("loginMember")).getMemNo();
-		String memPw = ((Member) session.getAttribute("loginMember")).getMemPw();
-		System.out.println(memPw);
-		System.out.println(memNo);
+      HttpSession session = request.getSession();
+      int memNo = ((Member) session.getAttribute("loginMember")).getMemNo();
+      String memPw = ((Member) session.getAttribute("loginMember")).getMemPw();
+      System.out.println(memPw);
+      System.out.println(memNo);
 
-		try {
-			if (currentPw.equals(newPw1)) {
+      try {
+         if (currentPw.equals(newPw1)) {
+            
+            // 현재 비밀번호와 새로운 비밀번호 동일여부 검사
+            
+            session.setAttribute("icon", "error");
+            session.setAttribute("title", "비밀번호 수정 실패");
+            session.setAttribute("text", "현재 비밀번호와 새로운 비밀번호가 동일합니다.");
+            response.sendRedirect("pwUpdate");
 
-				session.setAttribute("icon", "error");
-				session.setAttribute("title", "비밀번호 수정 실패");
-				session.setAttribute("text", "현재 비밀번호와 새로운 비밀번호가 동일합니다.");
-				response.sendRedirect("myPage");
+         } else{
+            int result = new MemberService().pwUpdate(currentPw, newPw1, memNo);
 
-			} else{
-				int result = new MemberService().pwUpdate(currentPw, newPw1, memNo);
+            // sweetalert(성공여부)
 
-				// sweetalert(성공여부)
+            String icon = null;
+            String title = null;
+            String text = null;
 
-				String icon = null;
-				String title = null;
-				String text = null;
+            if (result > 0) {
 
-				if (result > 0) {
+               session.setAttribute("icon", "success");
+               session.setAttribute("title", "비밀번호 수정 성공");
+               session.setAttribute("text", "수정을 성공하였습니다.");
+               response.sendRedirect("myPage");
 
-					session.setAttribute("icon", "success");
-					session.setAttribute("title", "비밀번호 수정 성공");
-					session.setAttribute("text", "수정을 성공하였습니다.");
-					response.sendRedirect("myPage");
+            } else {
+               session.setAttribute("icon", "error");
+               session.setAttribute("title", "비밀번호 변경 실패!");
+               session.setAttribute("text", "비밀번호 변경 중 문제가 발생했습니다.");
+               response.sendRedirect("myPage");
+            }
+         }
 
-				} else {
-					session.setAttribute("icon", "error");
-					session.setAttribute("title", "비밀번호 변경 실패!");
-					session.setAttribute("text", "비밀번호 변경 중 문제가 발생했습니다.");
-					response.sendRedirect("myPage");
-				}
-			}
+      } catch (Exception e) {
+         e.printStackTrace();
 
-		} catch (Exception e) {
-			e.printStackTrace();
+         request.setAttribute("errorMsg", "비밀 번호 변경 과정에서 오류 발생");
 
-			request.setAttribute("errorMsg", "비밀 번호 변경 과정에서 오류 발생");
+         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/common/error.jsp");
 
-			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/common/error.jsp");
+         view.forward(request, response);
 
-			view.forward(request, response);
+      }
 
-		}
-
-	}
+   }
 
 }

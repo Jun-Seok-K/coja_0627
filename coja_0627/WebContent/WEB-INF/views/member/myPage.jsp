@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -13,638 +13,224 @@
 <title>마이페이지</title>
 
 <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-	crossorigin="anonymous">
+   href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+   integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+   crossorigin="anonymous">
+    <style>
+      div {
+         /*border: 1px solid black;*/
+      }
+      #contentArea {
+     /*한가을이 다시 뜯어고처 만듬.*/
+     /* background-color: lightgray; */
+    width: 896px;
+    height: 1100px;
+    margin-right: 0;
+     float: left;
+    }
 
-<style>
-/* 블로그 기본정보 영역 div(today, 블로그이름, 검색창) */
-#blogInfoArea {
-	/* background-color: red; */
-	margin: auto;
-	width: 1200px;
-	height: 80px;
-}
-
-/* 블로그 기본 정보 div */
-#todayInfoArea {
-	/* background-color: lightcoral; */
-	width: 220px;
-	height: 30px;
-	margin-left: 20px;
-	margin-top: 50px;
-	float: left;
-	font-size: 15px;
-	text-align: center;
-}
-
-#todayInfoArea {
-	line-height: 30px;
-	border-bottom: 1px solid lightgray;
-	border-top: 1px solid lightgray;
-}
-
-/* 블로그 이름 div */
-#blogNameArea {
-	/* background-color: lightcoral; */
-	width: 450px;
-	height: 50px;
-	margin-left: 50px;
-	margin-top: 30px;
-	float: left;
-	text-align: center;
-	font-size: 25px;
-	font-weight: bold;
-}
-
-#blogNameArea>span {
-	line-height: 70px;
-}
-
-/* 검색박스 div */
-#searchBoxArea {
-	/* background-color: lightcoral; */
-	width: 300px;
-	height: 50px;
-	margin-right: 20px;
-	margin-top: 30px;
-	float: right;
-}
-
-/* 검색입력창 */
-#searchBox {
-	margin: auto;
-	border: 2px solid #c7f1ec;
-	width: 85%;
-	height: 46px;
-	line-height: 38px;
-	display: inline-block;
-	font-size: 18px;
-}
-
-/* userInfoArea div와 contentArea div를 감싸는 div */
-#contentContainer {
-	/* background-color: gray */
-	margin: auto;
-	width: 1200px;
-}
-
-/* 유저정보 div */
-#userInfoArea {
-	/* background-color: lightgray; */
-	width: 296px;
-	/* height: 1000px; */
-	float: left;
-	border-right: 1px solid lightgray;
-}
-
-/* 회원정보 영역 확인용 css */
-#userInfoArea>div {
-	/* background-color: gray; */
-	
-}
-
-/* 프사영역 div */
-#profileImg {
-	width: 200px;
-	height: 200px;
-	margin: auto;
-	margin-top: 50px;
-	border-radius: 50%;
-	border: 1px solid lightgray;
-	background-color: gray;
-}
-
-/* 블로그 소개글 영역 */
-#introduceText {
-	width: 250px;
-	height: 100px;
-	margin: auto;
-	margin-top: 10px;
-}
-
-/* 블로그 소개글이 영역 내에 안정적으로 들어가게 하기위한 css */
-#introduceText>span {
-	margin: 10px;
-}
-
-/* 잔디영역 div */
-#grassArea {
-	width: 240px;
-	height: 150px;
-	margin: auto;
-	margin-top: 10px;
-}
-
-/* 설정버튼 영역 div */
-#settingBtnArea {
-	width: 240px;
-	height: 40px;
-	margin: auto;
-	margin-top: 10px;
-}
-
-/* 카테고리 영역 div */
-#categoryArea {
-	width: 200px;
-	height: 250px;
-	margin: auto;
-	margin-top: 10px;
-}
-
-/* 블로그 검색 영역 div */
-#blogSearchArea {
-	width: 260px;
-	height: 50px;
-	margin: auto;
-	margin-top: 30px;
-	margin-bottom: 30px;
-}
-
-/* 검색입력창 */
-#blogSearchBox {
-	margin: auto;
-	border: 2px solid #c7f1ec;
-	width: 85%;
-	height: 38px;
-	font-size: 13px;
-}
-
-/* ------------------------------영역구분선------------------------------ */
-
-/* 블로그 전체 본문영역 div */
-#contentArea {
-	/* background-color: lightgray; */
-	width: 896px;
-	margin-right: 0;
-	float: left;
-}
-
-#titleArea {
-	/* 제목 영역 */
-	height: 80px;
+    #titleArea {
+  /* 제목 영역 */
+  height: 80px;
 }
 
 #titleText {
-	/* 블로그 본문의 소제목 텍스트 */
-	display: inline-block;
-	margin-top: 15px;
-	margin-left: 20px;
-	font-size: 25px;
-	font-weight: bold;
+  /* 블로그 본문의 소제목 텍스트 */
+  display: inline-block;
+  margin-top: 15px;
+  margin-left: 20px;
+  font-size: 25px;
+  font-weight: bold;
 }
-
 /* 본문 프로필 사진 영역 */
 #contentProfileImgArea {
-	margin: auto;
-	margin-top: 50px;
-	width: 700px;
-	height: 200px;
+   margin: auto;
+   margin-top: 50px;
+   width: 700px;
+   height: 850px;
+}
+/*프로필 전체박스*/
+#content-propile-box{
+    width: 700px;
+   height: 200px;
+}
+/*프로필 부분박스 1,2,3*/
+.propile{
+width: 230px;
+height: 200px;
+float: left;
+float: left;
+font-size: 25px;
+text-align: center;   
+line-height: 200px;
+}
+#userProfileImg{
+    background-color: gray;
+    width: 150px;
+   height: 150px;
+    border: 1px solid lightgray;
+    border-radius: 50%;
+    margin-top: 30px;
+    margin-left:40px ;
+    margin-right:40px ;
+  
+}
+/*아이디,이름,비밀번호,닉네임,개발자여부,개발자경력 박스*/
+.etc{
+width: 230px;
+height: 95px;
+float: left;
+font-size: 25px;
+text-align: center;   
+line-height: 90px;
+
+/*개발자여부 -라디오체크*/
+}.form-check-input{
+    margin-right: 160px;
 }
 
-#contentProfileImg {
-	width: 200px;
-	height: 50px;
-	margin-left: 50px;
-	margin-top: 70px;
-	text-align: center;
-	font-size: 25px;
-	float: left;
-	border-right: 1px solid lightgray;
+/*회원탈퇴 수정*/
+.etc2{
+width: 346px;
+height: 90px; 
+float: left; 
+padding: 20px;
+padding-left: 120px;
+margin: auto;
+
+
+}
+/*가을수정 인풋박스생성수정*/
+/*개발자경력 인풋박스*/
+#memExpYr{
+    width: 200px;
+    height: 50px;
+}
+#nickName{
+    width: 200px;
+    height: 50px;
+
 }
 
-#userProfileImg {
-	background-color: gray;
-	width: 150px;
-	height: 150px;
-	margin-left: 105px;
-	margin-top: 25px;
-	text-align: center;
-	font-size: 25px;
-	float: left;
-	border: 1px solid lightgray;
-	border-radius: 50%;
-}
-
-/* 프사 변경 버튼 */
-#imgBtnArea {
-	width: 120px;
-	height: 40px;
-	margin-left: 20px;
-	margin-top: 135px;
-	text-align: center;
-	font-size: 25px;
-	float: left;
-}
-
-#contentProfileImg>span {
-	line-height: 50px;
-}
-
-/* 본문 아이디 영역 */
-#contentIdArea {
-	margin: auto;
-	margin-top: 20px;
-	width: 700px;
-	height: 60px;
-}
-
-#contentId {
-	width: 200px;
-	height: 50px;
-	margin-left: 50px;
-	margin-top: 4px;
-	text-align: center;
-	font-size: 25px;
-	float: left;
-	border-right: 1px solid lightgray;
-}
-
-#contentId>span {
-	line-height: 50px;
-}
-
-#userId {
-	width: 200px;
-	height: 50px;
-	margin-left: 80px;
-	margin-top: 4px;
-	text-align: left;
-	font-size: 25px;
-	float: left;
-}
-
-#userId>span {
-	line-height: 50px;
-}
-
-/* 본문 이름 영역 */
-#contentNameArea {
-	margin: auto;
-	margin-top: 20px;
-	width: 700px;
-	height: 60px;
-}
-
-#contentName {
-	width: 200px;
-	height: 50px;
-	margin-left: 50px;
-	margin-top: 4px;
-	text-align: center;
-	font-size: 25px;
-	float: left;
-	border-right: 1px solid lightgray;
-}
-
-#contentName>span {
-	line-height: 50px;
-}
-
-#userName {
-	width: 200px;
-	height: 50px;
-	margin-left: 80px;
-	margin-top: 4px;
-	text-align: left;
-	font-size: 25px;
-	float: left;
-}
-
-/* 본문 비번 영역 */
-#contentPwArea {
-	margin: auto;
-	margin-top: 20px;
-	width: 700px;
-	height: 60px;
-}
-
-#contentPw {
-	width: 200px;
-	height: 50px;
-	margin-left: 50px;
-	margin-top: 4px;
-	text-align: center;
-	font-size: 25px;
-	float: left;
-	border-right: 1px solid lightgray;
-}
-
-#contentPw>span {
-	line-height: 50px;
-}
-
-#pw {
-	width: 200px;
-	height: 50px;
-	margin-left: 80px;
-	margin-top: 4px;
-	text-align: left;
-	font-size: 25px;
-	float: left;
-}
-
-/* 본문 닉네임 영역 */
-#contentNickNameArea {
-	margin: auto;
-	margin-top: 20px;
-	width: 700px;
-	height: 60px;
-}
-
-#contentNickName {
-	width: 200px;
-	height: 50px;
-	margin-left: 50px;
-	margin-top: 4px;
-	text-align: center;
-	font-size: 25px;
-	float: left;
-	border-right: 1px solid lightgray;
-}
-
-#contentNickName>span {
-	line-height: 50px;
-}
-
-#userNickName {
-	width: 200px;
-	height: 50px;
-	margin-left: 80px;
-	margin-top: 4px;
-	text-align: left;
-	font-size: 25px;
-	float: left;
-}
-
-#userNickName>span {
-	font-size: 14px;
-}
-
-/* 본문 개발자 여부 영역 */
-#contentProgYNArea {
-	margin: auto;
-	margin-top: 20px;
-	width: 700px;
-	height: 60px;
-}
-
-#contentProgYN {
-	width: 200px;
-	height: 50px;
-	margin-left: 50px;
-	margin-top: 4px;
-	text-align: center;
-	font-size: 25px;
-	float: left;
-	border-right: 1px solid lightgray;
-}
-
-#contentProgYN>span {
-	line-height: 50px;
-}
-
-#userProgYN {
-	width: 250px;
-	height: 50px;
-	margin-left: 80px;
-	margin-top: 10px;
-	line-height: 37px;
-	text-align: left;
-	font-size: 22px;
-	float: left;
-}
-
-#userProgYN>label {
-	margin-right: 40px;
-	margin-left: 0;
-}
-
-#userProgYN>div {
-	margin-right: 0px;
-}
-
-/* 개발자 경력 영역 */
-#contentProgCareerArea {
-	margin: auto;
-	margin-top: 20px;
-	width: 700px;
-	height: 60px;
-	margin-bottom: 50px;
-}
-
-#contentProgCareer {
-	width: 200px;
-	height: 50px;
-	margin-left: 50px;
-	margin-top: 4px;
-	text-align: center;
-	font-size: 25px;
-	float: left;
-	border-right: 1px solid lightgray;
-}
-
-#contentProgCareer>span {
-	line-height: 50px;
-}
-
-#userProgCareerYearValue {
-	width: 155px;
-	height: 50px;
-	margin-left: 80px;
-	margin-top: 4px;
-	text-align: left;
-	font-size: 25px;
-	float: left;
-}
-
-#userProgCareerYearValue>input {
-	width: 100px;
-}
-
-#userProgCareerYear {
-	width: 155px;
-	height: 50px;
-	margin-left: 20px;
-	margin-top: 4px;
-	text-align: left;
-	font-size: 25px;
-	float: left;
-}
-
-#userProgCareerYear>span {
-	line-height: 50px;
-}
-
-#userProgCareerMoonth>span {
-	line-height: 50px;
-}
-
-#contentSummitArea {
-	margin: auto;
-	margin-top: 110px;
-	width: 700px;
-	height: 50px;
-	margin-bottom: 50px;
-}
-
-#secession {
-	left: right;
-	width: 130px;
-	margin-bottom: 50px;
-}
-
-#update {
-	float: right;
-	width: 180px;
-}
-</style>
-
-</head>
-
-<body>
-	<jsp:include page="../common/headerMain.jsp" />
-	<!-- ===============================영역구분선=============================== -->
-	<jsp:include page="../common/headerBlog.jsp" />
+/*-----------------------------------------------*/
 
 
-	<div id="contentContainer">
-		<!-- 유저 정보관련 영역 -->
-
-		<jsp:include page="../common/blogSide.jsp" />
-		<!-- blogSide include 영역 -->
-
-		<!-- 블로그 본문 영역 -->
-		<div id="contentArea">
-			<div id="titleArea">
-				<span id="titleText">마이페이지</span> <br>
-			</div>
-			<form method="POST" action="update"
-				onsubmit="return memInfoUpdate();">
-				<div id="contentProfileImgArea">
-					<div id="contentProfileImg">
-						<span>프로필 사진</span>
-					</div>
-					<div id="userProfileImg">
-						<img src="">
-					</div>
-					<div id="imgBtnArea">
-						<button type="submit" class="btn btn-primary btn">사진변경</button>
-					</div>
-				</div>
-
-				<div id="contentIdArea">
-					<div id="contentId">
-						<span>아이디</span>
-					</div>
-					<div id="userId">
-						<span>${loginMember.memId}</span>
-					</div>
-				</div>
-
-				<div id="contentNameArea">
-					<div id="contentName">
-						<span>이름</span>
-					</div>
-					<div id="userName">
-						<span>${loginMember.memNm}</span>
-					</div>
-				</div>
+    </style>
+  </head>
+  <body>
+   <jsp:include page="../common/headerMain.jsp" />
+   <!-- ===============================영역구분선=============================== -->
+   <jsp:include page="../common/headerBlog.jsp" />
 
 
+   <div id="contentContainer">
+      <!-- 유저 정보관련 영역 -->
 
-				<div id="contentNickNameArea">
-					<div id="contentNickName">
-						<span>닉네임</span>
-					</div>
-					<div id="userNickName">
-						<input type="text" size="14" name="memNick" id="nickName"
-							value="${loginMember.memNick}"></input> <span id="checkNickName">&nbsp;</span>
-					</div>
-				</div>
+      <jsp:include page="../common/blogSide.jsp" />
+      <!-- blogSide include 영역 -->
 
-				<div id="contentProgYNArea">
-					<div id="contentProgYN">
-						<span>개발자 여부</span>
-					</div>
-					<div id="userProgYN">
-						<div class="form-check form-check-inline" id="programmerNoArea">
-							<input class="form-check-input" type="radio" name="memWorkExp"
-								id="memWorkExpN" value="N" checked>
-						</div>
-						<label class="form-check-label" for="programmerNo" id="proNo">미해당</label>
+    <div id="contentArea">
+        <div id="titleArea">
+            <span id="titleText">마이페이지</span> <br>
+        </div>
+        <form method="POST" action="update"
+            onsubmit="return memInfoUpdate();">
+         <div id="contentProfileImgArea">
+            <div>
+                <div class="propile" id="contentProfileImg">
+                    <span>프로필 사진</span>
+                </div>
+                <div class="propile" id="userProfileImg"">
+                    <img src="">
+                </div>
+                <div class="propile" id="imgBtnArea">
+                    <button type="submit" class="btn btn-primary btn">사진변경</button>
+                </div>
+            </div>
+            <div id="contentIdArea">
+                <div class="etc" id="contentId">
+                    <span>아이디</span>
+                </div>
+                <div class="etc" id="userId">
+                    <span>${loginMember.memId}</span>
+                </div>
+                <div class="etc" id="id3"></div>
+            </div>
+            <div id="contentNameArea">
+                <div class="etc" id="contentNameArea"><span>이름</span></div>
+                <div class="etc" id="userName"><span>${loginMember.memNm}</span></div>
+                <div class="etc" id="nm3"></div>
+            </div>
+            <%-- 가을수정,onclick="updatePw() --%>
+            <div id="contentPwArea">
+                <div class="etc" id="contentPw"><span>비밀번호</span></div>
+                <div class="etc" id="pw"><a href="${contextPath}/member/pwUpdate"><button type="button"
+                    class="btn btn-primary btn" onclick="updatePw()">비밀번호 변경</button></a></div>
+                <div class="etc" id="nm3"></div>
+            </div>
+            <div id="contentNickNameArea">
+                <div class="etc" id="contentNickName"><span>닉네임</span></div>
+                <div class="etc" id="userNickName"><input type="text" size="25" name="memNick" id="nickName"
+                    value="${loginMember.memNick}"></input> <span id="checkNickName">&nbsp;</span></div>
+                <div class="etc" id="id3"></div>
+            </div>
+            <div id="contentProgYNArea">
+                <div class="etc" id="contentProgYN"><span>개발자 여부</span></div>
+                <div class="etc" id="userProgYN"><div class="form-check form-check-inline" id="programmerNoArea">
+                    <input class="form-check-input" type="radio" name="memWorkExp"
+                        id="memWorkExpN" value="N" checked>
+                </div>
+                <label class="form-check-label" for="programmerNo" id="proNo">미해당</label></div>
+                <div class="etc" id="gb3"><div class="form-check form-check-inline" id="programmerYesArea">
+                    <input class="form-check-input" type="radio" name="memWorkExp"
+                        id="memWorkExpY" value="Y">
+                </div>
+                <label class="form-check-label" for="proYes">해당</label></div>
+                
+            </div>
+            <div id="contentProgCareerArea">
+                <div class="etc" id="contentProgCareer"><span>개발자 경력</span></div>
+                <div class="etc" id="userProgCareerYearValue"><input type="number" name="memExpYr" id="memExpYr"
+                    value="${loginMember.memExpYr}""></input></div>
+                <div class="etc" id="userProgCareerYea"><span>년차</span></div>
+                
+            </div>
+            <div>
+               <%--가을수정,onclick="location.href = 'secession';" --%>
+                <div class="etc2" id="gb3"><form method="POST" action="secessionTerms">
+                    <button type="button" onclick="location.href = 'secession';"
 
-						<div class="form-check form-check-inline" id="programmerYesArea">
-							<input class="form-check-input" type="radio" name="memWorkExp"
-								id="memWorkExpY" value="Y">
-						</div>
-						<label class="form-check-label" for="proYes">해당</label>
-					</div>
-				</div>
+              
 
-				<script>
-					$(function() {
-						if ("${loginMember.memWorkExp}" == 'Y') {
-							$("#memWorkExpY").prop("checked", true);
-						} else {
-							$("#memWorkExpN").prop("checked", true);
-						}
-						;
-					});
-				</script>
+                    class="btn btn-secondary btn-lg" id="secession">회원탈퇴</button>
+                </div>
+                <form><div class="etc2" id="contentSummitArea">
+                    <button type="submit" class="btn btn-primary btn-lg" id="update">수정완료</button></div>
+                </form>
+            </div>
 
-				<div id="contentProgCareerArea">
-					<div id="contentProgCareer">
-						<span>개발자 경력</span>
-					</div>
-					<div id="userProgCareerYearValue">
-						<input type="number" name="memExpYr" id="memExpYr"
-							value="${loginMember.memExpYr}"></input>
-					</div>
-					<div id="userProgCareerYear">
-						<span>년차</span>
-					</div>
-				</div>
+        </div>
+    </div>
+        <jsp:include page="../common/footer.jsp" />
 
+       <script>
+      function memInfoUpdate() {
 
-				<div id="contentSummitArea">
-					<button type="submit" class="btn btn-primary btn-lg" id="update">수정완료</button>
-			</form>
-		</div>
+      };
+       </script>
+        <script>
+            </script>
 
-		<div id="contentPwArea">
-			<div id="contentPw">
-				<span>비밀번호</span>
-			</div>
-			<div id="pw">
-				<a href="${contextPath}/member/pwUpdate"><button type="submit"
-						class="btn btn-primary btn">비밀번호 변경</button></a>
-			</div>
-		</div>
+       <script src="${contextPath}/resources/js/member.js"></script>
 
-		<form method="POST" action="secessionTerms">
-			<button type="submit" class="btn btn-secondary btn-lg" id="secession">회원탈퇴</button>
-		</form>
-	</div>
+       <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
 
-	<jsp:include page="../common/footer.jsp" />
-
-	<script>
-		function memInfoUpdate() {
-
-		};
-	</script>
-
-	<script src="${contextPath}/resources/js/member.js"></script>
-
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
-		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-		crossorigin="anonymous"></script>
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
-		crossorigin="anonymous"></script>
+       <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+      crossorigin="anonymous"></script>
 
 
 </body>
