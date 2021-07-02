@@ -150,68 +150,66 @@ td {
 }
 
 /* 달력 스타일 끝 */
-
-
-
 </style>
 </head>
 
 <body>
-	<div id="contentContainer">
-		<!-- 유저 정보관련 영역 -->
-		<hr>
-		<div id="userInfoArea">
-			<div id="profileImg">
-				<!-- <img src="#">프사 들어갈 자리 -->
-			</div>
-			<div class="card border-secondary mb-3" id="introduceText">
-				<span>블로그 소개글 간략히 들어갈 자리, 줄바꿈 되는지도 확인할 겸 조금 길게 써봄...</span>
-			</div>
-			<div class="card border-secondary mb-3" id="grassArea">
-
-
-				<%-- 달력 html 시작 --%>
-				<div id="calander">
-					<div class="cal_top" id="cal-top">
-						<span aria-hidden="true" id="movePrevMonth"><a href="#">&laquo;</a></span>
-
-						<span id="cal_top_year"></span> <span id="cal_top_month"></span> <span
-							aria-hidden="true" id="moveNextMonth"><a href="#">&raquo;</a></span>
-					</div>
-					<div id="cal_tab" class="cal"></div>
+	<form method="POST" action="${contextPath}/member/blogSideInfo">
+		<div id="contentContainer">
+			<!-- 유저 정보관련 영역 -->
+			<hr>
+			<div id="userInfoArea">
+				<div id="profileImg">
+					<!-- <img src="#">프사 들어갈 자리 -->
 				</div>
-				<%-- 달력 html 끝 --%>
+				<div class="card border-secondary mb-3" id="introduceText">
+					<span>블로그 소개글 간략히 들어갈 자리, 줄바꿈 되는지도 확인할 겸 조금 길게 써봄...</span>
+				</div>
+				<div class="card border-secondary mb-3" id="grassArea">
 
 
-			</div>
-			<div id="settingBtnArea">잔디 펼치기 및 톱니바퀴 버튼 자리</div>
-			<div class="card border-secondary mb-3" id="categoryArea">
-				<ul>
-					<li>java</li>
-					<li>java</li>
-					<li>java</li>
-					<li>java</li>
-					<li>java</li>
-					<li>java</li>
-					<li>java</li>
-					<li>java</li>
-					<li>java</li>
-				</ul>
-			</div>
-			<div id="blogSearchArea">
-				<input type="search" id="blogSearchBox"
-					placeholder="  검색할 단어를 입력하세요.">
-				<button class="header-search-button">
-					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-						fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+					<%-- 달력 html 시작 --%>
+					<div id="calander">
+						<div class="cal_top" id="cal-top">
+							<span aria-hidden="true" id="movePrevMonth"><a href="#">&laquo;</a></span>
+
+							<span id="cal_top_year"></span> <span id="cal_top_month"></span>
+							<span aria-hidden="true" id="moveNextMonth"><a href="#">&raquo;</a></span>
+						</div>
+						<div id="cal_tab" class="cal"></div>
+					</div>
+					<%-- 달력 html 끝 --%>
+
+
+				</div>
+				<div id="settingBtnArea">잔디 펼치기 및 톱니바퀴 버튼 자리</div>
+				<div class="card border-secondary mb-3" id="categoryArea">
+					<ul>
+						<li>java</li>
+						<li>java</li>
+						<li>java</li>
+						<li>java</li>
+						<li>java</li>
+						<li>java</li>
+						<li>java</li>
+						<li>java</li>
+						<li>java</li>
+					</ul>
+				</div>
+				<div id="blogSearchArea">
+					<input type="search" id="blogSearchBox"
+						placeholder="  검색할 단어를 입력하세요.">
+					<button class="header-search-button">
+						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+							fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                         <path
-							d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+								d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                     </svg>
-				</button>
+					</button>
+				</div>
 			</div>
 		</div>
-	</div>
-
+	</form>
 	<script type="text/javascript">
 		var today = null;
 		var year = null;
@@ -279,6 +277,8 @@ td {
 				$tdDay.eq(i).css("color", "royalblue");
 			}
 
+			// 오늘날짜 표시
+			$tdDay.eq(today.getUTCDate() + 1).css("background-color", "pink");
 		}
 
 		//calendar 월 이동

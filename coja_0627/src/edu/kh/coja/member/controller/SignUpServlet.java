@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import edu.kh.coja.member.model.service.MemberService;
 import edu.kh.coja.member.model.vo.Member;
 
-// 회원가입 요청 주소 : /semi/member/signUp
 @WebServlet("/member/signUpCoja")
 public class SignUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

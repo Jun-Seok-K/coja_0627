@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <style>
         @font-face {
@@ -25,7 +25,7 @@
             font-family: 'NEXON Lv1 Gothic OTF';
         }
         div {
-            /* border: 1px solid black; */
+            /*border: 1px solid black; */
             box-sizing: border-box;
             width: 1200px;
             left: 0;
@@ -33,22 +33,28 @@
             margin: auto;
         }
         /* 본문 시작*/
+        /*가을수정,margin-left 생성,수정*/
         #titleArea {
             /* 제목 영역 */
             width: 1000px;
             height: 140px;
+            margin-left: 340px;
         }
+        
         #titleText {
             /* 상단의 "회원가입" 텍스트 */
             display: inline-block;
             margin-top: 30px;
             font-size: 45px;
+           
         }
+        /*가을수정,margin-left 생성,수정*/
         .wrap {
             /* 본문의 input, button 등을 감싸는 요소 */
             position: relative;
             /* background-color: gray; */
             width: 750px;
+            margin-left: 300px;
         }
         .wrap>div {
             /* 각 항목에 대한 div */
@@ -128,15 +134,18 @@
             width: 750px;
             height: 150px;
         }
+        /*가을수정,margin-right 생성수정*/
         #joinButton {
             /* 회원가입 버튼 */
             float: right;
+            margin-right: 70px;
         }
-
+        /*가을수정,margin-right 생성수정*/      
         #cancelButton {
             /* 취소버튼 */
             float: right;
             margin-left: 20px;
+            margin-right: 300px;
         }
 
         #summitArea>button {
@@ -151,7 +160,7 @@
 
 <body>
 
-	<jsp:include page="../common/headerMain.jsp" />
+   <jsp:include page="../common/headerMain.jsp" />
  
     <div class="body" id="join">
         <hr>
@@ -224,10 +233,13 @@
 
 
 
-
+<%--가을 수정,submit은 한곳에서만 사용가능해서 취소버튼은 굳이안해도되서 버튼으로 변경했습니다.
+onclick="history.back() <-, ()괄호추가.
+--%>
                 <div id="summitArea">
-                    <button type="submit" class="btn btn-secondary btn-lg" id="cancelButton"
-                        onclick="history.back">취소</button>
+             
+                    <button type="button" class="btn btn-secondary btn-lg" id="cancelButton"
+                        onclick="history.back()">취소</button>
                     <button type="submit" class="btn btn-primary btn-lg" id="joinButton">회원가입</button>
                 </div>
             </div>
@@ -240,7 +252,7 @@
     <script src="${contextPath}/resources/js/member.js"></script>
     
 
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"

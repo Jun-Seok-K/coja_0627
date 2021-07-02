@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>메인 페이지</title>
+<title>헤더</title>
 
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -211,8 +211,9 @@ div {
 
 				<c:otherwise>
 					<div class="header-buttonbox">
+						<a href="${contextPath}/blog/blogSetting">
 						<button type="button" class="header-button btn btn-secondary"
-							id="bt-1" href="${contextPath}/member/myblog">내 블로그</button>
+							id="bt-1" href="${contextPath}/member/myblog">내 블로그</button></a>
 						<a href="${contextPath}/member/myPage"><button type="button"
 								class="header-button btn btn-secondary" id="bt-2">${loginMember.memId}</button></a>
 						<button type="button" class="header-button btn btn-secondary"
