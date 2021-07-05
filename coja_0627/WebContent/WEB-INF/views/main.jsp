@@ -147,6 +147,7 @@
 
 	<!-- content -->
 	<div id="content">
+
 		<!-- 캐러셀 -->
 		<div id="carouselExampleIndicators" class="carousel slide"
 			data-ride="carousel">
@@ -185,10 +186,11 @@
 		<div>
 			<div id="navigator">
 				<ul id="navi">
-					<li><a hrdf="#">전체인기글</a></li>
-					<li><a hrdf="#">JAVA 인기글</a></li>
-					<li><a hrdf="#">JDBC 인기글</a></li>
-					<li><a hrdf="#">DB인기글</a></li>
+					<li><a href="#">전체인기글</a></li>
+					<li><a href="#">JAVA 인기글</a></li>
+					<li><a href="#">JDBC 인기글</a></li>
+					<li><a href="#">DB인기글</a></li>
+					<li id="viewAllContents"><a href="${contextPath}/board/list">전체 글</a></li>
 				</ul>
 			</div>
 			<hr>

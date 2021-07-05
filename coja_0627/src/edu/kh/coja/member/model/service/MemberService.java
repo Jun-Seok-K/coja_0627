@@ -73,7 +73,6 @@ public class MemberService {
 
 	/**
 	 * 아이디 중복검사 Service
-	 * 
 	 * @param id
 	 * @return result
 	 * @throws Exception
@@ -91,7 +90,6 @@ public class MemberService {
 
 	/**
 	 * 닉네임 중복검사 Service
-	 * 
 	 * @param nick
 	 * @return result
 	 * @throws Exception

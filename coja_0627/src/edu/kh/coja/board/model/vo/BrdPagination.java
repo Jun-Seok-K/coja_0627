@@ -15,21 +15,14 @@ public class BrdPagination {
 	private int brdPrevPage;		// 이전 페이지 번호 목록 중 끝 번호
 	private int brdNextPage;		// 다음 페이지 번호 목록 중 시작 번호
 	
-	private String brdType;			// 게시판 타입
-	private String brdTypeNm;		// 게시판 이름
-	
-	
 
-	public BrdPagination(int brdCurrentPage, int brdListCount, String brdType, String brdTypeNm) {
+	public BrdPagination(int brdCurrentPage, int brdListCount) {
 		super();
 		this.brdCurrentPage = brdCurrentPage;
 		this.brdListCount = brdListCount;
-		this.brdType = brdType;
-		this.brdTypeNm = brdTypeNm;
 		
-		makePagination();
+		makeBrdPagination();
 	}
-
 
 
 
@@ -157,50 +150,19 @@ public class BrdPagination {
 	}
 
 
-
-
-	public String getBrdType() {
-		return brdType;
-	}
-
-
-
-
-	public void setBrdType(String brdType) {
-		this.brdType = brdType;
-	}
-
-
-
-
-	public String getBrdTypeNm() {
-		return brdTypeNm;
-	}
-
-
-
-
-	public void setBrdTypeNm(String brdTypeNm) {
-		this.brdTypeNm = brdTypeNm;
-	}
-
-
-
-
 	@Override
 	public String toString() {
 		return "BrdPagination [brdCurrentPage=" + brdCurrentPage + ", brdListCount=" + brdListCount
 				+ ", brdLimit=" + brdLimit + ", brdPageSize=" + brdPageSize + ", brdMaxPage=" + brdMaxPage
 				+ ", brdStartPage=" + brdStartPage + ", brdEndPage=" + brdEndPage + ", brdPrevPage="
-				+ brdPrevPage + ", brdNextPage=" + brdNextPage + ", brdType=" + brdType + ", brdTypeNm="
-				+ brdTypeNm + "]";
+				+ brdPrevPage + ", brdNextPage=" + brdNextPage + "]";
 	}
 
 
 
 
 	// 페이징 처리에 필요한 값을 계산하는 메소드
-	private void makePagination() {
+	private void makeBrdPagination() {
 		
 		// maxPage == 마지막 페이지 == 총 페이지 수
 		
