@@ -34,6 +34,7 @@ public class SelectBoardController extends HttpServlet {
 		String title = null;
 		String text = null;
 
+		
 		try {
 
 			SelectBrdService service = new SelectBrdService();

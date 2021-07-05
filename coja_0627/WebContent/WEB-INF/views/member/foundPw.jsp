@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <style>
         @font-face {
@@ -99,8 +99,8 @@
             width: 120px;
         }
         .header-buttonbox{
-        	widrth: 300px;
-        	height : 300px;
+           widrth: 300px;
+           height : 300px;
         }
     </style>
 
@@ -108,7 +108,7 @@
 </head>
 
 <body>
-	<jsp:include page="../common/headerMain.jsp" />
+   <jsp:include page="../common/headerMain.jsp" />
 
     <div class="body">
         <hr>
@@ -118,38 +118,38 @@
 
         <hr>
 
-		<form method="POST" action="findPw" name="findPwForm" id="findPw" >
+      <form method="POST" action="findPw" name="findPwForm" id="findPw" >
             <div class="wrap">
 
                 <div>
                     <span id="findIdTitle">본인확인 이메일로 인증</span><br>
                 </div>
-				
+            
                 <div>
                 
-                	<c:choose>
-						<c:when test="${empty findPw}"> <%-- Pw를 못찾았을 때 --%>
-							<div>
-			                	<span>일치하는 정보가 없습니다.. </span>
-			                </div>
-							<div class="header-buttonbox">
-							
-								<button type="button" class="btn btn-primary btn-lg" id="pervious" onclick="history.back();"> 뒤로 </button>
-								<a href="${contextPath}/member/signUpTerms"><button type="button" class="btn btn-primary btn-lg" id="signUpTerms-btn"> 회원가입 </button></a>
-		
-							</div>
-						</c:when>
+                   <c:choose>
+                  <c:when test="${empty tempPw}"> <%-- Pw를 못찾았을 때 --%>
+                     <div>
+                            <span>일치하는 정보가 없습니다.. </span>
+                         </div>
+                     <div class="header-buttonbox">
+                     
+                        <button type="button" class="btn btn-primary btn-lg" id="pervious" onclick="history.back();"> 뒤로 </button>
+                        <a href="${contextPath}/member/signUpTerms"><button type="button" class="btn btn-primary btn-lg" id="signUpTerms-btn"> 회원가입 </button></a>
+      
+                     </div>
+                  </c:when>
 
-						<c:otherwise>
-							<div>
-								<span>회원님의 이메일로 비밀번호를 발송하였습니다.</span>
-		                	</div>
-							<div class="header-buttonbox">
-								<button type="button" class="btn btn-primary btn-lg" id="login-btn" data-toggle="modal" data-target="#loginForm"> 로그인 </button>
-								<button type="button" class="btn btn-primary btn-lg" id="pervious" onclick="history.back();"> 뒤로 </button>
-							</div>
-						</c:otherwise>
-					</c:choose>
+                  <c:otherwise>
+                     <div>
+                        <span>회원님의 이메일로 비밀번호를 발송하였습니다.</span>
+                         </div>
+                     <div class="header-buttonbox">
+                        <button type="button" class="btn btn-primary btn-lg" id="login-btn" data-toggle="modal" data-target="#loginForm"> 로그인 </button>
+                        <button type="button" class="btn btn-primary btn-lg" id="pervious" onclick="history.back();"> 뒤로 </button>
+                     </div>
+                  </c:otherwise>
+               </c:choose>
                 
                 </div>
 

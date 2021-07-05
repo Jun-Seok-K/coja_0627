@@ -12,26 +12,20 @@ import java.util.Properties;
 
 import edu.kh.coja.member.model.vo.Member;
 
-// DAO(Data Access Object) : DB 연결 객체
 public class MemberDAO {
 
-	// 자주 사용하는 JDBC 객체 참조 변수 선언
 	private Statement stmt = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 
-	// 외부 XML 파일에 작성된 SQL 구문을 읽어와 저장할 Properties객체 참조 변수 선언
 	private Properties prop = null;
 
-	// 기본 생성자를 이용한 DAO 객체 생성 시 외부 XML파일을 읽어와 prop에 저장
 	public MemberDAO() {
-		// member-query.xml 파일의 경로 얻어오기
 		String filePath = MemberDAO.class.getResource("/edu/kh/coja/sql/member/member-query.xml").getPath();
 
 		try {
 			prop = new Properties();
 
-			// filePath 변수에 저장된 경로로 부터 XML 파일을 읽어와 prop에 저장
 			prop.loadFromXML(new FileInputStream(filePath));
 
 		} catch (Exception e) {
@@ -224,8 +218,7 @@ public class MemberDAO {
 	 * @param newPw1
 	 * @param memNo
 	 * @return result
-	 * @throws Exception
-	 * 작성자_강지애
+	 * @throws Exception 작성자_강지애
 	 */
 	public int pwUpdate(Connection conn, String currentPw, String newPw1, int memNo) throws Exception {
 
@@ -240,13 +233,13 @@ public class MemberDAO {
 			pstmt.setInt(3, memNo);
 
 			result = pstmt.executeUpdate();
-			
+
 		} finally {
 
 			close(pstmt);
 
 		}
-		
+
 		return result;
 	}
 
@@ -288,40 +281,37 @@ public class MemberDAO {
 	 * @param conn
 	 * @param id
 	 * @param email
-	 * @return findPw
+	 * @return result
 	 * @throws Exception 설화
 	 */
-	public String findPw(Connection conn, String id, String email) throws Exception {
+	public int findPw(Connection conn, String id, String email, String tempPw) throws Exception {
 
-		String findPw = null;
+		int result = 0;
 		String sql = prop.getProperty("findPw");
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			pstmt.setString(2, email);
-			rs = pstmt.executeQuery();
+			pstmt.setString(1, tempPw);
+			pstmt.setString(2, id);
+			pstmt.setString(3, email);
 
-			if (rs.next()) {
-				findPw = rs.getString(1);
-			}
+			result = pstmt.executeUpdate();
 
 		} finally {
-			close(rs);
 			close(pstmt);
 		}
 
-		return findPw;
+		return result;
 	}
 
+	
 	// 회원탈퇴 dao
 	/**
 	 * @param conn
 	 * @param memberNo
 	 * @return result
-	 * @throws Exception
-	 * 가을
-	 */ 
+	 * @throws Exception 가을
+	 */
 	public int secession(Connection conn, int memberNo) throws Exception {
 
 		int result = 0;
@@ -338,6 +328,71 @@ public class MemberDAO {
 		}
 		return result;
 
+	}
+
+	/**
+	 * 회원가입 후 블로그 생성 DAO
+	 * 
+	 * @param conn
+	 * @param memNo
+	 * @param memId
+	 * @return resultBlog
+	 * @throws Exception
+	 */
+	public int insertBlog(Connection conn, int memNo, String memId, String memNick) throws Exception {
+		int resultBlog = 0;
+
+		String sql = prop.getProperty("insertBlog");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setString(2, memNick + "의 블로그");
+			pstmt.setString(3, memId);
+			pstmt.setString(4, "블로그 소개글을 입력해주세요.");
+
+			resultBlog = pstmt.executeUpdate();
+
+		} finally {
+			close(pstmt);
+		}
+
+		return resultBlog;
+	}
+
+	/**
+	 * 회원가입 된 회원의 정보 조회
+	 * 
+	 * @param conn
+	 * @param memId
+	 * @return member
+	 * @throws Exception by 준석
+	 */
+	public Member selectMember(Connection conn, String memId) throws Exception {
+		Member member = null;
+
+		String sql = prop.getProperty("selectMember");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memId);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				int memNo = rs.getInt("MEM_NO");
+
+				member = new Member();
+				member.setMemNo(memNo);
+			}
+
+		} finally {
+			close(rs);
+			close(pstmt);
+
+		}
+
+		return member;
 	}
 
 }

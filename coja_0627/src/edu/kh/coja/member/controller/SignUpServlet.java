@@ -63,15 +63,15 @@ public class SignUpServlet extends HttpServlet {
 			/// 정석적이고 코드를 다 쓰는 방법이라 가독성이 높지만 아래처럼 하면 코드 줄일 수 있음
 			// MemberService service = new MemberService();
 			// int result = service.signUp(member);
-
-			int result = new MemberService().signUp(member);
+			
+			int resultBlog = new MemberService().signUp(member);
 			
 			// 2) 반환 받은 결과에 따라 응답 화면 제어
 	         String icon = null;
 	         String title = null;
 	         String text = null;
 			
-			if(result > 0) { // 회원가입 성공
+			if(resultBlog > 0) { // 회원가입 성공
 				icon = "success";
 				title = "회원 가입 성공";
 				text = "회원 가입을 환영합니다!";

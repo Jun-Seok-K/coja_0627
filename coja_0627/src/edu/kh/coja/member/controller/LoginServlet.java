@@ -1,6 +1,8 @@
 package edu.kh.coja.member.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -9,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import edu.kh.coja.blog.model.service.BlogService;
+import edu.kh.coja.blog.model.vo.Blog;
+import edu.kh.coja.blog.model.vo.Category;
 import edu.kh.coja.member.model.service.MemberService;
 import edu.kh.coja.member.model.vo.Member;
 
@@ -31,18 +36,30 @@ public class LoginServlet extends HttpServlet {
 			
 			// 로그인 Service를 위한 MemberService 객체 생성
 			MemberService service = new MemberService();
+			BlogService serviceBlog = new BlogService();
 			
 			// 로그인 요청을 처리할 수 있는 서비스 메소드를 호출하고 로그인 결과를 반환 받음.
 			Member loginMember = service.login(memId, memPw);
+			Blog loginBlog = serviceBlog.selectBlog(loginMember.getMemNo());
+			List<Category> loginCategory = serviceBlog.selectCategory(loginBlog.getMemNo());
 			
 			// 세션을 얻어와 변수에 저장
 			HttpSession session = request.getSession();
 			
+			String icon = null;
+			String title = null;
+			String text = null;
+			
 			// 서비스 수행 결과에 따른 View 연결 처리
 			if(loginMember != null) { // 로그인 성공
+				icon = "success";
+				title = "로그인 성공";
+				text = "로그인을 성공하였습니다.";
 				
 				// session에 로그인 정보 추가
 				session.setAttribute("loginMember", loginMember);
+				session.setAttribute("loginBlog", loginBlog);
+				session.setAttribute("loginCategory", loginCategory);
 				
 				// 30분 후 세션 만료
 				session.setMaxInactiveInterval(1800); // 초 단위로 작성
@@ -64,15 +81,18 @@ public class LoginServlet extends HttpServlet {
 				cookie.setPath( request.getContextPath() );
 			
 				// 5) response에 Cookie를 담아서 클라이언트로 전달
-				response.addCookie(cookie);					
+				response.addCookie(cookie);
+				
 				
 			}else { // 로그인 실패
-				
-				session.setAttribute("icon", "error");
-				session.setAttribute("title", "로그인 실패");
-				session.setAttribute("text", "아이디 또는 비밀번호가 일치하지 않습니다.");
-
+				icon = "error";
+				title = "로그인 실패";
+				text = "아이디 또는 비밀번호가 일치하지 않습니다.";
 			}
+			
+			session.setAttribute("icon", icon);
+			session.setAttribute("title", title);
+			session.setAttribute("text", text);
 			
 			response.sendRedirect(request.getContextPath());
 						

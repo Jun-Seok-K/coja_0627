@@ -147,7 +147,6 @@
 
 	<!-- content -->
 	<div id="content">
-
 		<!-- 캐러셀 -->
 		<div id="carouselExampleIndicators" class="carousel slide"
 			data-ride="carousel">
