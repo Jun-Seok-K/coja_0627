@@ -6,6 +6,7 @@ import java.sql.Connection;
 
 import edu.kh.coja.member.model.dao.MemberDAO;
 import edu.kh.coja.member.model.vo.Member;
+import edu.kh.coja.wrapper.EncryptWrapper;
 
 // Service : 비즈니스 로직 처리(데이터 가공, 트랜잭션 처리)
 public class MemberService {
@@ -25,7 +26,7 @@ public class MemberService {
 		Connection conn = getConnection();
 
 		Member loginMember = dao.login(conn, memId, memPw);
-
+		
 		close(conn);
 
 		return loginMember;
@@ -36,30 +37,38 @@ public class MemberService {
 	 * 회원가입 Service
 	 * 
 	 * @param member
-	 * @return result
+	 * @return resultBlog
 	 * @throws Exception
 	 */
 	public int signUp(Member member) throws Exception {
-
-		// 1) 커넥션 얻어오기
 		Connection conn = getConnection();
-
-		// 2) DAO 호출해서 insert 진행 후 결과 반환 받기
+		Member loginMember = null;
+		int resultBlog = 0;
 		int result = dao.signUp(conn, member);
-		/// 흐름대로 하면 여기까지 하고 DAO에 가서 signUp() 만들기
-
-		// 3) 반환 받은 결과에 따라 트랜잭션 처리하기
+		
+		
 		if (result > 0) {
 			commit(conn);
+			
+			loginMember = dao.selectMember(conn, member.getMemId());
+			
+			resultBlog = dao.insertBlog(conn, loginMember.getMemNo(), member.getMemNick(), member.getMemId());
+			
+			if(resultBlog > 0) {
+				commit(conn);
+				
+			}else {
+				rollback(conn);
+			}
 		} else {
 			rollback(conn);
 		}
-
-		// 4) 사용한 커넥션 반환하기
+		
 		close(conn);
 
-		// 5) 결과를 Controller로 반환하기
-		return result;
+		System.out.println("resultBlog : " + resultBlog);
+		
+		return resultBlog;
 	}
 
 	/**
@@ -179,17 +188,25 @@ public class MemberService {
 	 * @return findPw
 	 * @throws Exception 설화
 	 */
-	public String findPw(String id, String email) throws Exception {
+	   public int findPw(String id, String email, String tempPw) throws Exception {
+		      
+		      Connection conn = getConnection();
 
-		Connection conn = getConnection();
+		      tempPw= EncryptWrapper.getSha512(tempPw);
+		      
+		      int result = dao.findPw(conn, id, email, tempPw);
+		      
+		      if (result > 0) {
+		         commit(conn);
+		         System.out.println("commit 성공");
+		      } else {
+		         rollback(conn);
+		      }
 
-		String findPw = dao.findPw(conn, id, email);
+		      close(conn);
 
-		close(conn);
-
-		return findPw;
-	}
-
+		      return result;
+		   }
 	/**
 	 * 회원탈퇴 Service
 	 * 
