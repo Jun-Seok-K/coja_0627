@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<!-- 블로그 조회 SQL - 준석 - -->
+	<entry key="selectBlog">
+		SELECT MEM_NO, BLOG_NM, BLOG_ADDR, BLOG_VISIT,
+		BLOG_PUBLIC, BLOG_INTRO
+		FROM BLOG
+		WHERE MEM_NO = ?
+	</entry>
+
+	<!-- 블로그 insert SQL - 준석 - -->
+	<entry key="insertBlog">
+		INSERT INTO BLOG VALUES(
+		?, ?, ?, DEFAULT, DEFAULT, ?)
+	</entry>
+
+	<!-- 블로그 update SQL -->
+	<entry key="updateBlog">
+		UPDATE BLOG SET
+		BLOG_NM = ?,
+		BLOG_INTRO = ?,
+		BLOG_ADDR =
+		?
+		WHERE MEM_NO = ?
+	</entry>
+
+	<!-- 회원별 카테고리 리스트 조회 -->
+	<entry key="selectCategory">
+		SELECT CT_NO, CT_NM FROM BLOG_CT
+		WHERE MEM_NO = ?
+		AND
+		CT_STATUS = 'Y'
+	</entry>
+
+	<!-- 카테고리 업데이트 SQL -준석- -->
+	<entry key="updateCategory">
+		UPDATE BLOG_CT SET
+		CT_NM = ?
+		WHERE MEM_NO = ?
+		AND CT_NO = ?
+	</entry>
+
+</properties>
