@@ -195,9 +195,20 @@ div {
 			<!-- 버튼3 -->
 
 			<c:choose>
-				<c:when test="${ empty loginMember }">
+				<c:when test="${!empty loginMember}">
 					<div class="header-buttonbox">
+						<a href="${contextPath}/blog/myBlog">
+							<button type="button" class="header-button btn btn-secondary"
+								id="bt-1">내 블로그</button>
+						</a> <a href="${contextPath}/member/myPage"><button type="button"
+								class="header-button btn btn-secondary" id="bt-2">${loginMember.memId}</button></a>
+						<button type="button" class="header-button btn btn-secondary"
+							id="logout-btn">로그아웃</button>
+					</div>
+				</c:when>
 
+				<c:otherwise>
+					<div class="header-buttonbox">
 						<a href="${contextPath}/member/findID"><button type="button"
 								class="btn btn-light btn-sm" id="bt-1">ID찾기</button></a> <a
 							href="${contextPath}/member/findPw"><button type="button"
@@ -206,18 +217,6 @@ div {
 							data-toggle="modal" data-target="#loginForm">로그인</button>
 						<a href="${contextPath}/member/signUpTerms"><button
 								type="button" class="btn btn-info btn-sm" id="bt-4">회원가입</button></a>
-					</div>
-				</c:when>
-
-				<c:otherwise>
-					<div class="header-buttonbox">
-						<a href="${contextPath}/blog/blogSetting">
-						<button type="button" class="header-button btn btn-secondary"
-							id="bt-1" href="${contextPath}/member/myblog">내 블로그</button></a>
-						<a href="${contextPath}/member/myPage"><button type="button"
-								class="header-button btn btn-secondary" id="bt-2">${loginMember.memId}</button></a>
-						<button type="button" class="header-button btn btn-secondary"
-							id="logout-btn">로그아웃</button>
 					</div>
 				</c:otherwise>
 			</c:choose>

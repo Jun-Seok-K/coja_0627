@@ -46,7 +46,7 @@
 	margin-left: 50px;
 	margin-top: 30px;
 	float: left;
-	text-align: center;
+	text-align: left;
 	font-size: 25px;
 	font-weight: bold;
 }
@@ -87,7 +87,7 @@
 
 		<!-- 블로그 이름 영역 -->
 		<div id="blogNameArea">
-			<span>블로그 이름이 들어갈 자리입니다.</span>
+			<span>${loginBlog.blogNm }</span>
 		</div>
 
 		<!-- 검색창 및 검색버튼 -->

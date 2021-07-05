@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <!-- -------------------------------------아직 기능은 미구현 ---------------------------------------------- -->
@@ -163,7 +166,7 @@ td {
 					<!-- <img src="#">프사 들어갈 자리 -->
 				</div>
 				<div class="card border-secondary mb-3" id="introduceText">
-					<span>블로그 소개글 간략히 들어갈 자리, 줄바꿈 되는지도 확인할 겸 조금 길게 써봄...</span>
+					<span>${loginBlog.blogIntro }</span>
 				</div>
 				<div class="card border-secondary mb-3" id="grassArea">
 
@@ -185,15 +188,9 @@ td {
 				<div id="settingBtnArea">잔디 펼치기 및 톱니바퀴 버튼 자리</div>
 				<div class="card border-secondary mb-3" id="categoryArea">
 					<ul>
-						<li>java</li>
-						<li>java</li>
-						<li>java</li>
-						<li>java</li>
-						<li>java</li>
-						<li>java</li>
-						<li>java</li>
-						<li>java</li>
-						<li>java</li>
+						<c:forEach var="item" items="${loginCategory}">
+							<li><a href="#">${item.ctNm}</a></li>
+						</c:forEach>
 					</ul>
 				</div>
 				<div id="blogSearchArea">

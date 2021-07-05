@@ -32,8 +32,8 @@ public class MemberService {
 		return loginMember;
 	}
 
-	/* by Mia */
-	/**
+	
+	/* by Mia
 	 * 회원가입 Service
 	 * 
 	 * @param member
@@ -118,7 +118,6 @@ public class MemberService {
 
 	/**
 	 * 회원정보 update Service
-	 * 
 	 * @param memNick
 	 * @param memWorkExp
 	 * @param memExpYr
@@ -214,7 +213,6 @@ public class MemberService {
 	 * @return result
 	 * @throws Exception 가을
 	 */
-
 	public int secession(int memberNo) throws Exception {
 
 		Connection conn = getConnection();

@@ -53,7 +53,7 @@ public class EncryptWrapper extends HttpServletRequestWrapper {
     * @param pwd
     * @return encPwd
     */
-   private String getSha512(String pwd) {
+   public static String getSha512(String pwd) {
       
       // 1. 암호화된 비밀번호를 저장할 변수 선언
       String encPwd = null;

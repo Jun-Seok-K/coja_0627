@@ -26,7 +26,7 @@ public class SelectMemberDAO {
 	   private Properties prop = null;
 
 	   public SelectMemberDAO() {
-	      String filePath = SelectMemberDAO.class.getResource("/edu/kh/coja/sql/member/member-query.xml").getPath();
+	      String filePath = SelectMemberDAO.class.getResource("/edu/kh/coja/sql/admin/admin-query.xml").getPath();
 	      try {
 	         prop = new Properties();
 	         // filePath 변수에 저장된 경로로부터 XML 파일을 읽어와 prop에 저장

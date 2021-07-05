@@ -33,7 +33,7 @@ public class MemberUpdateServlet extends HttpServlet {
 		try {
 			int result = new MemberService().updateMember(memNo, memNick, memWorkExp, memExpYr);
 			
-			System.out.println(result);
+			// System.out.println(result);
 			
 			String icon = null;
 			String title = null;
