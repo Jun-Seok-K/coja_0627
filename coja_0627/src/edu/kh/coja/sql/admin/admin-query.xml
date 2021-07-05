@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+   
+   <!-- admin 전체 회원리스트 조회 리스트 페이지네이션 용 -->
+   <entry key="memberListCount">
+      SELECT COUNT(*)
+      FROM MEMBER
+   </entry>
+   <!-- admin 신고횟수5초과 조회 리스트 페이지네이션 용 -->
+   <entry key="warningMemberCount">
+      SELECT COUNT(*)
+      FROM MEMBER
+      WHERE MEM_WARN > 5
+      	AND MEM_STATUS = 'Y'
+   </entry>
+      <!-- admin 블라인드 회원 조회 리스트 페이지네이션 용 -->
+   <entry key="blindMemberCount">
+      SELECT COUNT(*)
+      FROM MEMBER
+      WHERE MEM_STATUS = 'S'
+   </entry>
+      <!-- admin 탈퇴 회원 조회 리스트 페이지네이션 용 -->
+   <entry key="closedAccountCount">
+      SELECT COUNT(*)
+      FROM MEMBER
+      WHERE MEM_STATUS = 'N'
+   </entry>
+   
+   <!-- admin 모든 회원 정보조회 -->
+   <entry key="memberList">
+      SELECT *
+      FROM MEMBER
+      WHERE MEM_NO BETWEEN ? AND ?
+   </entry>
+
+
+   <!-- admin 5회 초과 신고된 회원 정보조회 -->
+	<entry key="warningMember">
+		SELECT * FROM 
+		    (SELECT ROWNUM RNUM, A.* 
+		     FROM MEMBER A WHERE MEM_WARN >5 AND MEM_STATUS ='Y'
+		     ORDER BY MEM_NO
+		     )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!-- admin 블라인드 처리된 회원 정보조회 -->
+	<entry key="blindMember">
+		SELECT * FROM 
+		    (SELECT ROWNUM RNUM, A.* 
+		     FROM MEMBER A WHERE MEM_STATUS = 'S' 
+		     ORDER BY MEM_NO
+		     )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
+	<!-- admin 탈퇴한 계정 정보조회 -->
+	<entry key="closedAccount">
+		SELECT * FROM 
+		    (SELECT ROWNUM RNUM, A.* 
+		     FROM MEMBER A WHERE MEM_STATUS = 'N' 
+		     ORDER BY MEM_NO
+		     )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!-- admin 회원상태 update -->
+	<entry key="updateMemberStatus">
+		UPDATE MEMBER SET
+		MEM_STATUS= ?
+        WHERE MEM_NO=?
+	</entry>
+	
+	<entry key="updateStatus">
+		UPDATE MEMBER SET
+		MEM_STATUS= ?
+        WHERE MEM_NO=?
+	</entry>
+	
+</properties>
