@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<!-- 전체 게시글 수 조회 -->
+	<entry key="getBrdListCount">
+		SELECT COUNT(*)
+		FROM BRD_LIST
+		WHERE BRD_STATUS = 'Y'
+	</entry>
+	
+	<!-- 게시글 목록 조회 -->
+	<entry key="selectBrdList">
+		SELECT * 
+		FROM (SELECT ROWNUM RNUM, A.* 
+			  FROM (SELECT * FROM BRD_LIST
+        			WHERE BRD_STATUS = 'Y'
+        			ORDER BY BRD_NO DESC) A)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!-- 게시글 상세 조회 -->
+	<entry key="selectBrd">
+		SELECT * FROM BRD_DETAIL
+		WHERE BRD_NO = ?
+		AND BRD_STATUS = 'Y'
+	</entry>
+
+	<!-- 게시글 조회수 증가 -->
+	<entry key="increaseBrdReadCount">
+		UPDATE BOARD SET 
+		BRD_READ_COUNT = BRD_READ_COUNT + 1
+		WHERE BRD__NO = ?	
+	</entry>
+</properties>

@@ -1,4 +1,4 @@
-package edu.kh.coja.board.service;
+package edu.kh.coja.board.model.service;
 
 import static edu.kh.coja.common.JDBCTemplate.*;
 

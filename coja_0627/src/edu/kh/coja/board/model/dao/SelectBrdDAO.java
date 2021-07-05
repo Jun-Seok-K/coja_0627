@@ -44,44 +44,38 @@ public class SelectBrdDAO {
 		}
 	}
 
+	
 	/**
-	 * 전체 게시글 수 + 카테고리 이름 조회 DAO
+	 * 전체 게시글 수 조회 DAO
 	 * 
 	 * @param conn
 	 * @param cp
-	 * @param brdType
-	 * @return map
+	 * @return brdListCount
 	 * @throws Exception
 	 */
-	public Map<String, Object> getBrdListCount(Connection conn, String brdType) throws Exception {
+	public int getBrdListCount(Connection conn) throws Exception {
 
-		Map<String, Object> map = new HashMap<String, Object>();
+		int brdListCount = 0;
 
 		String sql = prop.getProperty("getBrdListCount");
 
 		try {
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, brdType);
-			pstmt.setString(2, brdType);
-
-			rs = pstmt.executeQuery();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
 
 			if (rs.next()) {
-
-				map.put("brdListCount", rs.getInt(1));
-				map.put("brdTypeNm", rs.getString(2));
+				brdListCount = rs.getInt(1);
 			}
 
 		} finally {
 			close(rs);
-			close(pstmt);
+			close(stmt);
 		}
-		;
 
-		return map;
+		return brdListCount;
 	}
 
+	
 	/**
 	 * 게시글 목록 조회 DAO
 	 * 
@@ -99,14 +93,12 @@ public class SelectBrdDAO {
 		try {
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setString(1, brdPagination.getBrdType());
-
 			// 조회할 범위를 지정할 변수 선언
 			int brdStartRow = (brdPagination.getBrdCurrentPage() - 1) * brdPagination.getBrdLimit();
 			int brdEndRow = brdStartRow + brdPagination.getBrdLimit() - 1;
 
-			pstmt.setInt(2, brdStartRow);
-			pstmt.setInt(3, brdEndRow);
+			pstmt.setInt(1, brdStartRow);
+			pstmt.setInt(2, brdEndRow);
 
 			rs = pstmt.executeQuery();
 
@@ -114,24 +106,13 @@ public class SelectBrdDAO {
 				// 조회한 한 행의 정보를 board에 set
 				Board board = new Board();
 
-				board.setBrdNo(rs.getInt(""));
-				board.setBrdTypeNm(rs.getString(""));
-				board.setBrdTitle(rs.getString(""));
-				board.setMemNick(rs.getString(""));
-				board.setBrdReadCount(rs.getInt(""));
-				board.setBrdCreateDt(rs.getDate(""));
-
-				// 1) board의 brdImgUrl, brdImgNm에 set할 수 있는 List 객체부터 생성
-				List<String> brdImgUrl = new ArrayList<String>();
-				List<String> brdImgNm = new ArrayList<String>();
-
-				// 2) 생성된 리스트에 DB 조회 결과를 추가
-				brdImgUrl.add(rs.getString(""));
-				brdImgNm.add(rs.getString(""));
-
-				// 3) 리스트를 board에 set
-				board.setBrdImgUrl(brdImgUrl);
-				board.setBrdImgNm(brdImgNm);
+				board.setBrdNo(rs.getInt("BRD_NO"));
+				board.setBrdTypeNm(rs.getString("BRD_TYPE_NM"));
+				board.setBrdTitle(rs.getString("BRD_TITLE"));
+				board.setMemNick(rs.getString("MEM_NICK"));
+				board.setBrdReadCount(rs.getInt("BRD_READ_COUNT"));
+				board.setBrdCreateDt(rs.getDate("BRD_CREATE_DT"));
+				board.setBrdLike(rs.getInt("BRD_LIKE"));
 
 				// set 완료된 board를 boardList에 추가
 				brdList.add(board);
@@ -173,24 +154,25 @@ public class SelectBrdDAO {
 			
 			while(rs.next()) {
 				if(flag) {
-					board.setBrdNo(rs.getInt(""));
-					board.setBrdType(rs.getString(""));
-					board.setBrdTitle(rs.getString(""));
-					board.setMemNick(rs.getString(""));
-					board.setBrdReadCount(rs.getInt(""));
-					board.setBrdCreateDt(rs.getDate(""));
+					board.setBrdNo(rs.getInt("BRD_NO"));
+					board.setBrdTitle(rs.getString("BRD_TITLE"));
+					board.setBrdCnt(rs.getString("BRD_CNT"));
+					board.setBrdReadCount(rs.getInt("BRD_READ_COUNT"));
+					board.setBrdCreateDt(rs.getDate("BRD_CREATE_DT"));
+					board.setBrdModifyDt(rs.getDate("BRD_MODIFY_DT"));
+					board.setBrdTypeNm(rs.getString("BRD_TYPE_NM"));
+					board.setMemNo(rs.getInt("MEM_NO"));
+					board.setMemNick(rs.getString("MEM_NICK"));
+					board.setBrdLike(rs.getInt("BRD_LIKE"));
 					
-					board.setBrdCnt(rs.getString(""));
-					board.setMemNo(rs.getInt(""));
-					board.setBrdModifyDt(rs.getDate(""));
 					flag = false;
 				}
 				
 				// 조회된 파일 관련 정보를 저장할 객체 선언(경로, 이름, 레벨)
 				BrdImg brdImg = new BrdImg();
-				brdImg.setBrdImgUrl( rs.getString("") );
-				brdImg.setBrdImgNm( rs.getString("") );
-				brdImg.setBrdImgLv( rs.getInt("") );
+				brdImg.setBrdImgUrl( rs.getString("BRD_IMG_URL") );
+				brdImg.setBrdImgNm( rs.getString("BRD_IMG_NM") );
+				brdImg.setBrdImgLv( rs.getInt("BRD_IMG_LEVEL") );
 				
 				// 값 세팅이 완료된 BrdImg 객체를
 				// board의 brdImgList에 추가

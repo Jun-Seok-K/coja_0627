@@ -34,7 +34,6 @@ public class SelectBoardController extends HttpServlet {
 		String title = null;
 		String text = null;
 
-		
 		try {
 
 			SelectBrdService service = new SelectBrdService();
@@ -46,11 +45,8 @@ public class SelectBoardController extends HttpServlet {
 			// 게시글 목록 조회 Controller
 			if (command.equals("list")) {
 
-				// 쿼리스트링에 있는 type을 얻어와 저장
-				String brdType = request.getParameter("type");
-
 				// 페이징 처리를 위한 여러 정보를 담고있는 객체 brdPagination 생성
-				BrdPagination brdPagination = service.getBrdPagination(cp, brdType);
+				BrdPagination brdPagination = service.getBrdPagination(cp);
 
 				// brdPagination을 이용하여 게시글 목록에 보여져야할 내용을 DB에서 조회
 				List<Board> brdList = service.selectBrdList(brdPagination);
