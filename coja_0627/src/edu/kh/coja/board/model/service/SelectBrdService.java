@@ -79,4 +79,10 @@ public class SelectBrdService {
 		
 		return board;
 	}
+
+
+	public int brdDelete(int boardNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

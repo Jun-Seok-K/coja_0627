@@ -10,18 +10,14 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Admin Member List</title>
-   
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+   <title>Admin Board List</title>
 
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
       integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
    <style>
-
       /* ------------------------------영역구분선------------------------------ */
-	  /* userInfoArea div와 contentArea div를 감싸는 div */
+      /* userInfoArea div와 contentArea div를 감싸는 div */
       #contentContainer {
          /* background-color: red;*/
          margin: auto;
@@ -43,6 +39,15 @@
          float: left;
          width : 50%;
       }
+      
+      .container {
+         /* border : 1px solid red; */
+         width: 896px;
+         height: auto;
+         float: left;
+         margin-top: 5%;
+      }
+
       /* 컬럼명 가운데 정렬 */
       #list-table th {
          text-align: center;
@@ -57,74 +62,82 @@
       .list-wrapper {
          min-height: 540px;
       }
+
+      /* 글 제목 영역의 너비를 table의 50% 넓게 설정
+      #list-table td:nth-child(3) {
+         width: 50%;
+      }*/
+
       /* 제목 a태그 색 변경 */
       #list-table td:nth-child(3)>a {
          color: black;
       }
+
+      /* 게시글 제목에 영역 이미지 설정 */
+      .boardTitle img {
+         width: 70px;
+         padding: 10px
+      }
+
       /* pagination 가운데 정렬 */
       .pagination {
          justify-content: center;
       }
+
       #searchForm {
          position: relative;
       }
+
       #searchForm>* {
          top: 0;
       }
       /* ------------------------------영역구분선------------------------------ */
+
    </style>
 </head>
 
 <body>
 
 	<jsp:include page="../common/headerAdmin.jsp" />
-   <!-- 전체 div를 포함하는 영역 -->
-      <!-- ===============================영역구분선=============================== -->
    <div id="contentContainer">
+      <!-- ===============================영역구분선=============================== -->
    
       <div id="contentArea">
          <div id="h-menu">
-            <div class="h-div"><h2><span id="listTitle">전체 회원</span> 리스트</h2></div>
+            <div class="h-div"><h2><span id="listTitle">게시판</span> 리스트</h2></div>
             <div class="mem-menu">
-               <form method="POST" action="memberList">
-                  <select name="memberOption">
-                     <option value="memberList" selected>전체 회원</option>
-                     <option value="warningMember">신고 회원</option>
-                     <option value="blindMember">정지 회원</option>
-                     <option value="closedAccount">탈퇴 계정</option>
+               <form method="POST" action="boardList">
+                  <select name="boardOption">
+                     <option value="boardList" selected>전체글</option>
+                     <option value="notice">공지글</option>
+                     <option value="free">자유글</option>
+                     <option value="qna">질문글</option>
+                     <option value="delete">삭제글</option>
                   </select>
                   <button type="submit">조회</button>
                </form>
             </div>
          </div>
          <div class="list-wrapper">
-         
             <table class="table table-hover table-striped my-1" id="list-table">
-            
+
                <thead>
-               
                   <tr>
-                     <th>회원번호</th>
-                     <th>아이디</th>
-                     <th>이름</th>
-                     <th>닉네임</th>
-                     <th>이메일</th>
-                     <th>가입일</th>
-                     <th>경력여부</th>
-                     <th>연차</th>
-                     <th>신고</th>
-                     <th>회원상태</th>
-                     <th>상태 변경</th>
+                     <th>No.</th>
+                     <th>카레고리</th>
+                     <th>글제목</th>
+                     <th>작성자</th>
+                     <th>작성일</th>
+                     <th>신고횟수</th>
                   </tr>
                </thead>
 
                <tbody>
-                   <tr>
                    <c:choose>
                        <%-- 조회된 게시글 목록이 없는 경우 --%>
-                          <c:when test="${empty memberList}">
+                          <c:when test="${empty boardList}">
                              <tr>
-                                <td colspan="7">회원이 존재하지 않습니다</td>
+                                <td colspan="7">게시글이 존재하지 않습니다</td>
                              </tr>
      
                           </c:when>
@@ -133,57 +146,26 @@
      
                           <c:otherwise>
   
-                             <c:forEach items="${memberList}" var="member">
-                                <tr>
-                                   
-                                      <%--회원번호(No) --%>
-                                      <td>${member.memNo}</td>
-                                      <%-- 회원아이디 --%>
-                                      <td>${member.memId}</td>
-                                      <%-- 회원이름 --%>
-                                      <td>${member.memNm}</td>
-                                      <%-- 닉네임 --%>
-                                      <td>${member.memNick}</td>
-                                      <%-- 이메일 --%>
-                                      <td>${member.memEmail}</td>
-                                      <%-- 가입일 --%>
-                                      <td>${member.memEnrollDt}</td>
-                                      <%-- 경력여부 --%>
-                                      <td>${member.memWorkExp}</td>
-                                      <%-- 연차 --%>
-                                      <td>${member.memExpYr}</td>
-                                      <%--신고횟수 --%>
-                                      <td>${member.memWarningPoint}</td>
-                                      <%-- 회원 상태--%>
-                                      <td>   
-                                         <select name="memberStatus" >
-                                         <c:if test="${member.memStatus=='Y'}">
-                                    <option value="Y" selected>Y</option>
-                                    <option value="S">S</option>
-                                    <option value="N">N</option>
-                                         </c:if>
-                                         <c:if test="${member.memStatus=='S'}">
-                                    <option value="Y">Y</option>
-                                    <option value="S" selected>S</option>
-                                    <option value="N">N</option>
-                                         </c:if>
-                                         <c:if test="${member.memStatus=='N'}">
-                                    <option value="Y">Y</option>
-                                    <option value="S">S</option>
-                                    <option value="N" selected>N</option>
-                                         </c:if>
-                                 </select>
-                              </td>
-                                      <%-- 회원 상태 변경 버튼--%>
-                              <td><button type="button" onclick="updteStatus(${member.memNo}, this);">상태변경</button></td>
+                             <c:forEach items="${boardList}" var="board">
+                                <tr >
+                                      <%--게시글 번호(No.) --%>
+                                      <td>${board.boardNo}</td>
+                                      <%-- 카테고리 --%>
+                                      <td>${board.boardTypeNm}</td>
+                                      <%-- 글제목 --%>
+                                      <td>${board.boardTitle}</td>
+                                      <%-- 작성자 --%>
+                                      <td>${board.memNm}</td>
+                                      <%-- 작성일 --%>
+                                      <td>${board.boardCreateDate}</td>
+                                      <%-- 신고횟수 --%>
+                                      <td>${board.boardWarn}</td>
                                 </tr>
-                                
                              </c:forEach>
                           </c:otherwise>
                  </c:choose>
                </tbody>
             </table>
-            
          </div>
          <!----------------------------------------------------------------------------------------------  content end -->
 
@@ -193,15 +175,15 @@
          <div class="my-2">
             <ul class="pagination my-2">
             
-<%--                <c:set var="pageURL" value="list?type=${pagination.boardType}" />
+<%--        <c:set var="pageURL" value="list?type=${pagination.boardType}" />
             <c:set var="prev" value="${pageURL}&cp=${pagination.prevPage}" /> 
             <c:set var="next" value="${pageURL}&cp=${pagination.nextPage}" /> 
  --%>
-               <c:set var="pageURL" value="memberList" />
+               <c:set var="pageURL" value="boardList" />
                
-               <%-- memberOption이 파라미터로 있을 경우 --%>
-               <c:if test="${!empty param.memberOption}">
-                  <c:set var="op" value="&memberOption=${param.memberOption}"/>
+               <%-- boardOption이 파라미터로 있을 경우 --%>
+               <c:if test="${!empty param.boardOption}">
+                  <c:set var="op" value="&memberOption=${param.boardOption}"/>
                </c:if>
                
             <c:set var="prev" value="${pageURL}?cp=${pagination.prevPage}${op}" /> 
@@ -274,63 +256,39 @@
 
    <!-- ===============================영역구분선=============================== -->
    <jsp:include page="../common/footer.jsp" />
-   
-   
 
+   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
       crossorigin="anonymous"></script>
 
 
    <script>
-   
-      $("select[name='memberOption'] > option").each(function(index, item){
-         if( $(item).val() == "${param.memberOption}" ){
-            $(item).prop("selected", true);
-            $("#listTitle").text($(item).text());
-         }
-      });
+   /* select 옵션 관련 이벤트 */
+	$("select[name='boardOption'] > option").each(function(index, item){
+	   if( $(item).val() == "${param.boardOption}" ){
+	      $(item).prop("selected", true);
+	      $("#listTitle").text($(item).text());
+	   }
+	});
+      
+   /* 게시글 상세조회 관련 이벤트 */
+  	$("#list-table td").on("click", function(){
+		console.log( $(this).parent().children().eq(0).text().trim() );
+		// $(this) : 클릭된 td 태그
+		// parent() : 부모 요소(tr)
+		// children() : 모든 자식요소 (td 4개)
+		// eq(0) : 모든 자식 요소 중 0번 째 인덱스 자식 (숫자 써진 td)			
+		// text() : 요소에 작성된 내용 얻어오기
+		// trim() : 양쪽 공백 제거
+		
+		const boardNo = $(this).parent().children().eq(0).text().trim();
+		
+		location.href = "${contextPath}/admin/board/boardView?boardNo=" + boardNo;
+		
+	});
    
    </script>
-
-   <script>
-   
-   /*$(function(){
-      $("#memberStatusUpdate-btn").click(function(){
-         funUpdateStatus();
-      })
-   })
-   
-   function funUpdateStatus(){
-      const memStatus = $("#memberStatus").val();
-      console.log(memStatus);
-   }*/
-   
-      function updteStatus(memNo, btn){
-      
-         const memberStatus = $(btn).parent().prev().children("select").val();
-         
-         $.ajax({
-            url : "${contextPath}/admin/member/memberStatusUpdate",
-            data : {"memNo" : memNo, "memStatus" : memberStatus},
-            type : "POST",
-            success : function(result){
-               if(result > 0){
-                  alert("변경 성공");
-               }
-            },
-            error : function(){
-               console.log("실패");
-            }
-         })
-      
-      
-      }
-   
-   
-   
-   </script>
-
 
 </body>
 
