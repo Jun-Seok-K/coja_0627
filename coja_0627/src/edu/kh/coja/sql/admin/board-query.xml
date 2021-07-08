@@ -34,8 +34,7 @@
 			 FROM ADMIN_BRD_LIST A 
 			 WHERE BRD_TYPE_NM = '공지'
 			 AND BRD_STATUS = 'Y' 
-			 ORDER BY BRD_NO
-			 )
+			 ORDER BY BRD_NO)
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
