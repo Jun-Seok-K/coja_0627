@@ -16,7 +16,95 @@
       integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
    <style>
+      @font-face {
+         font-family: 'NEXON Lv1 Gothic OTF';
+         src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+         font-weight: normal;
+         font-style: normal;
+      }
+      body * {
+         font-family: 'NEXON Lv1 Gothic OTF';
+      }
+
+      /* border 주석 풀면 전체적인 div 구획 확인 가능 */
+      /*div {
+            border: 1px solid black;
+            box-sizing: border-box;
+        }
+      */
+      .header {
+         /* background-color: red; */
+         width: 1200px;
+         height: 80px;
+         margin: auto;
+         box-sizing: border-box;
+         text-align: left;
+         line-height: 70px;
+         border-bottom: 1px solid lightgray
+      }
+      /* 로고박스 */
+      .header-logobox {
+         width: 20%;
+         height: 100%;
+         box-sizing: border-box;
+         float: left;
+      }
+
+      /* 로고 */
+      #header-logo {
+         width: 100%;
+         height: 90%;
+
+      }
+
+      /* 검색창박스 */
+      .header-searchbox {
+         width: 50%;
+         height: 100%;
+         text-align: center;
+         box-sizing: border-box;
+         margin: auto;
+         float: left;
+      }
+
+      /* 검색입력창 */
+      .header-search-area {
+         width: 75%;
+         display: inline-block;
+      }
+
+      /* 버튼박스 */
+      .header-buttonbox {
+         width: 30%;
+         height: 100%;
+         text-align: center;
+         box-sizing: border-box;
+         margin: auto;
+         float: left;
+      }
+
+      /* 내블로그,마이페이지,로그아웃 */
+      .header-button {
+         width: 30%;
+         height: 38px;
+         display: inline-block;
+         border-radius: 10px;
+         font-size: 14px;
+         color: black;
+         font-weight: 700;
+         border-style: none;
+         margin-top: 10px;
+         margin-right: 1%;
+      }
+
+      #bt-1 {
+         background-color: gainsboro;
+      }
+
+      /* header 끝 */
+
       /* ------------------------------영역구분선------------------------------ */
+
       /* userInfoArea div와 contentArea div를 감싸는 div */
       #contentContainer {
          /* background-color: red;*/
@@ -24,6 +112,57 @@
          width: 1200px;
          height: auto;
       }
+
+      /* ---------------------------구분선------------------------ */
+/*       .navi-box {
+         width: 200px;
+         height: 165px;
+         margin: auto;
+         margin-top: 60px;
+      }
+
+      .navigator {
+         text-align: center;
+         line-height: 100px;
+      }
+
+      /* 관리자 네비관련 */
+      #navi{
+          width: 1200px;
+         height: auto;
+         margin: auto;
+         box-sizing: border-box;
+         text-align: left;
+         line-height: 70px;
+         border-bottom: 1px solid lightgray;
+         background-color : pink;
+      }
+      
+      #navi li a:hover {
+         color: #c7f1ec;
+      }
+      
+      .navi-a{
+         text-decoration: none;
+      display: inline-block;
+      
+      
+      }
+
+      .navi-li{
+         text-align: center;
+         float:left;
+         margin-left : 50px;
+         margin-right: 50px
+         
+      }
+      
+      .navi-ul{
+         list-style-type: none;
+      }
+
+      /* ------------------------------영역구분선------------------------------ */
+
       /* content ) 게시글 목록 스타일 */
       #contentArea{
       }
@@ -92,13 +231,63 @@
          top: 0;
       }
       /* ------------------------------영역구분선------------------------------ */
-
+      /* footer 시작 */
+      .footer {
+         width: 1200px;
+         height: 60px;
+         line-height: 60px;
+         margin: auto;
+         background-color: #e9e9e9;
+         text-align: center;
+         clear: both;
+      }
+      .footer-text {
+         text-align: center;
+         color: gray;
+         font-size: 12px;
+         border-style: none;
+         text-decoration: none;
+         margin-right: 1.5%;
+      }
+      /* footer 끝 */
    </style>
 </head>
 
 <body>
 
-	<jsp:include page="../common/headerAdmin.jsp" />
+   <!-- header -->
+      <div class="header">
+      <!-- 로고 -->
+      <div class="header-logobox">
+         <a href="${contextPath}"><img
+               src="https://assets.bigcartel.com/theme_images/10846261/cojalogo.png?auto=format&fit=max&h=500&w=1800"
+               id="header-logo"></img></a>
+      </div>
+
+      <!-- 검색 -->
+      <div class="header-searchbox">
+
+      </div>
+
+      <!-- 버튼3 -->
+      <div class="header-buttonbox">
+
+         <button type="button" class="header-button btn btn-secondary" id="bt-1">관리자모드</button>
+         <button type="button" class="header-button btn btn-secondary" id="bt-1">로그아웃</button>
+      </div>
+      </div>
+
+   <!-- ===============================영역구분선=============================== -->
+   <div id="navi">
+      <ul class="navi-ul">
+         <li class="navi-li"><a class="navi-a" href="${contextPath}/main">Main</a></li>
+         <li class="navi-li"><a class="navi-a" href="${contextPath}/member/memberList">Members</a></li>
+         <li class="navi-li"><a class="navi-a" href="${contextPath}/board/boardList">Boards</a></li>
+         <li class="navi-li"><a class="navi-a" href="${contextPath}/blog">Blogs</a></li>
+         <li class="navi-li"><a class="navi-a" href="${contextPath}/blog">Reports</a></li>
+      </ul>
+   </div>
+   <!-- 전체 div를 포함하는 영역 -->
    <div id="contentContainer">
       <!-- ===============================영역구분선=============================== -->
    
@@ -171,9 +360,10 @@
 
          <!----------------------------------------------------------------------------------------------  Pagination start -->
          <!-- 페이징 처리 시 주소를 쉽게 작성할 수 있도록 필요한 변수를 미리 선언 -->
-
+		<c:if test="${empty param.sk && empty param.sv }">
+		
          <div class="my-2">
-            <ul class="pagination my-2">
+            <ul class="pagination my-4">
             
 <%--        <c:set var="pageURL" value="list?type=${pagination.boardType}" />
             <c:set var="prev" value="${pageURL}&cp=${pagination.prevPage}" /> 
@@ -183,7 +373,7 @@
                
                <%-- boardOption이 파라미터로 있을 경우 --%>
                <c:if test="${!empty param.boardOption}">
-                  <c:set var="op" value="&memberOption=${param.boardOption}"/>
+                  <c:set var="op" value="&boardOption=${param.boardOption}"/>
                </c:if>
                
             <c:set var="prev" value="${pageURL}?cp=${pagination.prevPage}${op}" /> 
@@ -223,12 +413,14 @@
                </c:if>
             </ul>
          </div>
-
+         
+		</c:if>   
          <!----------------------------------------------------------------------------------------------  Pagination end -->
 
          <!-- 검색창 -->
-         <div class="my-2">
-            <form action="#" method="GET" class="text-center" id="searchForm">
+           <div class="my-2">
+            <form action="boardList" method="GET" class="text-center" id="searchForm">
+            
                <div class="container2">
                   <div class="row">
                      <div class="col-sm" align="right">
@@ -240,9 +432,10 @@
                      </div>
                      <div class="col-sm" align="left">
                         <select name="sk" class="form-control" style="width: 200px; display: inline-block;">
-                           <option value="nick">닉네임으로 검색</option>
-                           <option value="content">닉네임으로 검색</option>
-                           <option value="writer">아이디로 검색</option>
+                           <option value="title">글제목 검색</option>
+                           <option value="content">내용 검색</option>
+                           <option value="titcont">제목+내용 검색</option>
+                           <option value="writer">작성자 검색</option>
                         </select>
                      </div>
                   </div>
@@ -251,8 +444,6 @@
          </div>
       </div>
    </div>
-
-
 
    <!-- ===============================영역구분선=============================== -->
    <jsp:include page="../common/footer.jsp" />
@@ -275,18 +466,29 @@
    /* 게시글 상세조회 관련 이벤트 */
   	$("#list-table td").on("click", function(){
 		console.log( $(this).parent().children().eq(0).text().trim() );
-		// $(this) : 클릭된 td 태그
-		// parent() : 부모 요소(tr)
-		// children() : 모든 자식요소 (td 4개)
-		// eq(0) : 모든 자식 요소 중 0번 째 인덱스 자식 (숫자 써진 td)			
-		// text() : 요소에 작성된 내용 얻어오기
-		// trim() : 양쪽 공백 제거
 		
 		const boardNo = $(this).parent().children().eq(0).text().trim();
 		
 		location.href = "${contextPath}/admin/board/boardView?boardNo=" + boardNo;
 		
 	});
+   
+	   // 검색 내용이 있을 경우 검색창에 해당 내용을 작성해두는 기능
+	   (function(){
+	      var searchKey = "${param.sk}"; 
+	      var searchValue = "${param.sv}";
+	      
+	      // 검색창 select의 option을 반복 접근
+	      $("select[name=sk] > option").each(function(index, item){
+	         if( $(item).val() == searchKey  ){
+	            $(item).prop("selected", true);
+	         }
+	      });      
+	      
+	      $("input[name=sv]").val(searchValue);
+	   })();
+   
+   
    
    </script>
 

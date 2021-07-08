@@ -85,11 +85,13 @@ public class SelectBlogController extends HttpServlet {
 
 				Posting posting = service.selectPosting(pstNo);
 
+				System.out.println(posting);
 				request.setAttribute("posting", posting);
 
 				path = "/WEB-INF/views/blog/postingView.jsp";
 				view = request.getRequestDispatcher(path);
 				view.forward(request, response);
+				
 			}
 
 		} catch (Exception e) {

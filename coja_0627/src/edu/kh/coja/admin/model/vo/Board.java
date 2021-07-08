@@ -18,16 +18,13 @@ public class Board {
 	private int memNo;
 	
 	
-   // 목록 조회 시 하나만 조회되지만,
-   // 상세 조회 시 여러 개가 조회 될 수 있기 때문에 List로 선언
-   private List<String> boardImgUrl;
-   private List<String> boardImgNm;
+   private List<String> brdImgUrl;
+   private List<String> brdImgNm;
 
 	// 상세조회에 필요한 필드
 	private String boardContent;		//글 내용
-	private List<BoardAttachment> boardAtList;	// 게시글에 첨부된 파일(이미지) 목록
+	private List<BrdImg> brdImgList;	// 게시글에 첨부된 파일(이미지) 목록
 	private Timestamp modifyDate;	// 마지막 작성일
-	   private List<BoardAttachment> atList; // 게시글에 첨부된 파일 (이미지) 목록
 	   
 	
 	public Board() {}
@@ -75,220 +72,124 @@ public class Board {
 		return boardNo;
 	}
 
-
-
-
 	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
 	}
-
-
-
-
-	public String getBoardTitle() {
-		return boardTitle;
-	}
-
-
-
-
-	public void setBoardTitle(String boardTitle) {
-		this.boardTitle = boardTitle;
-	}
-
-
-
-
-	public int getBoardReadCount() {
-		return boardReadCount;
-	}
-
-
-
-
-	public void setBoardReadCount(int boardReadCount) {
-		this.boardReadCount = boardReadCount;
-	}
-
-
-
-
-	public Date getBoardCreateDate() {
-		return boardCreateDate;
-	}
-
-
-
-
-	public void setBoardCreateDate(Date boardCreateDate) {
-		this.boardCreateDate = boardCreateDate;
-	}
-
-
-
-
-	public Date getBoardModifyDate() {
-		return boardModifyDate;
-	}
-
-
-
-
-	public void setBoardModifyDate(Date boardModifyDate) {
-		this.boardModifyDate = boardModifyDate;
-	}
-
-
-
 
 	public String getBoardTypeNm() {
 		return boardTypeNm;
 	}
 
-
-
-
 	public void setBoardTypeNm(String boardTypeNm) {
 		this.boardTypeNm = boardTypeNm;
 	}
 
-
-
-
-	public int getBoardWarn() {
-		return boardWarn;
+	public String getBoardTitle() {
+		return boardTitle;
 	}
 
-
-
-
-	public void setBoardWarn(int boardWarn) {
-		this.boardWarn = boardWarn;
+	public void setBoardTitle(String boardTitle) {
+		this.boardTitle = boardTitle;
 	}
-
-
-
-
-	public int getMemNo() {
-		return memNo;
-	}
-
-
-
-
-	public void setMemNo(int memNo) {
-		this.memNo = memNo;
-	}
-
-
-
 
 	public String getMemNm() {
 		return memNm;
 	}
 
-
-
-
 	public void setMemNm(String memNm) {
 		this.memNm = memNm;
 	}
 
-
-
-
-	public List<String> getBoardImgUrl() {
-		return boardImgUrl;
+	public Date getBoardCreateDate() {
+		return boardCreateDate;
 	}
 
-
-
-
-	public void setBoardImgUrl(List<String> boardImgUrl) {
-		this.boardImgUrl = boardImgUrl;
+	public void setBoardCreateDate(Date boardCreateDate) {
+		this.boardCreateDate = boardCreateDate;
 	}
 
-
-
-
-	public List<String> getBoardImgNm() {
-		return boardImgNm;
+	public int getBoardWarn() {
+		return boardWarn;
 	}
 
-
-
-
-	public void setBoardImgNm(List<String> boardImgNm) {
-		this.boardImgNm = boardImgNm;
+	public void setBoardWarn(int boardWarn) {
+		this.boardWarn = boardWarn;
 	}
 
+	public int getBoardReadCount() {
+		return boardReadCount;
+	}
 
+	public void setBoardReadCount(int boardReadCount) {
+		this.boardReadCount = boardReadCount;
+	}
 
+	public Date getBoardModifyDate() {
+		return boardModifyDate;
+	}
+
+	public void setBoardModifyDate(Date boardModifyDate) {
+		this.boardModifyDate = boardModifyDate;
+	}
+
+	public int getMemNo() {
+		return memNo;
+	}
+
+	public void setMemNo(int memNo) {
+		this.memNo = memNo;
+	}
+
+	public List<String> getBrdImgUrl() {
+		return brdImgUrl;
+	}
+
+	public void setBrdImgUrl(List<String> brdImgUrl) {
+		this.brdImgUrl = brdImgUrl;
+	}
+
+	public List<String> getBrdImgNm() {
+		return brdImgNm;
+	}
+
+	public void setBrdImgNm(List<String> brdImgNm) {
+		this.brdImgNm = brdImgNm;
+	}
 
 	public String getBoardContent() {
 		return boardContent;
 	}
 
-
-
-
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
 
-
-
-
-	public List<BoardAttachment> getBoardAtList() {
-		return boardAtList;
+	public List<BrdImg> getBrdImgList() {
+		return brdImgList;
 	}
 
-
-
-
-	public void setBoardAtList(List<BoardAttachment> boardAtList) {
-		this.boardAtList = boardAtList;
+	public void setBrdImgList(List<BrdImg> brdImgList) {
+		this.brdImgList = brdImgList;
 	}
-
-
-
 
 	public Timestamp getModifyDate() {
 		return modifyDate;
 	}
 
-
-
-
 	public void setModifyDate(Timestamp modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 
-
-
-
-	public List<BoardAttachment> getAtList() {
-		return atList;
-	}
-
-
-
-
-	public void setAtList(List<BoardAttachment> atList) {
-		this.atList = atList;
-	}
-
-
-
-
 	@Override
 	public String toString() {
-		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardReadCount=" + boardReadCount
-				+ ", boardCreateDate=" + boardCreateDate + ", boardModifyDate=" + boardModifyDate + ", boardTypeNm="
-				+ boardTypeNm + ", boardWarn=" + boardWarn + ", memNo=" + memNo + ", memNm=" + memNm + ", boardImgUrl="
-				+ boardImgUrl + ", boardImgNm=" + boardImgNm + ", boardContent=" + boardContent + ", boardAtList="
-				+ boardAtList + ", modifyDate=" + modifyDate + ", atList=" + atList + "]";
+		return "Board [boardNo=" + boardNo + ", boardTypeNm=" + boardTypeNm + ", boardTitle=" + boardTitle + ", memNm="
+				+ memNm + ", boardCreateDate=" + boardCreateDate + ", boardWarn=" + boardWarn + ", boardReadCount="
+				+ boardReadCount + ", boardModifyDate=" + boardModifyDate + ", memNo=" + memNo + ", brdImgUrl="
+				+ brdImgUrl + ", brdImgNm=" + brdImgNm + ", boardContent=" + boardContent + ", brdImgList=" + brdImgList
+				+ ", modifyDate=" + modifyDate + "]";
 	}
+
+
 
 
 

@@ -41,9 +41,6 @@ public class LoginServlet extends HttpServlet {
 			
 			// 로그인 요청을 처리할 수 있는 서비스 메소드를 호출하고 로그인 결과를 반환 받음.
 			Member loginMember = service.login(memId, memPw);
-	        Blog loginBlog = serviceBlog.selectBlog(loginMember.getMemNo());
-	        List<PostCt> loginCategory = serviceBlog.selectCategory();
-			
 			HttpSession session = request.getSession();
 			
 			String icon = null;
@@ -52,6 +49,9 @@ public class LoginServlet extends HttpServlet {
 			
 			// 서비스 수행 결과에 따른 View 연결 처리
 			if(loginMember != null) { // 로그인 성공
+				
+				Blog loginBlog = serviceBlog.selectBlog(loginMember.getMemNo());
+				List<PostCt> loginCategory = serviceBlog.selectCategory();
 				
 				session.setAttribute("loginMember", loginMember);
 	            session.setAttribute("loginBlog", loginBlog);

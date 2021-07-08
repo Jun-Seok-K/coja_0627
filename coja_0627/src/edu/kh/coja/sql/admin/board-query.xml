@@ -3,20 +3,25 @@
 
 <properties>
 
+	<!-- admin board by 강지애  -->
+
 	<!-- 전체 게시글 수 조회(페이지네이션) -->
 	<entry key="boardListCount">
 		SELECT COUNT(*)
 		FROM ADMIN_BRD_LIST
 		WHERE BRD_STATUS = 'Y'
+		ORDER BY (CASE BRD_TYPE_NM WHEN '공지' THEN 1 END), BRD_NO
 	</entry>
 
-	<!-- 전체 게시글 목록 조회 -->
+	<!-- 전체 게시글 목록 조회(공지사항이 최상단에 뜨도록 )-->
 	<entry key="boardList">
-		SELECT *
-		FROM ADMIN_BRD_LIST
-		WHERE BRD_NO BETWEEN ? AND ?
-		AND BRD_STATUS = 'Y'
-		ORDER BY BRD_NO
+        SELECT * FROM(        
+                      SELECT ROW_NUMBER()
+                      OVER(ORDER BY (CASE BRD_TYPE_NM WHEN '공지' THEN 1 END), BRD_NO DESC )AS SEQ,A. *
+                      FROM ADMIN_BRD_LIST A 
+                  	)
+	                  WHERE SEQ BETWEEN ? AND ?
+	                  AND BRD_STATUS = 'Y'
 	</entry>
 
 	<!-- 공지글 수 조회(페이지네이션) -->
@@ -38,14 +43,6 @@
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
-		<!-- 게시글 상세 조회 -->
-	<entry key="selectBoard">
-		SELECT *
-		FROM ADMIN_BRD_LIST
-		WHERE BRD_STATUS='Y'
-		AND BRD_NO = ?
-	</entry>
-   
       <!-- 자유글 수 조회(페이지네이션) -->
    <entry key="freeCount">
       SELECT COUNT(*)
@@ -104,22 +101,43 @@
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
-
+	<!-- 검색 파트 부분 쿼리 -->
 	
-	<!-- 게시글 삭제 (관리자) -->
+	<!-- 전체 게시글 수 + 게시판 이름 조회 -->
+   <entry key="getSearchCount">
+		SELECT COUNT(*)
+		FROM ADMIN_BRD_LIST
+		WHERE BRD_STATUS = 'Y'
+   </entry>
+   
+   <!-- 게시글 목록 조회(페이징 처리 적용) -->
+   <entry key="searchBoardList1">
+      	SELECT ROWNUM RNUM, A.* FROM
+          (SELECT * FROM ADMIN_BRD_LIST
+             WHERE BRD_STATUS = 'Y'
+   </entry>
+   
+   <!-- 게시글 목록 조회(페이징 처리 적용) -->
+   <entry key="searchBoardList2">
+             ORDER BY BRD_NO DESC
+             ) A
+   </entry>
+   
+			<!-- 게시글 상세 조회 -->
+	<entry key="selectBoard">
+		SELECT *
+		FROM ADMIN_BRD_LIST
+		WHERE BRD_STATUS='Y'
+		AND BRD_NO = ?
+	</entry>	
+	
+		<!-- 게시글 삭제 (관리자) -->
 	<entry key="boardDelete">
 		UPDATE BOARD SET
         BRD_STATUS = 'D'
         WHERE BRD_NO = ?
         AND BRD_STATUS = 'Y'
 	</entry>
-	
-		
-
-
-  
-
-
 
 
 </properties>
