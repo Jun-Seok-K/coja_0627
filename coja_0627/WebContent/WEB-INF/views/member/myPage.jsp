@@ -18,7 +18,7 @@
 	crossorigin="anonymous">
 <style>
 div {
-	/*border: 1px solid black;*/
+	/* border: 1px solid black; */
 	
 }
 
@@ -44,6 +44,7 @@ div {
 	font-size: 25px;
 	font-weight: bold;
 }
+
 /* 본문 프로필 사진 영역 */
 #contentProfileImgArea {
 	margin: auto;
@@ -51,11 +52,13 @@ div {
 	width: 700px;
 	height: 850px;
 }
+
 /*프로필 전체박스*/
 #content-propile-box {
 	width: 700px;
 	height: 200px;
 }
+
 /*프로필 부분박스 1,2,3*/
 .propile {
 	width: 230px;
@@ -77,6 +80,7 @@ div {
 	margin-left: 40px;
 	margin-right: 40px;
 }
+
 /*아이디,이름,비밀번호,닉네임,개발자여부,개발자경력 박스*/
 .etc {
 	width: 230px;
@@ -102,11 +106,14 @@ div {
 	padding-left: 120px;
 	margin: auto;
 }
+
 /*가을수정 인풋박스생성수정*/
 /*개발자경력 인풋박스*/
 #memExpYr {
 	width: 200px;
+	margin-top: 50px;
 	height: 50px;
+	margin: auto;
 }
 
 #nickName {
@@ -114,27 +121,41 @@ div {
 	height: 50px;
 }
 
-#contentSummitArea{
+#contentSummitArea {
 	width: 300px;
 	float: left;
 }
 
-#contentSummitArea>div{
+#contentSummitArea>div {
 	width: 250px;
 }
 
-#gb3{
+#gb3 {
 	width: 300px;
 	float: right;
 }
 
-#gb3>div{
+#gb3>div {
 	width: 200px;
+}
+
+.form-check-label {
+	font-size: 18px;
+}
+
+#contentProgCareer {
+	width: 230px;
+	height: 95px;
+	float: left;
+	font-size: 25px;
+	text-align: center;
+	line-height: 90px;
 }
 
 /*-----------------------------------------------*/
 </style>
 </head>
+
 <body>
 	<jsp:include page="../common/headerMain.jsp" />
 	<!-- ===============================영역구분선=============================== -->
@@ -154,17 +175,6 @@ div {
 			<form method="POST" action="update"
 				onsubmit="return memInfoUpdate();">
 				<div id="contentProfileImgArea">
-					<div>
-						<div class="propile" id="contentProfileImg">
-							<span>프로필 사진</span>
-						</div>
-						<div class="propile" id="userProfileImg">
-							<img src="">
-						</div>
-						<div class="propile" id="imgBtnArea">
-							<button type="submit" class="btn btn-primary btn">사진변경</button>
-						</div>
-					</div>
 					<div id="contentIdArea">
 						<div class="etc" id="contentId">
 							<span>아이디</span>
@@ -183,7 +193,7 @@ div {
 						</div>
 						<div class="etc" id="nm3"></div>
 					</div>
-					<%-- 가을수정,onclick="updatePw() --%>
+
 					<div id="contentPwArea">
 						<div class="etc" id="contentPw">
 							<span>비밀번호</span>
@@ -209,53 +219,65 @@ div {
 						<div class="etc" id="contentProgYN">
 							<span>개발자 여부</span>
 						</div>
-						<div class="etc" id="userProgYN">
-							<div class="form-check form-check-inline" id="programmerNoArea">
-								<input class="form-check-input" type="radio" name="memWorkExp"
-									id="memWorkExpN" value="N" checked>
-							</div>
-							<label class="form-check-label" for="programmerNo" id="proNo">미해당</label>
-						</div>
-						<div class="etc" id="gb3">
-							<div class="form-check form-check-inline" id="programmerYesArea">
-								<input class="form-check-input" type="radio" name="memWorkExp"
-									id="memWorkExpY" value="Y">
-							</div>
-							<label class="form-check-label" for="proYes">해당</label>
-						</div>
+						<div class="form-check form-check-inline" id="programmerNoArea">
 
+						</div>
+						<div class="etc" id="userProgYN">
+							<c:choose>
+								<c:when test="${loginMember.memWorkExp eq 'N'}">
+									<div>
+										<input class="form-check-input" type="radio" name="memWorkExp"
+											id="memWorkExpN" value="N" checked> <label
+											class="form-check-label" for="programmerNo" id="proNo">미해당</label>
+										<input class="form-check-input" type="radio" name="memWorkExp"
+											id="memWorkExpY" value="Y"> <label
+											class="form-check-label" for="proYes">해당</label>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div>
+										<input class="form-check-input" type="radio" name="memWorkExp"
+											id="memWorkExpN" value="N"> <label
+											class="form-check-label" for="programmerNo" id="proNo">미해당</label>
+										<input class="form-check-input" type="radio" name="memWorkExp"
+											id="memWorkExpY" value="Y" checked> <label
+											class="form-check-label" for="proYes">해당</label>
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</div>
 					</div>
 					<div id="contentProgCareerArea">
+						<div class="etc" id="contentProgCareer"></div>
 						<div class="etc" id="contentProgCareer">
 							<span>개발자 경력</span>
 						</div>
 						<div class="etc" id="userProgCareerYearValue">
-							<input type="number" name="memExpYr" id="memExpYr"
-								value="${loginMember.memExpYr}"></input>
+							<div id="memExpYrArea">
+								<input type="number" name="memExpYr" id="memExpYr"
+									value="${loginMember.memExpYr}"></input>
+							</div>
 						</div>
 						<div class="etc" id="userProgCareerYea">
 							<span>년차</span>
 						</div>
 
 					</div>
-					<div>
-						<div class="etc2" id="contentSummitArea">
-							<button type="submit" class="btn btn-primary btn-lg" id="update">수정완료</button>
-						</div>
+					<div id="contentProgCareerArea"></div>
+				</div>
+				<div>
+					<div class="etc2" id="contentSummitArea">
+						<button type="submit" class="btn btn-primary btn-lg" id="update">수정완료</button>
 					</div>
 				</div>
 			</form>
 
-			<%--가을수정,onclick="location.href = 'secession';" --%>
 			<div class="etc2" id="gb3">
 				<form method="POST" action="secessionTerms">
 					<button type="button" onclick="location.href = 'secession';"
 						class="btn btn-danger btn" id="secession">회원탈퇴</button>
 				</form>
 			</div>
-
-
-
 		</div>
 	</div>
 	<jsp:include page="../common/footer.jsp" />
