@@ -81,24 +81,7 @@ public class SelectMemberService {
 	 * @throws Exception
 	 * 설화
 	 */
-	public int memberStatusUpdate(int memNo, String memStatus) throws Exception {
-		
-		Connection conn = getConnection();
-		int result = dao.memberStatusUpdate(conn, memNo, memStatus);
-		
-		if (result > 0) {
-			commit(conn);
-			System.out.println("커밋했다");
-		} else {
-			rollback(conn);
-			System.out.println("롤백");
-		}
-		
-		
-		close(conn);
-		
-		return result;
-	}
+
 	
 	
 	public int updateStatus(Member member) throws Exception {

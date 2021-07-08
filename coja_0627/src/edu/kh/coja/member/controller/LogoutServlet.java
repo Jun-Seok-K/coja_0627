@@ -16,6 +16,7 @@ public class LogoutServlet extends HttpServlet {
 		request.getSession().invalidate();
 		// 0708 로그아웃 후 메인으로 보내기
 		response.sendRedirect(request.getContextPath());
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -2,6 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+
    	<!-- 다음 캐러셀 번호 조회 -->
 	<entry key="nextCrsNo">
 		SELECT SEQ_CRS_NO.NEXTVAL FROM DUAL

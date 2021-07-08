@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import edu.kh.coja.blog.model.service.BlogService;
 import edu.kh.coja.blog.model.vo.Blog;
-import edu.kh.coja.blog.model.vo.Category;
+//import edu.kh.coja.blog.model.vo.Category;
 import edu.kh.coja.member.model.service.MemberService;
 import edu.kh.coja.member.model.vo.Member;
 
@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
 				
 				//0708 수정
 				Blog loginBlog = serviceBlog.selectBlog(loginMember.getMemNo());
-				List<Category> loginCategory = serviceBlog.selectCategory(loginBlog.getMemNo());
+				//List<Category> loginCategory = serviceBlog.selectCategory(loginBlog.getMemNo());
 				
 				icon = "success";
 				title = "로그인 성공";
@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
 				// session에 로그인 정보 추가
 				session.setAttribute("loginMember", loginMember);
 				session.setAttribute("loginBlog", loginBlog);
-				session.setAttribute("loginCategory", loginCategory);
+				//session.setAttribute("loginCategory", loginCategory);
 				
 				// 30분 후 세션 만료
 				session.setMaxInactiveInterval(1800); // 초 단위로 작성

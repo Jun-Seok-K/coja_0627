@@ -156,25 +156,14 @@ public class SelectMemberDAO {
 		return countMember;
 	}
 
-	public int memberStatusUpdate(Connection conn, int memNo, String memStatus) throws Exception {
-		
-		int result=0;
-		
-		String sql = prop.getProperty("memberStatusUpdate");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, memStatus);
-			pstmt.setInt(2, memNo);
-			
-			result = pstmt.executeUpdate();
-					
-		}finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
 
+	/** 회원 상태 변경 DAO
+	 * @param conn
+	 * @param member
+	 * @return result
+	 * @throws Exception
+	 * 설화
+	 */
 	public int updateStatus(Connection conn, Member member) throws Exception{
 		
 		int result = 0;

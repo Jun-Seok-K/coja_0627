@@ -17,6 +17,7 @@ public class Member {
 	private String memStatus;
 	private String memGrade;
 
+	
 	public Member() {
 	}
 

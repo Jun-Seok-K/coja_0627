@@ -4,6 +4,7 @@
 
 <c:set var="contextPath" scope="application"
 	value="${pageContext.servletContext.contextPath}" />
+	
 
 <!doctype html>
 <html lang="en">

@@ -195,6 +195,7 @@
 				<h2>Popular Post</h2>
 				<div class="h-div"><h5><span id="listTitle"></span> 인기글 리스트</h5></div>
 		
+		
 				<div id="navigator">
 					<form method="POST" action="mainConfiguration">
 			         	<select name="popularOption">
