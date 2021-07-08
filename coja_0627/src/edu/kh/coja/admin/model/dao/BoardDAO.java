@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Properties;
 
 import edu.kh.coja.admin.model.vo.Board;
+import edu.kh.coja.admin.model.vo.BrdImg;
 import edu.kh.coja.admin.model.vo.Pagination;
 
 public class BoardDAO {
@@ -34,7 +35,7 @@ public class BoardDAO {
 		}
 	}
 
-	/** 전체 게시글 수 조회 DAO 
+	/** 1. 전체 게시글 수 조회 DAO (전체 조회)
 	* @param conn
 	* @param cp
 	* @param boardType
@@ -64,8 +65,7 @@ public class BoardDAO {
 	      return countBoard;
 	}
 	
-	/**
-	 * 전체 게시글 목록 조회 DAO
+	/** 2. 게시글 목록 조회 DAO (전체 조회)
 	 * @param conn
 	 * @param pagination
 	 * @return boardList
@@ -84,7 +84,6 @@ public class BoardDAO {
 	        pstmt.setInt(2, endRow);
 	        rs = pstmt.executeQuery();
 
-			// 4) 반환 받은 결과를 결과 저장용 변수에 저장
 
 			while (rs.next()) {
 				Board b = new Board(
@@ -99,15 +98,40 @@ public class BoardDAO {
 			}
 		} finally {
 
-			// 5) 사용한 JDBC 자원 반환
 			close(rs);
 			close(stmt);
 		}
-		// 6) 결과를 Service로 반환
 		return boardList;
 	}
 	
-	/** 옵션적용 게시물 목록 조회 DAO
+	/** 3. 게시글 수 조회 DAO (옵션적용)
+	 * @param conn
+	 * @param cp
+	 * @param option
+	 * @return countBoard
+	 * @throws Exception
+	 */
+	public int getBoardListCount(Connection conn, int cp, String option) throws Exception {
+		
+		int countBoard = 0;
+		
+		String sql = prop.getProperty(option+"Count");
+		
+		try {
+	         
+	         stmt = conn.createStatement();
+	         rs=stmt.executeQuery(sql);
+	         if(rs.next()) {
+	            countBoard = rs.getInt(1);
+	         }
+	      } finally {
+	         close(rs);
+	         close(stmt);
+	      }
+	      return countBoard;
+	}
+	
+	/** 4. 게시글 목록 조회 DAO (옵션적용)
 	 * @param conn
 	 * @param pagination
 	 * @param option
@@ -145,34 +169,86 @@ public class BoardDAO {
 	    return boardList;
 	   }
 
-	/** 옵션 적용 게시글 수 DAO
-	 * @param conn
-	 * @param cp
-	 * @param option
-	 * @return countBoard
-	 * @throws Exception
-	 */
-	public int getMemberListCount(Connection conn, int cp, String option) throws Exception {
-		
+	// 옵션 끝 -----------------------------------------------------------------------------------------------------------
+	
+	// 검색 시작 ----------------------------------------------------------------------------------------------------------
+
+   /** 5. 전체 게시글 수 DAO(검색용)
+    * @param conn
+    * @param cp
+    * @param condition
+    * @return countBoard
+    * @throws Exception
+    * by 강지애
+    */
+
+	public  int getBoardListCount2(Connection conn, int cp, String condition) throws Exception {
+	     
 		int countBoard = 0;
-		
-		String sql = prop.getProperty(option+"Count");
-		
-		try {
+	      
+	      String sql = prop.getProperty("getSearchCount") + condition;
+	      
+	      try {
 	         
 	         stmt = conn.createStatement();
-	         rs=stmt.executeQuery(sql);
+	         rs = stmt.executeQuery(sql);
+	         
 	         if(rs.next()) {
 	            countBoard = rs.getInt(1);
 	         }
+	         
 	      } finally {
 	         close(rs);
 	         close(stmt);
 	      }
+	      
 	      return countBoard;
+	   }
+	
+	/** 6. 전체 게시글 목록 조회 DAO (검색용)
+	 * @param conn
+	 * @param pagination
+	 * @param condition
+	 * @return boardList
+	 * @throws Exception
+	 * by 강지애
+	 */
+	public List<Board> selectBoardList(Connection conn, Pagination pagination, String condition) throws Exception {
+
+		List<Board> boardList = new ArrayList<Board>();
+		String sql = prop.getProperty("searchBoardList1") + condition + prop.getProperty("searchBoardList2");
+
+		try {
+			stmt = conn.createStatement();
+
+			rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				Board b = new Board(
+						rs.getInt("BRD_NO"), 
+						rs.getString("BRD_TYPE_NM"), 
+						rs.getString("BRD_TITLE"), 
+						rs.getString("MEM_NM"), 
+						rs.getDate("BRD_CREATE_DT"), 
+						rs.getInt("BRD_WARN"),
+						rs.getString("BRD_CNT"));
+				boardList.add(b);
+			}
+		} finally {
+
+			close(rs);
+			close(stmt);
+		}
+		return boardList;
 	}
 	
-	/** 게시글 상세조회 DAO
+	// 검색 끝 ------------------------------------------------------------------------------------------------------------
+	
+	
+	// 상세 조회, 게시글 작성, 게시글 삭제  ----------------------------------------------------------------------------------------
+
+	
+	/** 7. 게시글 상세조회 DAO
 	 * @param conn
 	 * @param boardNo
 	 * @return board
@@ -190,20 +266,35 @@ public class BoardDAO {
 			
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()) {
-				board = new Board(
-						rs.getInt("BRD_NO"), 
-						rs.getString("MEM_NM"),
-						rs.getString("BRD_TITLE"), 
-						rs.getDate("BRD_CREATE_DT"), 
-						rs.getString("BRD_TYPE_NM"),
-						rs.getString("BRD_CNT"),
-						rs.getInt("BRD_WARN"),
-						rs.getInt("BRD_READ_COUNT"),
-						rs.getDate("BRD_MODIFY_DT"),
-						rs.getInt("MEM_NO")); 
-			}
+			board = new Board();
 			
+			board.setBrdImgList(new ArrayList<BrdImg>());
+			
+			boolean flag = true;
+			
+			while(rs.next()) {
+				if(flag) {
+					board.setBoardNo( rs.getInt("BRD_NO") );
+					board.setMemNm( rs.getString("MEM_NM") );
+					board.setBoardTitle( rs.getString("BRD_TITLE") );
+					board.setBoardCreateDate( rs.getDate("BRD_CREATE_DT") );
+					board.setBoardTypeNm( rs.getString("BRD_TYPE_NM") );
+					board.setBoardContent( rs.getString("BRD_CNT") );
+					board.setBoardWarn( rs.getInt("BRD_WARN") );
+					board.setBoardReadCount( rs.getInt("BRD_READ_COUNT") );
+					board.setBoardModifyDate( rs.getDate("BRD_MODIFY_DT") );
+					board.setMemNo( rs.getInt("MEM_NO")); 
+					
+					flag = false;
+				}
+				
+				BrdImg brdImg = new BrdImg();
+				brdImg.setBrdImgUrl( rs.getString("BRD_IMG_URL") );
+				brdImg.setBrdImgNm( rs.getString("BRD_IMG_NM") );
+				brdImg.setBrdImgLv( rs.getInt("BRD_IMG_LEVEL") );
+				
+				board.getBrdImgList().add(brdImg);
+			}
 		}finally {
 			close(rs);
 			close(pstmt);
@@ -211,7 +302,7 @@ public class BoardDAO {
 		return board;
 	}
 
-	/** 게시물 삭재 DAO
+	/** 8. 게시물 삭제 DAO
 	 * @param conn
 	 * @param boardNo
 	 * @return
@@ -220,7 +311,6 @@ public class BoardDAO {
 	public int boardDelete(Connection conn, int boardNo) throws Exception {
 		
 		int result = 0;
-		System.out.println("dao"+boardNo);
 		String sql = prop.getProperty("boardDelete");
 		
 		try {

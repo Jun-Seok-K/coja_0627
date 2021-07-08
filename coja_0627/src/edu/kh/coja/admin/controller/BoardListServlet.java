@@ -14,7 +14,7 @@ import edu.kh.coja.admin.model.service.BoardService;
 import edu.kh.coja.admin.model.vo.Board;
 import edu.kh.coja.admin.model.vo.Pagination;
 
-@WebServlet("/admin/board/boardList")
+@WebServlet("/admin/board/*")
 public class BoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -25,41 +25,48 @@ public class BoardListServlet extends HttpServlet {
 		String command = uri.substring( (contextPath + "/board/").length() ); // list 만 남음
 		
 		String path = null; //응답화면 주소 또는 경로 (forward는 어떻게 할래 redirect는 어떻게 할래)
-		RequestDispatcher view = null; // 요청 위임 객체 s저장 참조 변수
+		RequestDispatcher view = null; // 요청 위임 객체 저장 참조 변수
 		  
 		
-	      String option = request.getParameter("boardOption");
+	    String option = request.getParameter("boardOption");
 		
 		try {
 			int cp = request.getParameter("cp") == null ? 1 : Integer.parseInt(request.getParameter("cp"));
 			BoardService service = new BoardService();
 			
-			
+	            Pagination pagination = null;
+	            List<Board> boardList = null;
 				
-				if(option == null) {
-					Pagination pagination = service.getPagination(cp);
-					List<Board> boardList = service.selectBoardList(pagination);
-					request.setAttribute("pagination", pagination);
-		            request.setAttribute("boardList", boardList);
-		            
-		            path = "/WEB-INF/views/admin/boardList.jsp";
-		            view = request.getRequestDispatcher(path);
-		            view.forward(request, response);
-		            
-				}else {
+				if( request.getParameter("sv") == null ) { // 검색어가 없을 경우
 					
-					Pagination pagination = service.getPagination(cp,option);
-					List<Board> boardList = service.optionBoardList(pagination, option);
+					if(option == null) { // 전체 조회
+						
+						pagination = service.getPagination(cp); // 1
+						boardList = service.selectBoardList(pagination); // 2
+           
+					}else { // 전체, 자유, 공지, 질문 분류해서 조회
+						
+						pagination = service.getPagination(cp, option); // 3
+						boardList = service.optionBoardList(pagination, option); // 4
+						
+					}
 					
-					request.setAttribute("pagination", pagination);
-					request.setAttribute("boardList", boardList);
+				}else { // 검색어가 있을 경우
+
+					String searchKey = request.getParameter("sk");
+					String searchValue = request.getParameter("sv");
 					
-					path = "/WEB-INF/views/admin/boardList.jsp";
-					view = request.getRequestDispatcher(path);
-					view.forward(request, response);
+						pagination = service.getPagination(cp, searchKey, searchValue); // 5
+	            		boardList = service.selectBoardList(pagination, searchKey, searchValue); // 6
+				
 				}
 				
-			
+				request.setAttribute("pagination", pagination);
+				request.setAttribute("boardList", boardList);
+				
+				path = "/WEB-INF/views/admin/boardList.jsp";
+				view = request.getRequestDispatcher(path);
+				view.forward(request, response);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

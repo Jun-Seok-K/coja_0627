@@ -228,8 +228,9 @@ div{
 			<c:forEach items="${pstList}" var="pst">
 				<div class="card" style="width: 18rem;">
 					<div class="card-body">
-						<h5 class="card-title">${pst.pstTitle}</h5>
-						<p class="card-text">${pst.pstCnt}</p>
+						<h5 class="card-title pstTitle-click" onclick="pstView('${pst.pstNo}');">${pst.pstTitle}</h5>
+						<p class="card-text">${pst.pstCnt} </p>
+						<
 					</div>
 				</div>
 			</c:forEach>
@@ -252,7 +253,6 @@ div{
 			        </div>
 				</div>
 			</c:forEach>
-
 		</div>
 	</div>
 	<!-- ************************************************************************** -->
@@ -292,6 +292,19 @@ div{
 	             }
 	          });
 		});
+		
+		
+		function pstView(pstNo){
+			
+			console.log(pstNo);
+			
+			$.ajax({
+	             url : "${contextPath}/blog/view",
+	             data : {"no" : pstNo}
+			})
+			
+		}
+		
 
 		
 	
