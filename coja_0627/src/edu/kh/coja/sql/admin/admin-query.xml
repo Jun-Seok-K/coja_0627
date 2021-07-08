@@ -3,81 +3,120 @@
 <properties>
 
 
-   
-   <!-- admin 전체 회원리스트 조회 리스트 페이지네이션 용 -->
-   <entry key="memberListCount">
-      SELECT COUNT(*)
-      FROM MEMBER
-   </entry>
-   <!-- admin 신고횟수5초과 조회 리스트 페이지네이션 용 -->
-   <entry key="warningMemberCount">
-      SELECT COUNT(*)
-      FROM MEMBER
-      WHERE MEM_WARN > 5
-      	AND MEM_STATUS = 'Y'
-   </entry>
-      <!-- admin 블라인드 회원 조회 리스트 페이지네이션 용 -->
-   <entry key="blindMemberCount">
-      SELECT COUNT(*)
-      FROM MEMBER
-      WHERE MEM_STATUS = 'S'
-   </entry>
-      <!-- admin 탈퇴 회원 조회 리스트 페이지네이션 용 -->
-   <entry key="closedAccountCount">
-      SELECT COUNT(*)
-      FROM MEMBER
-      WHERE MEM_STATUS = 'N'
-   </entry>
-   
-   <!-- admin 모든 회원 정보조회 -->
-   <entry key="memberList">
-      SELECT *
-      FROM MEMBER
-      WHERE MEM_NO BETWEEN ? AND ?
-   </entry>
+
+	<!-- admin 전체 회원리스트 조회 리스트 페이지네이션 용 -->
+	<entry key="memberListCount">
+		SELECT COUNT(*)
+		FROM MEMBER
+	</entry>
+	<!-- admin 신고횟수5초과 조회 리스트 페이지네이션 용 -->
+	<entry key="warningMemberCount">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEM_WARN > 5
+		AND MEM_STATUS = 'Y'
+	</entry>
+	<!-- admin 블라인드 회원 조회 리스트 페이지네이션 용 -->
+	<entry key="blindMemberCount">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEM_STATUS = 'S'
+	</entry>
+	<!-- admin 탈퇴 회원 조회 리스트 페이지네이션 용 -->
+	<entry key="closedAccountCount">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEM_STATUS = 'N'
+	</entry>
+
+	<!-- admin 모든 회원 정보조회 -->
+	<entry key="memberList">
+		SELECT *
+		FROM MEMBER
+		WHERE MEM_NO BETWEEN ? AND ?
+	</entry>
 
 
-   <!-- admin 5회 초과 신고된 회원 정보조회 -->
+	<!-- admin 5회 초과 신고된 회원 정보조회 -->
 	<entry key="warningMember">
-		SELECT * FROM 
-		    (SELECT ROWNUM RNUM, A.* 
-		     FROM MEMBER A WHERE MEM_WARN >5 AND MEM_STATUS ='Y'
-		     ORDER BY MEM_NO
-		     )
+		SELECT * FROM
+		(SELECT ROWNUM RNUM, A.*
+		FROM MEMBER A WHERE MEM_WARN >5 AND MEM_STATUS ='Y'
+		ORDER BY MEM_NO
+		)
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
-	
+
 	<!-- admin 블라인드 처리된 회원 정보조회 -->
 	<entry key="blindMember">
-		SELECT * FROM 
-		    (SELECT ROWNUM RNUM, A.* 
-		     FROM MEMBER A WHERE MEM_STATUS = 'S' 
-		     ORDER BY MEM_NO
-		     )
+		SELECT * FROM
+		(SELECT ROWNUM RNUM, A.*
+		FROM MEMBER A WHERE MEM_STATUS = 'S'
+		ORDER BY MEM_NO
+		)
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 
 	<!-- admin 탈퇴한 계정 정보조회 -->
 	<entry key="closedAccount">
-		SELECT * FROM 
-		    (SELECT ROWNUM RNUM, A.* 
-		     FROM MEMBER A WHERE MEM_STATUS = 'N' 
-		     ORDER BY MEM_NO
-		     )
+		SELECT * FROM
+		(SELECT ROWNUM RNUM, A.*
+		FROM MEMBER A WHERE MEM_STATUS = 'N'
+		ORDER BY MEM_NO
+		)
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
-	
+
 	<!-- admin 회원상태 update -->
 	<entry key="updateMemberStatus">
 		UPDATE MEMBER SET
 		MEM_STATUS= ?
-        WHERE MEM_NO=?
+		WHERE MEM_NO=?
 	</entry>
-	
+
 	<entry key="updateStatus">
 		UPDATE MEMBER SET
 		MEM_STATUS= ?
-        WHERE MEM_NO=?
+		WHERE MEM_NO=?
 	</entry>
-	
+
+	<!-- 가을 -->
+	<!-- admin 전체 게시글수+게시판 이름 조회 -->
+	<entry key="getListCount">
+		SELECT COUNT(*)
+		FROM INFORMATION
+		WHERE RPT_TYPE_NO = ?
+
+	</entry>
+	<!-- 가을 -->
+	<!-- 게시글 목록 조회 (페이징 처리 적용) -->
+	<entry key="selectReportsList">
+		SELECT*FROM
+		(SELECT ROWNUM RNUM, A.*FROM
+		(SELECT*FROM INFORMATION_LIST
+		WHERE RPT_TYPE_NO = ?
+		ORDER BY RPT_NO DESC
+		) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
+	<!-- 게시글 목록 조회 (페이징 처리 적용) -->
+	<entry key="selectReportsListAll">
+		SELECT*FROM
+		(SELECT ROWNUM RNUM, A.*FROM
+		(SELECT*FROM INFORMATION_LIST
+		ORDER BY RPT_NO DESC
+		) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<!-- 고객센터 게시글 상세조회 -->
+	<entry key="selectBoard">
+		SELECT RPT_TITLE,RPT_CNT, RPT_CREATE_DT,
+		MEM_NM, MEM_NO,RPT_TYPE_NO, CT_CD
+		FROM INFORMATION
+		JOIN MEMBER USING(MEM_NO)
+		WHERE RPT_NO = ?
+	</entry>
 </properties>

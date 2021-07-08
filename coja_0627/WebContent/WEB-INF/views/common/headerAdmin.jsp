@@ -167,7 +167,7 @@
          <li class="navi-li"><a class="navi-a" href="${contextPath}/admin/member/memberList">Members</a></li>
          <li class="navi-li"><a class="navi-a" href="${contextPath}/admin/board/boardList">Boards</a></li>
          <li class="navi-li"><a class="navi-a" href="${contextPath}/admin/blog">Blogs</a></li>
-         <li class="navi-li"><a class="navi-a" href="${contextPath}/admin/blog">Reports</a></li>
+         <li class="navi-li"><a class="navi-a" href="${contextPath}/admin/reports/reportsList">Reports</a></li>
       </ul>
    </div>
    <!-- 전체 div를 포함하는 영역 -->
