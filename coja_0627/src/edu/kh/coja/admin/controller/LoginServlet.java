@@ -27,12 +27,13 @@ public class LoginServlet extends HttpServlet {
 		String memId = request.getParameter("id");
 		String memPw = request.getParameter("password");
 		
+		RequestDispatcher view = null;
 		
 		try {
 			
 			MemberService service = new MemberService();
 		
-			Member loginMember = service.login(memId, memPw);
+			Member loginMember = service.loginAdmin(memId, memPw);
 			
 			HttpSession session = request.getSession();
 			
@@ -40,16 +41,17 @@ public class LoginServlet extends HttpServlet {
 				
 				session.setAttribute("loginMember", loginMember);
 				session.setMaxInactiveInterval(1800); // 초 단위로 작성
+				session.setAttribute("icon", "seccess");
+				session.setAttribute("title", "관리자 페이지입니다.");
+				response.sendRedirect("main/mainConfiguration");
 				
 			}else { // 로그인 실패
 				
 				session.setAttribute("icon", "error");
-				session.setAttribute("title", "로그인 실패");
-				session.setAttribute("text", "아이디 또는 비밀번호가 일치하지 않습니다.");
+				session.setAttribute("title", "비정상적인 접근입니다.");
+				response.sendRedirect(request.getContextPath());
 			}
 			
-			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/main.jsp");
-			view.forward(request, response);
 			
 		}catch (Exception e) {
 			e.printStackTrace();

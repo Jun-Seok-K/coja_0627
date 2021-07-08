@@ -56,7 +56,6 @@ public class MemberServlet extends HttpServlet {
 					
 					request.setAttribute("pagination", pagination);
 					request.setAttribute("memberList", memberList);
-					System.out.println("memberList 치고 들어왔다");
 					path = "/WEB-INF/views/admin/memberList.jsp"; /// 404뜨면 여기 확인
 					view = request.getRequestDispatcher(path);
 					view.forward(request, response); /// 흰색화면 나오면 여기 확인
@@ -86,19 +85,7 @@ public class MemberServlet extends HttpServlet {
 				int result = service.updateStatus(member);
 				
 				response.getWriter().print(result);
-				//int result = service.memberStatusUpdate(memNo, memStatus);
-				
-				/*if(result>0) { //회원 상태 변경 성공
-				   session.setAttribute("icon", "success");
-				   session.setAttribute("title", "회원 상태 변경 성공");
-					
-				}else { //회원 상태 변경 실패
-		            session.setAttribute("icon", "error");
-		            session.setAttribute("title", "회원 상태 변경 실패");
-				}
-				path = "/WEB-INF/views/admin/memberList.jsp"; /// 404뜨면 여기 확인
-				view = request.getRequestDispatcher(path);
-				view.forward(request, response); /// 흰색화면 나오면 여기 확인*/
+
 			}
 
 		}catch (Exception e){

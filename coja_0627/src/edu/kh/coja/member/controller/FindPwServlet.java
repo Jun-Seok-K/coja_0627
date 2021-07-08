@@ -32,6 +32,7 @@ public class FindPwServlet extends HttpServlet {
       
       RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/member/findPw.jsp");
       view.forward(request, response);
+      
    }
 
    //POST 방식으로 id와 email을 넘겨 받음 

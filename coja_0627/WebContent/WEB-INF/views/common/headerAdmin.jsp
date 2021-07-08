@@ -12,12 +12,11 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Admin Member List</title>
    
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
       integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    <style>
       @font-face {
          font-family: 'NEXON Lv1 Gothic OTF';
@@ -157,7 +156,7 @@
       <div class="header-buttonbox">
 
          <button type="button" class="header-button btn btn-secondary" id="bt-1">관리자모드</button>
-         <button type="button" class="header-button btn btn-secondary" id="bt-1">로그아웃</button>
+         <button type="button" class="header-button btn btn-secondary" id="logout-btn">로그아웃</button>
       </div>
       </div>
 
@@ -179,6 +178,28 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
       crossorigin="anonymous"></script>
+      
+      
+   	<script>
+		document.getElementById("logout-btn").addEventListener("click",function() {
+			swal("로그아웃 하시겠습니까?", "", {
+				"buttons" : {
+					"cancel" : "아니오",
+					"catch" : {
+						"text" : "네",
+						"value" : "yes",
+					},
+				},
+			})
+					.then(
+							function(value) {
+								if (value == "yes") {
+
+									window.location.href = "${contextPath}/admin/logout";
+								}
+							});
+		});
+	</script>
 
 </body>
 

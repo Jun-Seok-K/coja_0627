@@ -5,6 +5,7 @@
 <c:set var="contextPath" scope="application"
 	value="${pageContext.servletContext.contextPath}" />
 
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -23,6 +24,16 @@
 
 <style>
 /* border 주석 풀면 전체적인 div 구획 확인 가능 */
+
+      @font-face {
+         font-family: 'NEXON Lv1 Gothic OTF';
+         src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+         font-weight: normal;
+         font-style: normal;
+      }
+      body * {
+         font-family: 'NEXON Lv1 Gothic OTF';
+      }
 div {
 	/* border: 1px solid black; */
 	box-sizing: border-box;
@@ -41,6 +52,7 @@ div {
 	width: 100%;
 	height: 64px;
 	box-sizing: border-box;
+	margin-bottom : 30px;
 }
 
 /* 로고박스 */
@@ -319,10 +331,6 @@ div {
 				"title" : "${title}",
 				"text" : "${text}",
 				"button" : "확인",
-			}).then(function() {
-				$("#bt-2").click();
-				$("#memId, #memPw").val("");
-				$("#memId").focus(); // 이 부분 작동을 안하는데 이유를 모르겠다.....ㅠㅠㅠㅠ
 			});
 		</script>
 
@@ -374,10 +382,6 @@ div {
 
 
 
-
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"

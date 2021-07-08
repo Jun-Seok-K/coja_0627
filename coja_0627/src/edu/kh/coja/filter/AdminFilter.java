@@ -16,7 +16,7 @@ import edu.kh.coja.member.model.vo.Member;
 
 // 회원 전용 서비스에 비로그인 상태로 요청이 올 경우 메인페이지로 돌려보내는 필터
 // 로그인 여부 확인방법 : session에 loginMember의 존재 여부로 확인 가능...
-@WebFilter(filterName = "adminFilter", urlPatterns = { ""})
+@WebFilter(filterName = "adminFilter", urlPatterns = {"/admin/member/*" , "/admin/board/*" , "/admin/main/*" })
 public class AdminFilter implements Filter {
 
    public void destroy() {
@@ -38,11 +38,9 @@ public class AdminFilter implements Filter {
       
       // 3. Session에서 loginMember를 얻어와 null인지 확인
       if( session.getAttribute("loginMember") == null  ||
-            !((Member)session.getAttribute("loginMember")).getMemGrade().equals("A") ) {
+            ((Member)session.getAttribute("loginMember")).getMemGrade().equals("G") ) {
          
-         //session.setAttribute("icon", "warning"); // 원레는 이곳에 swal 안씀...(단순 확인용)
-         //session.setAttribute("title", "로그인 후 이용해주세요."); // 원레는 이곳에 swal 안씀...(단순 확인용)
-         
+         System.out.println("로그인하지 않았거나 관리자가 아닌자의 접근이다");
          
          // 4. null == 로그인 X --> 메인페이지로 강제 이동(by redirect...)
          // == 메인페이지 재요청

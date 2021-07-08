@@ -17,23 +17,8 @@ public class Member {
 	private String memStatus;
 	private String memGrade;
 
+	
 	public Member() {
-	}
-
-	// 로그인 후 불러올 회원정보
-	public Member(int memNo, String memId, String memNm, String memNick, String memEmail, Date memEnrollDt,
-			String memWorkExp, int memExpYr, int memWarningPoint, String memStatus) {
-		super();
-		this.memNo = memNo;
-		this.memId = memId;
-		this.memNm = memNm;
-		this.memNick = memNick;
-		this.memEmail = memEmail;
-		this.memEnrollDt = memEnrollDt;
-		this.memWorkExp = memWorkExp;
-		this.memExpYr = memExpYr;
-		this.memWarningPoint = memWarningPoint;
-		this.memStatus = memStatus;
 	}
 
 	// 회원가입용 생성자
@@ -65,11 +50,31 @@ public class Member {
 		this.memStatus = memStatus;
 		this.memGrade = memGrade;
 	}
-
+	
+	//admin 로그인용 
+	public Member(int memNo, String memId, String memNm, String memNick, String memEmail, Date memEnrollDt,
+			String memWorkExp, int memExpYr, int memWarningPoint, String memStatus, String memGrade) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memNm = memNm;
+		this.memNick = memNick;
+		this.memEmail = memEmail;
+		this.memEnrollDt = memEnrollDt;
+		this.memWorkExp = memWorkExp;
+		this.memExpYr = memExpYr;
+		this.memWarningPoint = memWarningPoint;
+		this.memStatus = memStatus;
+		this.memGrade = memGrade;
+	}
+	
+	
+	
+	
 	public int getMemNo() {
 		return memNo;
 	}
-
+	
 	public void setMemNo(int memNo) {
 		this.memNo = memNo;
 	}

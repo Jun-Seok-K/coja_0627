@@ -6,12 +6,16 @@
 	value="${pageContext.servletContext.contextPath}" />
 
 <!DOCTYPE html>
-<html lang="ko"> 
+<html lang="ko">
+
 
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>메인 페이지</title>
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -22,6 +26,7 @@
 
 /* content 시작 */
 #content {
+	
 	margin: auto;
 	width: 1200px;
 }
@@ -79,19 +84,27 @@
 	margin-left: 8px;
 	margin-top: 20px;
 	margin-bottom: 20px;
+	width: 18rem;
+	height: 350px;
 }
+div{
+	overflow: hidden;
+}
+
 
 /* 전체 최신글을 감싸는 영역 */
 /* background-color 주석 풀면 해당 영역 확인 가능 */
 #newestArea {
-	height: 1080px;
+	height: auto;
+	margin-bottom : 50px;
+	
 	/* background-color: red; */
 }
 
 /* "최신글"이라고 써져있는 span 태그를 감싸는 div 영역 */
 /* background-color 주석 풀면 해당 영역 확인 가능 */
 #newestText {
-	height: 60px;
+	margin-left : 20px;
 	/* background-color: red; */
 }
 
@@ -132,9 +145,8 @@
 	float: left;
 	background-color: tomato;
 }
+
 /* content 끝 */
-
-
 </style>
 
 </head>
@@ -142,8 +154,8 @@
 <body>
 	<!-- header 뜯어옴 -->
 	<jsp:include page="common/headerMain.jsp" />
-	
-<!-- ************************************************************************** -->	
+
+	<!-- ************************************************************************** -->
 
 	<!-- content -->
 	<div id="content">
@@ -157,20 +169,31 @@
 				<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 				<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
 			</ol>
+
 			<div class="carousel-inner">
-				<div class="carousel-item active">
-					<img src="http://jpcamara.com/wp-content/uploads/2015/02/carousel.jpg"
-						class="d-block w-100" alt="...">
-				</div>
-				<div class="carousel-item">
-					<img src="http://jpcamara.com/wp-content/uploads/2015/02/carousel.jpg"
-						class="d-block w-100" alt="...">
-				</div>
-				<div class="carousel-item">
-					<img src="http://jpcamara.com/wp-content/uploads/2015/02/carousel.jpg"
-						class="d-block w-100" alt="...">
-				</div>
+				<c:forEach items="${crsList}" var="crs" varStatus="status">
+					<c:choose>
+						<c:when test="${status.first == true}">
+							<div class="carousel-item active">
+								<img class="d-block w-100" alt="..."
+									src="${contextPath}/${crs.crsURL}${crs.crsNm}">
+							</div>
+						</c:when>
+						
+						<c:otherwise>
+							<div class="carousel-item">
+								<img class="d-block w-100" alt="..."
+									src="${contextPath}/${crs.crsURL}${crs.crsNm}">
+							</div>
+						
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
 			</div>
+			
+			
+			
+
 			<a class="carousel-control-prev" href="#carouselExampleIndicators"
 				role="button" data-slide="prev"> <span
 				class="carousel-control-prev-icon" aria-hidden="true"></span> <span
@@ -186,11 +209,14 @@
 		<div>
 			<div id="navigator">
 				<ul id="navi">
-					<li><a href="#">전체인기글</a></li>
-					<li><a href="#">JAVA 인기글</a></li>
-					<li><a href="#">JDBC 인기글</a></li>
-					<li><a href="#">DB인기글</a></li>
-					<li id="viewAllContents"><a href="${contextPath}/board/list">전체 글</a></li>
+					<li class="popPosting" value="allpop" >전체인기글</li>
+					<li class="popPosting" value="Java" >Java</li>
+					<li class="popPosting" value="DB">DB</li>
+					<li class="popPosting" value="HTML">HTML</li>
+					<li class="popPosting" value="CSS">CSS</li>
+					<li class="popPosting" value="jQuery">jQuery</li>
+					<li id="viewAllContents"><a href="${contextPath}/board/list">전체
+							글</a></li>
 				</ul>
 			</div>
 			<hr>
@@ -199,50 +225,14 @@
 		<!-- 인기글 card -->
 		<div id=cardArea>
 			<!-- 인기글 1 -->
-			<div class="card" style="width: 18rem;">
-				<img src="https://www.bordbia.ie/globalassets/bordbia.ie/about/man-in-a-business-suit-on-a-laptop" class="card-img-top"
-					alt="...">
-				<div class="card-body">
-					<h5 class="card-title">포스팅 제목</h5>
-					<p class="card-text">Some quick example text to build on the
-						card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">포스팅으로</a>
+			<c:forEach items="${pstList}" var="pst">
+				<div class="card" style="width: 18rem;">
+					<div class="card-body">
+						<h5 class="card-title">${pst.pstTitle}</h5>
+						<p class="card-text">${pst.pstCnt}</p>
+					</div>
 				</div>
-			</div>
-
-			<!-- 인기글 2 -->
-			<div class="card" style="width: 18rem;">
-				<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSi-Pyk3TsTwrMUWXCWv26lVAM292ri47K7yA&usqp=CAU" class="card-img-top"
-					alt="...">
-				<div class="card-body">
-					<h5 class="card-title">포스팅 제목</h5>
-					<p class="card-text">Some quick example text to build on the
-						card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">포스팅으로</a>
-				</div>
-			</div>
-			<div class="card" style="width: 18rem;">
-				<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS2Rcn9p4u9neUfgj6BRZUc82T6ahsblA6oMbCSgqMGwSdy9Kt6ZJFZdll8R0afwTZazE&usqp=CAU" class="card-img-top"
-					alt="...">
-				<div class="card-body">
-					<h5 class="card-title">포스팅 제목</h5>
-					<p class="card-text">Some quick example text to build on the
-						card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">포스팅으로</a>
-				</div>
-			</div>
-
-			<!-- 인기글 3 -->
-			<div class="card" style="width: 18rem;">
-				<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1E60PzPbXCpzaVsl-yeBtCFei-7A17sb2MRKojUzfhVyp1R-HxG6DBEtc165a71BeVEc&usqp=CAU" class="card-img-top"
-					alt="...">
-				<div class="card-body">
-					<h5 class="card-title">포스팅 제목</h5>
-					<p class="card-text">Some quick example text to build on the
-						card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">포스팅으로</a>
-				</div>
-			</div>
+			</c:forEach>
 		</div>
 
 
@@ -250,35 +240,63 @@
 		<div id="newestArea">
 
 			<div id="newestText">
-				<span>최신글</span>
+				<h4>   게시판 최신글</h4>
 			</div>
 			<hr>
+			<c:forEach items="${recentBrdList}" var="brd">
+				<div class="border-primary" style="width: 1180px; ">
+			        <div class="card-header" id="brd-title">${brd.brdTypeNm}</div>
+			        <div class="card-body text-primary">
+			            <h5 class="card-title">${brd.brdTitle}</h5>
+			            <p class="card-text">${brd.brdCnt}</p>
+			        </div>
+				</div>
+			</c:forEach>
 
-			<!-- 최신글 1 -->
-			<div class="newestContent">
-				<div id="imageBox1">이미지 상자 1</div>
-
-				<div id="contentBox1">텍스트 상자 1</div>
-			</div>
-
-			<!-- 최신글 2 -->
-			<div class="newestContent">
-				<div id="imageBox2">이미지 상자 1</div>
-
-				<div id="contentBox2">텍스트 상자 1</div>
-			</div>
-
-			<!-- 최신글 3 -->
-			<div class="newestContent">
-				<div id="imageBox3">이미지 상자 1</div>
-
-				<div id="contentBox3">텍스트 상자 1</div>
-			</div>
 		</div>
 	</div>
-<!-- ************************************************************************** -->	
-		<!-- footer 뜯어옴 -->
+	<!-- ************************************************************************** -->
+	<!-- footer 뜯어옴 -->
 	<jsp:include page="common/footer.jsp" />
+	
+	<script>
+		$(".popPosting").on("click", function(){
+			console.log("야호~");
+
+			const popMenu = $(this).attr("value");
+			
+			console.log(popMenu);
+			
+	         $.ajax({
+	             url : "${contextPath}/main",
+	             data : {"popMenu" : popMenu},
+	             type : "POST",
+	             dataType : "JSON",
+	             success : function(pstList){
+	            	 console.log(pstList);
+	            	 
+	            	 $("#cardArea").html("");
+	            	 $.each(pstList, function(index, item){
+	            		 var div = $("<div>").addClass("card");
+	            		 var div2 = $("<div>").addClass("card-body");
+	            		 var pstTitle = $("<h5>").addClass("card-title").text(item.pstTitle);
+	            		 var pstCnt = $("<p>").addClass("card-text").text(item.pstCnt);
+	            		 div2.append(pstTitle).append(pstCnt);
+	            		 div.append(div2);
+	            		 $("#cardArea").append(div);
+	            	 });
+	            		 
+	             },
+	             error : function(){
+	                console.log("실패");
+	             }
+	          });
+		});
+
+		
+	
+	</script>
+	
 
 
 </body>

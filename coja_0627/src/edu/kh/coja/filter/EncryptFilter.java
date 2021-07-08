@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import edu.kh.coja.wrapper.EncryptWrapper;
 
-@WebFilter(filterName = "encryptFilter", urlPatterns = {"/member/login", "/member/signUpCoja", "/member/pwUpdate"})
+@WebFilter(filterName = "encryptFilter", urlPatterns = {"/member/login", "/member/signUpCoja", "/member/pwUpdate", "/admin/login"})
 public class EncryptFilter implements Filter {
 
 	public void destroy() {

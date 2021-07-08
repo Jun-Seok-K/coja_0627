@@ -8,13 +8,13 @@ import java.util.List;
 public class Board {
 
 	private int boardNo;
-	private String boardTypeNm;
 	private String boardTitle;
+	private String boardTypeNm;
 	private String memNm;
 	private Date boardCreateDate;
+	private Date boardModifyDate;
 	private int boardWarn;
 	private int boardReadCount;
-	private Date boardModifyDate;
 	private int memNo;
 	
 	

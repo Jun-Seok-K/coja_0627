@@ -38,6 +38,7 @@ public class EncryptWrapper extends HttpServletRequestWrapper {
       case "pw1" :
       case "memPw" :
       case "currentPw" :
+      case "password" :
       //case "currentPwd" : // 비번 변경 부분의 현재비번...
       //case "newPwd1" : // 비번 변경 부분의 새 비번...
          // 비밀번호는 암호화 

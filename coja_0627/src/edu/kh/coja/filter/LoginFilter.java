@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 // 회원 전용 서비스에 비로그인 상태로 요청이 올 경우 메인페이지로 돌려보내는 필터
 // 로그인 여부 확인방법 : session에 loginMember의 존재 여부로 확인 가능...
-@WebFilter(filterName = "loginFilter", urlPatterns = {"/member/myPage", "/member/update", "/member/pwUpdate" , "/member/foundPw"})
+@WebFilter(filterName = "loginFilter", urlPatterns = {"/member/myPage", "/member/update", "/member/pwUpdate"  })
 public class LoginFilter implements Filter {
 
    public void destroy() {

@@ -4,6 +4,7 @@
 
 <c:set var="contextPath" scope="application"
 	value="${pageContext.servletContext.contextPath}" />
+	
 
 <!doctype html>
 <html lang="en">
@@ -18,6 +19,11 @@
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
 
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
 
 
   <!-- Bootstrap core CSS -->
@@ -93,16 +99,16 @@
     
 
     <main class="form-signin">
-      <form method="POST" action="${contextPath}/admin/login" onsubmit="return loginValidate();">
+      <form method="POST" action="login" onsubmit="return loginValidate();">
         <img class="mb-4" src="logo.png">
         <h1 class="h3 mb-3 fw-normal">Coja Admin Page</h1>
 
         <div class="form-floating">
-          <input type="text" class="form-control" id="floatingInput" name="id" placeholder="Administrator ID">
+          <input type="text" class="form-control" id="id" name="id" placeholder="Administrator ID">
           <label for="floatingInput"></label>
         </div>
         <div class="form-floating">
-          <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password">
           <label for="floatingPassword"></label>
         </div>
 
@@ -114,7 +120,7 @@
 		// 로그인 수행 시 아이디/비밀번호가 작성 되었는지 확인하는 유효성 검사
 		function loginValidate() {
 
-			if ($("#memId").val().trim().length == 0) {
+			if ($("#id").val().trim().length == 0) {
 
 				swal({
 					"icon" : "warning",
@@ -123,14 +129,14 @@
 
 				}).then(function() {
 					// 아이디 입력창으로 포커스 이동
-					$("#memId").focus();
+					$("#id").focus();
 				});
 
 				// 제출되지 않도록 submit 기본 이벤트 제거
 				return false;
 			}
 
-			if ($("#memPw").val().trim().length == 0) {
+			if ($("#password").val().trim().length == 0) {
 
 				swal({
 					"icon" : "warning",
@@ -139,7 +145,7 @@
 
 				}).then(function() {
 					// 아이디 입력창으로 포커스 이동
-					$("#memPw").focus();
+					$("#password").focus();
 				});
 
 				// 제출되지 않도록 submit 기본 이벤트 제거
@@ -147,6 +153,7 @@
 			}
 		}
 	</script>
+	
 
   </body>
 

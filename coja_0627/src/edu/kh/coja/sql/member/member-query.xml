@@ -108,6 +108,19 @@
 		INSERT INTO BLOG VALUES(
 		?, ?, ?, DEFAULT, DEFAULT, ?)
 	</entry>
+	
+	<!-- admin 로그인 SQL -->
+	<entry key="adminLogin">
+		SELECT MEM_NO, MEM_NM, MEM_NICK, MEM_EMAIL,
+		MEM_ENROLL_DT, MEM_WORK_EXP,
+		MEM_EXP_YR, MEM_WARN, MEM_STATUS,
+		MEM_GRADE
+		FROM MEMBER
+		WHERE MEM_ID = ?
+			AND MEM_PW = ?
+			AND MEM_STATUS = 'Y'
+			AND MEM_GRADE = 'A'
+	</entry>
 
 
 

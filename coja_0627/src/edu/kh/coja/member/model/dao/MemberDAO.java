@@ -41,6 +41,7 @@ public class MemberDAO {
 	 * @param memberPw
 	 * @return loginMember
 	 * @throws Exception
+	 * 설화 업데이트 0706
 	 */
 	public Member login(Connection conn, String memId, String memPw) throws Exception {
 		Member loginMember = null;
@@ -70,7 +71,7 @@ public class MemberDAO {
 				String memGrade = rs.getString("MEM_GRADE");
 
 				loginMember = new Member(memNo, memId, memNm, memNick, memEmail, memEnrollDt, memWorkExp, memExpYr,
-						memWarningPoint, memStatus);
+						memWarningPoint, memStatus,memGrade);
 			}
 
 		} finally {
@@ -393,6 +394,58 @@ public class MemberDAO {
 		}
 
 		return member;
+	}
+
+	/** Admin 로그인
+	 * @param conn
+	 * @param memId
+	 * @param memPw
+	 * @return loginMember
+	 * @throws Exception
+	 */
+	public Member loginAdmin(Connection conn, String memId, String memPw) throws Exception {
+		
+		Member loginMember = null;
+
+		String sql = prop.getProperty("adminLogin");
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+
+			// 위치홀더에 알맞은 값 채우기
+			pstmt.setString(1, memId);
+			pstmt.setString(2, memPw);
+			
+			System.out.println(memPw);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				int memNo = rs.getInt("MEM_NO");
+				String memNm = rs.getString("MEM_NM");
+				String memNick = rs.getNString("MEM_NICK");
+				String memEmail = rs.getString("MEM_EMAIL");
+				Date memEnrollDt = rs.getDate("MEM_ENROLL_DT");
+				String memWorkExp = rs.getString("MEM_WORK_EXP");
+				int memExpYr = rs.getInt("MEM_EXP_YR");
+				int memWarningPoint = rs.getInt("MEM_WARN");
+				String memStatus = rs.getString("MEM_STATUS");
+				String memGrade = rs.getString("MEM_GRADE");
+
+				loginMember = new Member(memNo, memId, memNm, memNick, memEmail, memEnrollDt, memWorkExp, memExpYr,
+						memWarningPoint, memStatus, memGrade);
+				
+			}
+			System.out.println(loginMember);
+
+		} finally {
+
+			close(rs);
+			close(pstmt);
+		}
+
+		return loginMember;
 	}
 
 }
