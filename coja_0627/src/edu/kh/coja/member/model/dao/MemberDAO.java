@@ -447,5 +447,28 @@ public class MemberDAO {
 
 		return loginMember;
 	}
+	
+	
+	
+	public int insertCategory(Connection conn, int memNo) throws Exception{
+	      int resultCategory = 0;
+	      
+	      String sql = prop.getProperty("insertCategory");
+	      
+	      try {
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setInt(1, memNo);
+	         
+	         resultCategory = pstmt.executeUpdate();
+	         
+	      }finally {
+	         
+	         close(pstmt);
+	      }
+	      
+	      return resultCategory;
+	   }
+	
+	
 
 }
