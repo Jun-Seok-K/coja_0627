@@ -22,13 +22,11 @@ public class BoardDelete extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		System.out.println("보드넘버는 "+ request.getParameter("boardNo"));
-		System.out.println("doPost run");
 		HttpSession session = request.getSession();
 		
 		try {
 			int result = new BoardService().boardDelete( boardNo );
-			request.getRequestDispatcher("/WEB-INF/views/admin/boardList.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/board/boardList.jsp").forward(request, response);
 			
 			
 			
@@ -47,3 +45,5 @@ public class BoardDelete extends HttpServlet {
 	}
 
 }
+
+
