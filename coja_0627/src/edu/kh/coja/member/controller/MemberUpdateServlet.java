@@ -25,10 +25,11 @@ public class MemberUpdateServlet extends HttpServlet {
 		Member loginMember = (Member) session.getAttribute("loginMember");
 
 		int memNo = loginMember.getMemNo();
-
+		
 		String memNick = request.getParameter("memNick");
 		String memWorkExp = request.getParameter("memWorkExp");
 		int memExpYr = Integer.parseInt(request.getParameter("memExpYr"));
+		
 		
 		try {
 			int result = new MemberService().updateMember(memNo, memNick, memWorkExp, memExpYr);
