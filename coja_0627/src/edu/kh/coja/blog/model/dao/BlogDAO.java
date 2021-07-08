@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Properties;
 
 import edu.kh.coja.blog.model.vo.Blog;
-import edu.kh.coja.blog.model.vo.Category;
+import edu.kh.coja.blog.model.vo.PostCt;
 import edu.kh.coja.member.model.dao.MemberDAO;
 
 public class BlogDAO {
@@ -85,17 +85,21 @@ public class BlogDAO {
 	 */
 	public int updateBlog(Connection conn, Blog blog) throws Exception{
 		int result = 0;
-		
+		System.out.println(blog.getBlogPublic());
 		String sql = prop.getProperty("updateBlog");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, blog.getBlogNm());
 			pstmt.setString(2, blog.getBlogIntro());
-			pstmt.setString(3, blog.getBlogAddr());
+			pstmt.setString(3, blog.getBlogPublic());
 			pstmt.setInt(4, blog.getMemNo());
 			
 			result = pstmt.executeUpdate();
+			
+			
+			System.out.println(result);
+			
 			
 		}finally {
 			close(pstmt);
@@ -109,28 +113,26 @@ public class BlogDAO {
 	
 	/** 회원별 카테고리 리스트 조회 DAO
 	 * @param conn
-	 * @param memNo
 	 * @return categoryList
 	 * @throws Exception
 	 */
-	public List<Category> selectCategory(Connection conn, int memNo) throws Exception{
-		List<Category> categoryList = null;		
+	public List<PostCt> selectCategory(Connection conn) throws Exception{
+		List<PostCt> categoryList = null;		
 		
 		String sql = prop.getProperty("selectCategory");
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, memNo);
+			stmt = conn.createStatement();
 			
-			rs = pstmt.executeQuery();
+			rs = stmt.executeQuery(sql);
 			
-			categoryList = new ArrayList<Category>();
+			categoryList = new ArrayList<PostCt>();
 			
 			while(rs.next()) {
-				int ctNo = rs.getInt("CT_NO");
-				String ctNm = rs.getString("CT_NM");				
+				int pstCtNo = rs.getInt("PST_CT_NO");
+				String pstCtNm = rs.getString("PST_CT_NM");				
 				
-				Category category = new Category(ctNo, ctNm);
+				PostCt category = new PostCt(pstCtNo, pstCtNm);
 				
 				categoryList.add(category);
 			}
@@ -144,31 +146,5 @@ public class BlogDAO {
 		return categoryList;
 	}
 
-
-	public int updateCategory(Connection conn, String[] ctNmList, int memNo) throws Exception{
-		String sql = prop.getProperty("updateCategory");
-		
-		int resultCategory = 0;
-		
-		for(int i=0; i<ctNmList.length; i++) {
-			
-			System.out.println(ctNmList[i]);
-		}
-		
-		try {
-			for(int i=1; i<ctNmList.length+1; i++) {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, ctNmList[i-1]);
-				pstmt.setInt(2, memNo);
-				pstmt.setInt(3, i);				
-				resultCategory = pstmt.executeUpdate();
-			}
-			
-		}finally {
-			close(pstmt);
-			
-		}
-		return resultCategory;
-	}
 	
 }

@@ -36,13 +36,14 @@
 #blogInformationAreaWrap {
 	margin-left: 98px;
 	width: 700px;
-	height: 300px;
+	height: 500px;
 }
 
 #blogInformationAreaWrap1 {
 	/* background-color: skyblue; */
 	margin-top: 20px;
 	margin-left: 20px;
+	margin-bottom: 50px;
 	width: 250px;
 	height: 230px;
 	float: left;
@@ -64,6 +65,7 @@
 	/* background-color: skyblue; */
 	margin-top: 20px;
 	margin-left: 20px;
+	margin-bottom: 50px;
 	width: 390px;
 	height: 230px;
 	float: left;
@@ -97,62 +99,6 @@
 }
 
 /* ------------------------------영역구분선------------------------------ */
-/* 카테고리 설정 영역 */
-#categorySettingAreaWrap {
-	margin-left: 98px;
-	margin-top: 10px;
-	width: 700px;
-	height: 250px;
-	/* background-color: skyblue; */
-}
-
-#categorySettingTitle {
-	margin-left: 15px;
-	margin-top: 25px;
-	width: 200px;
-	height: 50px;
-	/* background-color: blueviolet; */
-}
-
-#categorySettingTitle>span {
-	font-size: 23px;
-	line-height: 50px;
-	font-weight: bold;
-}
-
-#categorySettingArea {
-	/* background-color: red; */
-	margin-top: 30px;
-	margin-left: 15px;
-	width: 668px;
-	height: 250px;
-}
-
-#categoryTable {
-	text-align: center;
-}
-
-#addCategoryBtnArea {
-	margin-top: 10px;
-	width: 40px;
-	height: 45px;
-	float: right;
-}
-
-#add-category-btn {
-	float: right;
-}
-
-#deleteCategoryBtnArea {
-	margin-top: 10px;
-	width: 40px;
-	height: 45px;
-	float: right;
-}
-
-#delete-category-btn {
-	float: right;
-}
 
 /* 블로그 공개여부 설정 영역 */
 #openYNArea {
@@ -313,7 +259,6 @@
 						</div>
 					</div>
 
-
 					<!-- 유저별로 달라지는 블로그 정보 영역 -->
 					<div id="blogInformationAreaWrap2">
 						<div id="userBlogName">
@@ -327,68 +272,40 @@
 						</div>
 
 						<div id="blogAddress">
-							<input type="text" name="blogAddr" class="form-control"
-								placeholder="블로그 주소를 작성해 주세요." value="${loginBlog.blogAddr }"></input>
+							<span>${loginMember.memId}</span>
 						</div>
 					</div>
-				</div>
-
-				<!-- 블로그 카테고리 설정관련 영역 -->
-				<div id="categorySettingAreaWrap">
-					<hr>
-					<div id="categorySettingTitle">
-						<span>블로그 카테고리</span>
-					</div>
-
-					<div id="categorySettingArea">
-						<table class="table table-sm" id="categoryTable">
-							<thead>
-								<tr>
-									<th scope="col">카테고리 순서</th>
-									<th scope="col">카테고리 이름</th>
-								</tr>
-							</thead>
-
-							<tbody id="categorySetting">
-								<c:forEach var="item" items="${loginCategory}">
-									<tr>
-										<td>${item.ctNo}</td>
-										<td><input type='text' name="ctNm" class='form-control'
-											size='5' placeholder='카테고리 이름을 입력해주세요.' value="${item.ctNm}"></input>
-										</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-						<div id="minusBtnArea">
-							<button type="button" class="btn btn-primary btn"
-								id="delete-category-btn">-</button>
+					<div id="openYNArea">
+						<div id="openYNTitle">
+							<span>블로그 공개 여부</span>
 						</div>
-						<div id="plusBtnArea">
-							<button type="button" class="btn btn-primary btn"
-								id="add-category-btn">+</button>
+
+
+						<div id="toggleSwitch">
+							<div
+								class="public-area custom-control custom-switch custom-switch-lg m-0">
+								<c:choose>
+									<c:when test="${loginBlog.blogPublic eq 'Y'}">
+										<input
+											class="custom-control-input custom-control-input-success"
+											id="write-public" type="checkbox" name="blogPublic" checked>
+										<label class="custom-control-label" for="write-public"
+											style="cursor: pointer">블로그 전체 공개</label>
+									</c:when>
+									<c:otherwise>
+										<input
+											class="custom-control-input custom-control-input-success"
+											id="write-public" type="checkbox" name="blogPublic">
+										<label class="custom-control-label" for="write-public"
+											style="cursor: pointer">블로그 전체 공개</label>
+									</c:otherwise>
+								</c:choose>
+							</div>
 						</div>
 					</div>
 				</div>
 
 				<!-- 블로그 공개 여부 관련 영역 -->
-				<div id="openYNArea">
-					<hr>
-					<div id="openYNTitle">
-						<span>블로그 공개 여부</span>
-					</div>
-
-					<div id="toggleSwitch">
-						<div
-							class="public-area custom-control custom-switch custom-switch-lg m-0">
-							<input class="custom-control-input custom-control-input-success"
-								id="write-public" type="checkbox" checked> <label
-								class="custom-control-label" for="write-public"
-								style="cursor: pointer">블로그 전체 공개</label>
-						</div>
-					</div>
-				</div>
-
 				<div id="btnArea">
 					<button type="submit" class="btn btn-secondary btn-lg"
 						id="cancleBtn">취소</button>
@@ -436,17 +353,20 @@
 		});
 
 		/* ------------------------ 카테고리 관련 설정 영역 -------------------------------------------------- */
-
-		const loginBlogNo = "${loginBlog.memNo}"
+		
+		$("#write-public").on("change", function(){
+			
+			if($("#write-public").prop("checked") == true){
+				console.log("온");
+				
+			}else{
+				console.log("오프");
+				
+			}
+	
+		});
 		
 		
-		function selectCategoryList(){
-			$.ajax({
-	            url : "${contextPath}/blog/categoryList}",
-	            type : "POST", 
-	            data : { "memNo" : loginBlogNo }
-	         })
-		};
 	</script>
 
 	<jsp:include page="../common/footer.jsp" />
