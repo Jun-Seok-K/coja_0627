@@ -114,6 +114,7 @@ public class MemberService {
 		return result;
 	}
 
+	
 	/**
 	 * 회원정보 update Service
 	 * @param memNick
