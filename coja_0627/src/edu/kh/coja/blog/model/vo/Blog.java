@@ -60,6 +60,14 @@ public class Blog {
 		this.blogIntro = blogIntro;
 	}
 
+	
+	
+	public Blog(int ctNo, String ctNm) {
+		super();
+		this.ctNo = ctNo;
+		this.ctNm = ctNm;
+	}
+
 
 	public int getMemNo() {
 		return memNo;

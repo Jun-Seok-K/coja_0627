@@ -7,7 +7,7 @@ import java.util.List;
 
 import edu.kh.coja.blog.model.dao.BlogDAO;
 import edu.kh.coja.blog.model.vo.Blog;
-import edu.kh.coja.blog.model.vo.Category;
+import edu.kh.coja.blog.model.vo.PostCt;
 
 public class BlogService {
 
@@ -33,47 +33,37 @@ public class BlogService {
 
 	/** 블로그 update Servie
 	 * @param blog
-	 * @param ctNmList 
 	 * @return result
 	 * @throws Exception
 	 * by 준석
 	 */
-	public int updateBlog(Blog blog, String[] ctNmList) throws Exception{
+	public int updateBlog(Blog blog) throws Exception{
 		Connection conn = getConnection();
 		
 		int result = dao.updateBlog(conn, blog);
-		int resultCategory = 0;
+	
 		if(result > 0) {
-			resultCategory = dao.updateCategory(conn, ctNmList, blog.getMemNo());
-			
-			if(resultCategory > 0) {
-				commit(conn);
-				
-			}else {
-				close(conn);
-			}
-			
+			commit(conn);
+		
+		}else {
+			rollback(conn);
 		}
 		
 		close(conn);
-		
-		
-		close(conn);
 			
-		return resultCategory;
+		return result;
 	}
 
 
 	/** 회원별 카테고리 리스트 조회
-	 * @param memNo
 	 * @return categoryList
 	 * @throws Exception
 	 * by 준석
 	 */
-	public List<Category> selectCategory(int memNo) throws Exception{
+	public List<PostCt> selectCategory() throws Exception{
 		Connection conn = getConnection();
 		
-		List<Category> categoryList = dao.selectCategory(conn, memNo);
+		List<PostCt> categoryList = dao.selectCategory(conn);
 		
 		close(conn);
 		
