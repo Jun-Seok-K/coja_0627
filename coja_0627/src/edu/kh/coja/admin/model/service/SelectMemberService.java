@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.kh.coja.admin.model.dao.SelectMemberDAO;
+import edu.kh.coja.admin.model.vo.Carousel;
 import edu.kh.coja.admin.model.vo.Pagination;
 import edu.kh.coja.member.model.vo.Member;
 
@@ -98,6 +99,8 @@ public class SelectMemberService {
 		
 		return result;
 	}
+	
+	
 	public int updateStatus(Member member) throws Exception {
 		Connection conn = getConnection();
 		
@@ -109,5 +112,6 @@ public class SelectMemberService {
 		close(conn);
 		return result;
 	}
+	
 
 }

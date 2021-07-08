@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import edu.kh.coja.admin.model.service.BoardService;
 
 @WebServlet("/admin/board/boardDelete")
-public class BoardDelete extends HttpServlet {
+public class BoardDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

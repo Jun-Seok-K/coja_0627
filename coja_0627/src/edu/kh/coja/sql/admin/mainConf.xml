@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+   	<!-- 다음 캐러셀 번호 조회 -->
+	<entry key="nextCrsNo">
+		SELECT SEQ_CRS_NO.NEXTVAL FROM DUAL
+	</entry>
+	
+	<!-- 캐러셀 삽입 -->
+	<entry key="insertCarousel">
+		INSERT INTO CAROUSEL
+		VALUES ( SEQ_CRS_NO.NEXTVAL , ? , ? , DEFAULT , 'N' , ? )
+	</entry>
+	
+	<!-- 최신 캐러셀 조회 -->
+	<entry key="selectCarouselList">
+		SELECT * FROM 
+       (SELECT * FROM CAROUSEL WHERE CRS_DISPLAY = 'Y' OR CRS_DISPLAY = 'N' ORDER BY CRS_DT DESC)
+       <![CDATA[WHERE ROWNUM <= 10 ]]>
+	</entry>
+	
+	<!-- 캐러셀 상태 변경 -->
+	<entry key="carouselStatus">
+		UPDATE CAROUSEL SET
+		CRS_DISPLAY = 'Y'
+		WHERE CRS_NO IN 
+	</entry>
+	<entry key="carouselStatusN">
+		UPDATE CAROUSEL SET
+		CRS_DISPLAY = 'N'
+		WHERE CRS_NO IN 
+	</entry>
+	
+	<!-- 캐러셀 삭제 -->
+	<entry key="carouselDelete">
+		UPDATE CAROUSEL SET
+		CRS_DISPLAY = 'D'
+		WHERE CRS_NO = ?
+	</entry>
+
+	<!-- 메인) 메인에 보여줄 캐러셀 리스트 가장 최근 것으로 3개 조회 / 사진 크기 설정할 수 있으면 마지막 줄 빼도 됨.-->	
+	<entry key="carouselShow">
+		SELECT * FROM 
+		(SELECT * FROM CAROUSEL WHERE CRS_DISPLAY = 'Y' ORDER BY CRS_DT DESC)
+		<![CDATA[WHERE ROWNUM <= 3 ]]>
+	</entry>
+	
+	
+	
+	
+	
+	
+	
+	<!-- 인기 포스팅  -->
+   <entry key="blogPostList">
+       SELECT * FROM 
+       (SELECT * FROM POPULAR_PST_TB WHERE PST_STATUS = 'Y' ORDER BY PST_COUNT DESC)
+       <![CDATA[WHERE ROWNUM <= 4 ]]>
+   </entry>
+   
+   <!-- 옵션별 인기포스팅 -->
+   <entry key ="optionalBlogPostList">
+       SELECT * FROM 
+           (SELECT * FROM POPULAR_PST_TB WHERE PST_STATUS = 'Y' AND PST_BOX = ? ORDER BY PST_COUNT DESC)
+       <![CDATA[WHERE ROWNUM <= 4 ]]>
+
+   </entry>
+   
+   <!-- 인기포스팅 상세조회 -->
+   <entry key="selectPopPst">
+   		SELECT * FROM POPULAR_PST_TB WHERE PST_NO = ?
+   </entry>
+   
+   <!-- 인기포스팅 목록에서 제거 -->
+   <entry key="popPstDelete">
+		UPDATE POPULAR_PST_TB SET
+		PST_STATUS = 'D'
+		WHERE PST_NO IN    
+   </entry>
+   
+   <!-- 최근 게시글 5개 조회 -->
+   <entry key="selectBrdList">
+   		SELECT * FROM
+        (SELECT * FROM BRD_DETAIL WHERE BRD_STATUS ='Y' ORDER BY BRD_NO DESC )
+        <![CDATA[WHERE ROWNUM <= 5 ]]> 
+   </entry>
+	
+</properties>

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import edu.kh.coja.admin.model.vo.Carousel;
 import edu.kh.coja.admin.model.vo.Pagination;
 import edu.kh.coja.member.model.vo.Member;
 
@@ -112,8 +113,6 @@ public class SelectMemberDAO {
 			int startRow = (pagination.getCurrentPage() - 1) * pagination.getLimit() + 1;
 			int endRow = startRow + pagination.getLimit() - 1;
 			
-			System.out.println("startRow : " + startRow);
-			System.out.println("endRow : " + endRow);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			rs = pstmt.executeQuery();
@@ -200,6 +199,7 @@ public class SelectMemberDAO {
 		
 		
 	}
+
 	
 	
 	

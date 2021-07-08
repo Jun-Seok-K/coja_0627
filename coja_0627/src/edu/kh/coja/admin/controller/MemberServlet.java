@@ -56,7 +56,6 @@ public class MemberServlet extends HttpServlet {
 					
 					request.setAttribute("pagination", pagination);
 					request.setAttribute("memberList", memberList);
-					System.out.println("memberList 치고 들어왔다");
 					path = "/WEB-INF/views/admin/memberList.jsp"; /// 404뜨면 여기 확인
 					view = request.getRequestDispatcher(path);
 					view.forward(request, response); /// 흰색화면 나오면 여기 확인

@@ -228,5 +228,23 @@ public class MemberService {
 		return result;
 
 	}
+	
+	/** admin 로그인
+	 * @param memId
+	 * @param memPw
+	 * @return
+	 * @throws Exception
+	 * 설화
+	 */
+	public Member loginAdmin(String memId, String memPw) throws Exception {
+
+		Connection conn = getConnection();
+
+		Member loginMember = dao.loginAdmin(conn, memId, memPw);
+		
+		close(conn);
+
+		return loginMember;
+	}
 
 }

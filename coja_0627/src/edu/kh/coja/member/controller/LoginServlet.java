@@ -40,9 +40,8 @@ public class LoginServlet extends HttpServlet {
 			
 			// 로그인 요청을 처리할 수 있는 서비스 메소드를 호출하고 로그인 결과를 반환 받음.
 			Member loginMember = service.login(memId, memPw);
-			Blog loginBlog = serviceBlog.selectBlog(loginMember.getMemNo());
-			List<Category> loginCategory = serviceBlog.selectCategory(loginBlog.getMemNo());
 			
+			System.out.println(loginMember);
 			// 세션을 얻어와 변수에 저장
 			HttpSession session = request.getSession();
 			
@@ -52,6 +51,11 @@ public class LoginServlet extends HttpServlet {
 			
 			// 서비스 수행 결과에 따른 View 연결 처리
 			if(loginMember != null) { // 로그인 성공
+				
+				//0708 수정
+				Blog loginBlog = serviceBlog.selectBlog(loginMember.getMemNo());
+				List<Category> loginCategory = serviceBlog.selectCategory(loginBlog.getMemNo());
+				
 				icon = "success";
 				title = "로그인 성공";
 				text = "로그인을 성공하였습니다.";
@@ -82,19 +86,19 @@ public class LoginServlet extends HttpServlet {
 			
 				// 5) response에 Cookie를 담아서 클라이언트로 전달
 				response.addCookie(cookie);
-				
+				response.sendRedirect(request.getContextPath());
 				
 			}else { // 로그인 실패
 				icon = "error";
 				title = "로그인 실패";
 				text = "아이디 또는 비밀번호가 일치하지 않습니다.";
+				response.sendRedirect(request.getContextPath());
 			}
 			
 			session.setAttribute("icon", icon);
 			session.setAttribute("title", title);
 			session.setAttribute("text", text);
 			
-			response.sendRedirect(request.getContextPath());
 						
 		}catch (Exception e) {
 			e.printStackTrace();
