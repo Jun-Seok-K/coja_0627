@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인 페이지</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <style>
+        @font-face {
+            font-family: 'NEXON Lv1 Gothic OTF';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body * {
+            font-family: 'NEXON Lv1 Gothic OTF';
+        }
+
+        /* border 주석 풀면 전체적인 div 구획 확인 가능 */
+        div {
+            border: 1px solid black;
+            box-sizing: border-box;
+        }
+
+        .header {
+            /* background-color: red; */
+            width: 1200px;
+            height: 80px;
+            margin: auto;
+            box-sizing: border-box;
+            text-align: left;
+          line-height: 70px;
+          border-bottom: 1px solid lightgray
+        }
+
+        /* 로고박스 */
+        .header-logobox {
+            width: 20%;
+            height: 100%;
+            box-sizing: border-box;
+            float: left;
+        }
+
+        /* 로고 */
+        #header-logo {
+            width: 100%;
+            height: 90%;
+         
+        }
+
+        /* 검색창박스 */
+        .header-searchbox {
+            width: 50%;
+            height: 100%;
+            text-align: center;
+            box-sizing: border-box;
+            margin: auto;
+            float: left;
+        }
+
+        /* 검색입력창 */
+        .header-search-area {
+            border: 2px solid #c7f1ec;
+            width: 75%;
+            height: 38px;
+            line-height: 38px;
+            margin: 10px;
+            margin-right: 0;
+            padding: 0;
+            display: inline-block;
+            font-size: 18px;
+        }
+
+        /* 버튼 */
+        .header-search-button {
+            border-style: none;
+            background-color: white;
+            width: 7%;
+            height: 38px;
+            line-height: 30px;
+            margin-left: 0;
+            margin-bottom: 6px;
+            padding: 0;
+            display: inline-block;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+
+        /* 버튼박스 */
+        .header-buttonbox {
+            width: 30%;
+            height: 100%;
+            text-align: center;
+            box-sizing: border-box;
+            margin: auto;
+            float: left;
+        }
+
+        /* 내블로그,마이페이지,로그아웃 */
+        .header-button {
+            width: 30%;
+            height: 38px;
+            display: inline-block;
+            border-radius: 10px;
+            font-size: 14px;
+            color: black;
+            font-weight: 700;
+            border-style: none;
+            margin-top: 10px;
+            margin-right: 1%;
+        }
+
+        #bt-1 {
+            background-color: gainsboro;
+        }
+
+        /* header 끝 */
+
+
+        /* ------------------------------영역구분선------------------------------ */
+
+
+        /* 블로그 기본정보 영역 div(today, 블로그이름, 검색창) */
+        #blogInfoArea {
+            /* background-color: red; */
+            margin: auto;
+            width: 1200px;
+            height: 80px;
+        }
+
+        /* 블로그 기본 정보 div */
+        #todayInfoArea {
+            background-color: lightcoral;
+            width: 220px;
+            height: 30px;
+            margin-left: 20px;
+            margin-top: 50px;
+            float: left;
+            font-size: 15px;
+            text-align: center;
+        }
+
+
+        /* 블로그 이름 div */
+        #blogNameArea {
+            /* background-color: lightcoral; */
+            width: 450px;
+            height: 50px;
+            margin-left: 50px;
+            margin-top: 30px;
+            float: left;
+            text-align: center;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        #blogNameArea>span {            
+            line-height: 70px;
+        }
+
+
+        /* 검색박스 div */
+        #searchBoxArea {
+            /* background-color: lightcoral; */
+            width: 300px;
+            height: 50px;
+            margin-right: 20px;
+            margin-top: 30px;
+            float: right;
+        }
+
+        /* 검색입력창 */
+        #searchBox {
+            margin: auto;
+            border: 2px solid #c7f1ec;
+            width: 85%;
+            height: 46px;
+            line-height: 38px;
+            display: inline-block;
+            font-size: 18px;
+        }
+
+
+        /* userInfoArea div와 contentArea div를 감싸는 div */
+        #contentContainer {
+           /* background-color: red;*/
+            margin: auto;
+            width: 1200px;
+            height: 1100px;
+        }
+
+
+        /* 유저정보 div */
+        #userInfoArea {
+           /* background-color: orange;*/
+            width: 296px;
+            height: 1000px;
+            float: left;
+            border-right: 1px solid lightgray;
+        }
+
+
+        /* ------------------------------영역구분선------------------------------ */
+
+
+        /* 블로그 전체 본문영역 div */
+        #contentArea {
+            /*background-color: lightgray;*/
+            width: 896px;
+            margin-right: 0;
+            height: 1000px;
+            float: left;
+        }
+
+        /* 블로그 본문 영역 확인용 css */
+        #contentArea>div {
+           /* background-color: orange;*/
+        }
+
+        /* 블로그 본문 영역 확인용 css */
+        #contentArea>div>div {
+            /* background-color: tomato; */
+        }
+
+        #titleArea {
+            /* 제목 영역 */
+            height: 80px;
+            
+        }
+
+        #titleText {
+            /* 블로그 본문의 소제목 텍스트 */
+            display: inline-block;
+            margin-top: 15px;
+            margin-left: 20px;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        /* content-box 자식 중 첫 번째 div */
+        .content-box > div:first-of-type{
+            width: 100%;
+            height: 200px;
+            
+        }
+
+        /* content-box 자식 중 첫 번째 div를 제외한 나머지 */
+        .content-box > div:not(:first-of-type){
+            width: 100%;
+            height: 100px;
+            
+        }
+
+        /* ---------------------------구분선------------------------ */
+        .navi-box{
+          width: 200px;
+          height: 165px;
+          margin: auto;
+          margin-top: 60px;
+        
+
+        }
+        .navigator{
+          text-align: center;
+          line-height: 100px;
+          
+          
+        }
+            /* 관리자 네비관련 */
+            #navi li a:hover {
+            color: #c7f1ec;
+        }
+
+        .content-box{
+          width: 700px;
+          height: 900px;
+          margin: auto;
+          margin-top: 40px;
+          box-sizing: border-box;
+        }
+       
+        .next{
+          width: 50%;  /* 부모 너비의 50% (좌우 2분할)*/
+          height: 100%;  /* 부모 높이 100% */
+          float: left;
+          margin: auto;
+          margin-left: 0;
+          text-align: center;
+          line-height: 100px;
+          font-size: 20px;
+   
+        }
+        .next1{
+          width: 50%;  /* 부모 너비의 50% (좌우 2분할)*/
+          height: 100%;   /* 부모 높이 100% */
+          float: left;
+          margin: auto;
+          text-align: center;
+          line-height: 200px;
+          font-size: 20px;
+          
+        }
+        #img{
+          width: 130px;
+          height: 130px;
+          margin: auto;
+          margin-top: 15px;
+          border-radius: 50%;
+          background-color: gainsboro;
+        }
+        .btn-group-toggle{
+          text-align: center;
+          line-height: 50px;
+          border-style: none;
+        }
+        .title1{
+          width: 100px;
+          height: 70px;
+          text-align: center;
+          line-height: 70px;
+          border-style: none;
+          background-color: aquamarine;
+        }
+
+        /* ------------------------------영역구분선------------------------------ */
+
+
+        /* footer 시작 */
+        .footer {
+            width: 1200px;
+            height: 60px;
+            line-height: 60px;
+            margin: auto;
+            background-color: #e9e9e9;
+            text-align: center;
+            clear: both;
+        }
+
+        .footer-text {
+            text-align: center;
+            color: gray;
+            font-size: 12px;
+            border-style: none;
+            text-decoration: none;
+            margin-right: 1.5%;
+        }
+
+        /* footer 끝 */
+    </style>
+</head>
+
+<body>
+    <!-- header -->
+    <div class="header">
+        <!-- 로고 -->
+        <div class="header-logobox">
+            <img src="/logo-1.png" id="header-logo"></img>
+        </div>
+
+        <!-- 검색 -->
+        <div class="header-searchbox">
+            <!--
+                <input type="search" class="header-search-area" id="search-text-area" placeholder="  검색할 단어를 입력하세요.">
+                <button class="header-search-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                        class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+                </button>
+                -->
+        </div>
+
+        <!-- 버튼3 -->
+        <div class="header-buttonbox">
+            
+            <button type="button" class="header-button btn btn-secondary" id="bt-1">관리자모드</button>
+            <button type="button" class="header-button btn btn-secondary" id="bt-1">로그아웃</button>
+        </div>
+    </div>
+
+    <!-- ===============================영역구분선=============================== -->
+
+    <!-- 전체 div를 포함하는 영역 -->
+    <div id="contentContainer">
+      <div class="header">
+        <div class="title1">관리자모드</div>
+      </div>
+        <!-- 카테고리 -->
+        <div id="userInfoArea">
+            <div class="navi-box">
+              <div id="navigator">
+                <ul id="navi">
+                    <li><a hrdf="#">회원관리</a></li>
+                    <li><a hrdf="#">게시판 관리</a></li>
+                    <li><a hrdf="#">블로그 관리</a></li>
+                    <li><a hrdf="#">홈페이지 관리</a></li>
+                    <li><a hrdf="#">홈페이지 통계</a></li>
+                    <li><a hrdf="#">고객센터</a></li>
+                </ul>
+            </div>
+            </div>
+          
+        </div>    
+
+        <!-- 본문 영역 -->
+        <div id="contentArea">
+            <div class="content-box">
+                <div>  <!--  행 구분 -->
+                    <div class="next1"id="propil">프로필</div>
+                    <div class="next1"id="image">
+                      <div id="img"></div>
+                      
+                    </div>
+                </div>
+
+                <div>
+                    <div class="next"id ="id">아이디</div>
+                    <div class="next"id ="id1">ppoiu5706</div>
+                </div>
+
+                <div>
+                    <div class="next"id ="name-1">이름</div>
+                    <div class="next"id ="name-2">홍길동</div>
+                </div>
+
+                <div>
+                    <div class="next"id ="nicname-1">닉네임</div>
+                    <div class="next"id ="nicname-2">개암자</div>
+                </div>
+
+                <div>
+                    <div class="next"id ="gabal-1">개발자 여부</div>
+                    <div class="next"id ="gabal-2">
+                      <input type="radio" id="a" value="a" name="team" />
+                      <label for="a">해당</label>
+                
+                      <input type="radio" id="b" value="b" name="team" />
+                      <label for="b">미해당</label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="next"id ="gunr-1">개발자 경력</div>
+                    <div class="next"id ="gunr-2"">1년3개월</div>
+                </div>
+
+                <div>
+                    <div class="next"id ="singo-1">신고횟수</div>
+                    <div class="next"id ="singo-2"">3회</div>
+                </div>
+           
+                <div>
+                    <div class="next"id ="last-1">회원 상태</div>
+                    <div class="next"id ="last-2"">
+                      <form>
+                        <select>
+                            <option value="ko">경고조치</option>
+                            <option value="ch">7일정지</option>
+                            <option value="jp">일반회원</option>
+                            <option>---</option>
+                        </select>
+                    
+                    </form>
+
+                    </div>
+                </div>
+             
+             
+                <div class="btn-group-toggle" data-toggle="buttons">
+                  <label class="btn btn-secondary active">
+                    <input type="checkbox" checked> 회원정보 목록으로
+                  </label>
+                </div>  
+             
+           
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <!-- ===============================영역구분선=============================== -->
+
+
+    <!-- footer -->
+    <div class="footer">
+        <a href="#" class="footer-text" id="ft-t1">회사소개</a>
+        <a href="#" class="footer-text" id="ft-t2">운영정책</a>
+        <a href="#" class="footer-text" id="ft-t3">이용약관</a>
+        <a href="#" class="footer-text" id="ft-t4">고객센터</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
