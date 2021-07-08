@@ -185,11 +185,10 @@ td {
 
 
 				</div>
-				<div id="settingBtnArea">잔디 펼치기 및 톱니바퀴 버튼 자리</div>
 				<div class="card border-secondary mb-3" id="categoryArea">
 					<ul>
 						<c:forEach var="item" items="${loginCategory}">
-							<li><a href="#">${item.ctNm}</a></li>
+							<li><a href="${contextPath}/blog/list?type=1">${item.pstCtNm}</a></li>
 						</c:forEach>
 					</ul>
 				</div>

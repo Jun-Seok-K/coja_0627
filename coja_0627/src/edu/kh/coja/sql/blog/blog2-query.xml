@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+
 	<!-- 블로그 조회 SQL - 준석 - -->
 	<entry key="selectBlog">
 		SELECT MEM_NO, BLOG_NM, BLOG_ADDR, BLOG_VISIT,
@@ -20,14 +21,43 @@
 		UPDATE BLOG SET
 		BLOG_NM = ?,
 		BLOG_INTRO = ?,
-		BLOG_PUBLIC = ?
+		BLOG_ADDR =
+		?
 		WHERE MEM_NO = ?
 	</entry>
 
 	<!-- 회원별 카테고리 리스트 조회 -->
 	<entry key="selectCategory">
+		SELECT CT_NO, CT_NM
+		FROM BLOG_CT
+		WHERE MEM_NO = ?
+		AND
+		CT_STATUS = 'Y'
+	</entry>
+
+	<!-- 카테고리 업데이트 SQL -준석- -->
+	<entry key="updateCategory">
+		UPDATE BLOG_CT SET
+		CT_NM = ?
+		WHERE MEM_NO = ?
+		AND CT_NO =
+		?
+	</entry>
+
+	<entry key="selectCategoryList">
 		SELECT PST_CT_NO, PST_CT_NM
 		FROM POST_CT
+	</entry>
+
+	<!-- 다음 포스팅 번호 조회  설화가 맹듬-->
+	<entry key="nextPstNo">
+		SELECT SEQ_BLOG_PST.NEXTVAL FROM DUAL
+	</entry>
+
+	<entry key="insertPosting">
+		INSERT INTO BLOG_POST VALUES(
+		?, ?, ?, DEFAULT, DEFAULT, DEFAULT, DEFAULT,
+		?, DEFAULT, ?, ?)
 	</entry>
 
 </properties>

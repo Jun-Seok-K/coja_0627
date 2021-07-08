@@ -14,7 +14,6 @@ public class MyBlogServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		
 		request.getRequestDispatcher("/WEB-INF/views/blog/blogSetting.jsp").forward(request, response);;
 	}
 
