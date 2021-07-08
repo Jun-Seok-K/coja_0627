@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blog header</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <style>
+        /* header 시작 */
+        .header-container{
+            padding-top: 1%;
+            width: 1200px;
+            height: auto;
+            text-align: center;
+            margin: auto;
+        }
+
+        .header{
+            width: 100%;
+            height: 64px;
+            box-sizing: border-box;
+        }
+
+        /* 로고박스 */
+        .hd1-1{
+            width: 20%;
+            height: 100%;
+            box-sizing: border-box;
+            float: left;
+        }
+
+        /* 로고 */
+        #lg{
+            width: 80%;
+            height: 60%;
+            margin: auto;
+            margin-top: 7.5%;
+            border-style: none;
+            background: url("D:/cocoa/ss/image/logo-1.png") no-repeat;
+        }
+
+        /* 검색창박스 */
+        .hd1-2{
+            width: 50%;
+            height: 100%;
+            text-align: center;
+            box-sizing: border-box;
+            margin: auto;
+            float: left;
+        }
+
+        /* 버튼박스 */
+        .hd1-3{
+            width: 30%;
+            height: 100%;
+            text-align: center;
+            box-sizing: border-box;
+            margin: auto;
+            float: left;
+        }
+
+        /* 내블로그,마이페이지,로그아웃 */
+        .bottom{
+            width: 30%;
+            height: 38px;
+            display: inline-block;
+            border-radius: 10px;
+            font-size: 14px;
+            color: black;
+            font-weight: 700;
+            border-style: none;
+            margin-top: 10px;
+            margin-right: 1%;
+        }
+
+        #bt-1{
+            background-color: gainsboro;
+        }
+        /* header 끝 */
+    </style>
+</head>
+
+<body>
+    <!-- header -->
+    <div class="header-container">
+        <div class="header">
+            <!-- 로고 -->
+            <div class="hd1-1">
+              <div id="lg"></div>
+            </div>
+            
+            <div class="hd1-2"></div>
+    
+            <!-- 버튼3 -->
+            <div class="hd1-3">
+                <button type="button" class="bottom btn btn-secondary" id="bt-1">내블로그</button>
+                <button type="button" class="bottom btn btn-secondary" id="bt-1">마이페이지</button>
+                <button type="button" class="bottom btn btn-secondary" id="bt-1">로그아웃</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+</body>
+</html>
